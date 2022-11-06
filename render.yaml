@@ -1,0 +1,14 @@
+services:
+  # A static site
+  - type: web
+    name: 5L Labs.com
+    env: static
+    buildCommand: npx docusaurus build
+    staticPublishPath: ./build
+    pullRequestPreviewsEnabled: true # optional
+    branch: initial_commit
+envVarGroups:
+  - name: node_version
+    envVars:
+      - key: NODE_VERSION
+        value: 16.16.0
