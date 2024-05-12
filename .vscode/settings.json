@@ -1,0 +1,8 @@
+{
+  "ansible.python.interpreterPath": "/opt/homebrew/bin/python3",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "cloudcode.duetAI.languages": ["python", "html", "yaml", "java"],
+  "yaml.schemas": {
+    "https://render.com/schema/render.yaml.json": "file:///Users/njl/dev/src/5l-labs.com/render.yaml"
+  }
+}
