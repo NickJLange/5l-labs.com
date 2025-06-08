@@ -10,9 +10,13 @@ tags: [blog]
 # Title: Entirely Private Machine Learning Home Setup
 
 ## Background
+<<<<<<< HEAD
 **Caveat Emptor**: This is a public blog of what probably should be a private note (quality wise).
 :::
 
+=======
+**Caveat Emptor**: This is a public blog of what probably should be a private note.
+>>>>>>> ff0c541 (Additions to new life`)
 
 ### Machine Specification:
 * CPU: Mac M2 Pro
