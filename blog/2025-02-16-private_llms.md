@@ -1,6 +1,10 @@
 ---
 slug: offline-llms
+<<<<<<< HEAD
 title: Entirely Private Machine Learning Home Setup
+=======
+title: 5L Labs
+>>>>>>> ff0c541 (Additions to new life`)
 authors: [njl]
 tags: [blog]
 ---
@@ -10,9 +14,13 @@ tags: [blog]
 # Title: Entirely Private Machine Learning Home Setup
 
 ## Background
+<<<<<<< HEAD
 **Caveat Emptor**: This is a public blog of what probably should be a private note (quality wise).
 :::
 
+=======
+**Caveat Emptor**: This is a public blog of what probably should be a private note.
+>>>>>>> ff0c541 (Additions to new life`)
 
 ### Machine Specification:
 * CPU: Mac M2 Pro
@@ -21,7 +29,11 @@ tags: [blog]
 
 Tonight turned into an unexpected journey through the rabbit holes of self-hosted technologies. I decided to venture out of my comfort zone, and boy, was it an enlightening experience! Here's a rundown of gotchas:
 
+<<<<<<< HEAD
 <!-- truncate -->
+=======
+
+>>>>>>> ff0c541 (Additions to new life`)
 ## Models
 
 ## Tools / Components

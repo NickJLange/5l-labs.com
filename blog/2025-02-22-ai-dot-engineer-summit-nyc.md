@@ -1,6 +1,10 @@
 ---
 slug: ai-dot-engineer-summit-nyc
+<<<<<<< HEAD
 title: ai.engineer summit nyc
+=======
+title: 5L Labs
+>>>>>>> ff0c541 (Additions to new life`)
 authors: [njl]
 tags: [blog]
 ---
