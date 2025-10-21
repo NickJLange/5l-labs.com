@@ -1,60 +1,55 @@
 #!/usr/bin/env python3
 
-import xml.etree.ElementTree as ET
+import argparse
+import json
+import logging
 import os
+import sys
+import time
+import xml.etree.ElementTree as ET
+from datetime import datetime
+from io import StringIO
+from pathlib import Path
+from urllib.parse import urlparse
+
 import requests
 import toml
-import logging
-from datetime import datetime
-import orjson
-from pathlib import Path
-from typing_extensions import Doc
-import numpy as np
-import argparse
-import logging
-import time
-import re
 from tqdm import tqdm
-import sys
-from ollama import embed, chat, generate
-import ollama
+
+# Conditionally import ollama if available
+try:
+    import ollama
+
+    OLLAMA_AVAILABLE = True
+except ImportError:
+    OLLAMA_AVAILABLE = False
+    logging.warning(
+        "ollama package not available. Only OpenAI-compatible API mode will work."
+    )
 
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
 
 DEFAULT_EMBEDDING_MODEL_NAME = "nomic-embed-text:v1.5"
 
 
 def run_embed(input_text: str, model: str = DEFAULT_EMBEDDING_MODEL_NAME):
+    """
+    Gets an embedding using Ollama directly.
+    """
+    if not OLLAMA_AVAILABLE:
+        raise RuntimeError(
+            "Ollama package is not available. Install it with: pip install ollama"
+        )
+
     ollama_response = ollama.embed(model, input_text)
     if not ollama_response:
         logger.error("Failed to get a response from Ollama.")
+        return None
     return ollama_response.embeddings[0]
-
-
-# /embeddings
-# /x.html -> /embeddings/x.html.embedding.json
-
-
-def batch_embeddings_process(data: dict, provider: str, embedding_model: str, embedding_dim: int):
-    global batch_size
-    start_time = time.time()
-    #    print(data[0])
-    embeddings = list()
-    #    logger.info(f"Running embed against model {embedding_model} again queue {len(data)}")
-    for i, item in enumerate(tqdm(data, desc=f"Embedding {len(data)} items using {embedding_model}")):
-        #        if i > (2*batch_size-1):
-        #            break
-        embedding = run_embed(item["sentence"], embedding_model)
-        item["embedding"] = embedding
-        embeddings.append(item)
-    logger.info(f"{len(embeddings[0]['embedding'])} embedding info")
-    end_time = time.time()
-    elapsed_time = end_time - start_time
-    logger.debug(f"oolama embed call executed in {elapsed_time:.6f} seconds")
-
-    return embeddings
 
 
 def get_embedding(text, api_base, api_key, model):
@@ -64,7 +59,7 @@ def get_embedding(text, api_base, api_key, model):
     headers = {
         "Content-Type": "application/json",
     }
-    if api_key:
+    if api_key and api_key != "ollama":
         headers["Authorization"] = f"Bearer {api_key}"
 
     data = {"model": model, "input": text}
@@ -84,14 +79,73 @@ def get_page_content(url):
     Fetches the text content of a web page.
     """
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=30)
         response.raise_for_status()
-        # In a real scenario, you'd want to parse the HTML and extract the main content.
-        # For this example, we'll just use a placeholder.
-        return response.text  # or use BeautifulSoup to extract text
+        return response.text
     except requests.exceptions.RequestException as e:
         logger.error(f"Error fetching page content from {url}: {e}")
         return None
+
+
+def url_to_file_path(
+    url: str, base_url: str, embeddings_dir: str = "embeddings"
+) -> Path:
+    """
+    Converts a URL to a file path following the pattern:
+    https://5l-labs.com/blog/my-post -> ./embeddings/blog/my-post.embedding.json
+    """
+    # Parse the URL to get just the path component
+    parsed = urlparse(url)
+    url_path = parsed.path.lstrip("/")
+
+    # If empty (root path), use "index"
+    if not url_path or url_path == "/":
+        url_path = "index"
+
+    # Remove .html extension if present
+    if url_path.endswith(".html"):
+        url_path = url_path[:-5]
+
+    # Remove trailing slash
+    url_path = url_path.rstrip("/")
+
+    # Create the full path
+    file_path = Path(embeddings_dir) / f"{url_path}.embedding.json"
+
+    return file_path
+
+
+def save_embedding(
+    url: str,
+    embedding: list,
+    model: str,
+    base_url: str,
+    embeddings_dir: str = "embeddings",
+):
+    """
+    Saves an individual embedding to a file based on the URL path.
+    """
+    file_path = url_to_file_path(url, base_url, embeddings_dir)
+
+    # Create directory structure if it doesn't exist
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+
+    # Create the embedding data structure
+    embedding_data = {
+        "version": "1.0",
+        "uri": url,
+        "metadata": {"generated": datetime.now().isoformat(), "model": model},
+        "embeddings": [
+            {"model": model, "dimensions": len(embedding), "vector": embedding}
+        ],
+    }
+
+    # Write to file
+    with open(file_path, "w") as f:
+        json.dump(embedding_data, f, indent=2)
+
+    logger.debug(f"Saved embedding to {file_path}")
+    return file_path
 
 
 def main():
@@ -101,55 +155,78 @@ def main():
 
     model = settings.get("model", "nomic-embed-text:v1.5")
     api_base = settings.get("embedding_api_url", "http://localhost:11434/v1")
-    embedding_content_base_url = settings.get("embedding_content_base_url", "http://localhost:3000")
+    embedding_content_base_url = settings.get(
+        "embedding_content_base_url", "http://localhost:3000"
+    )
     replacement_base_url = settings.get("replacement_base_url", "https://5l-labs.com")
+    embeddings_dir = settings.get("embeddings_dir", "embeddings")
 
-    api_key = os.environ.get("OPENAI_API_KEY", "ollama")  # Default for Ollama
-    output_file = os.environ.get("OUTPUT_FILE", "embeddings.json")
-    sitemap_path = "sitemap.xml"
-    sitemap = embedding_content_base_url + "/sitemap.xml"
-    sitemap_data = get_page_content(sitemap)
+    api_key = os.environ.get("OPENAI_API_KEY", "ollama")
+
+    # Get sitemap
+    sitemap_url = embedding_content_base_url + "/sitemap.xml"
+    logger.info(f"Fetching sitemap from {sitemap_url}...")
+    sitemap_content = get_page_content(sitemap_url)
+
+    if not sitemap_content:
+        logger.error(f"Failed to fetch sitemap from {sitemap_url}")
+        logger.error(
+            "Make sure the dev server is running with: npm start or yarn start"
+        )
+        return
 
     try:
-        tree = ET.parse(sitemap_data)
-        root = tree.getroot()
-    except FileNotFoundError:
-        logger.error(f"Error: {sitemap_path} not found.")
-        return
-    except ET.ParseError:
-        logger.error(f"Error: Could not parse {sitemap_path}.")
+        # Parse XML from string
+        root = ET.fromstring(sitemap_content)
+    except ET.ParseError as e:
+        logger.error(f"Error: Could not parse sitemap XML: {e}")
         return
 
-    ### Fixme: Ensuring picked up by webserver
+    # Extract URLs from sitemap
+    urls = [
+        elem.text
+        for elem in root.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")
+    ]
 
-    urls = [elem.text for elem in root.findall(".//{http://www.sitemaps.org/schemas/sitemap/0.9}loc")]
+    if not urls:
+        logger.warning("No URLs found in sitemap")
+        return
 
-    output_data = {
-        "version": "1.0",
-        "metadata": {"generated": datetime.now(datetime.timezone.utc).isoformat()},
-        "content": [],
-    }
+    logger.info(f"Found {len(urls)} URLs in sitemap")
 
-    for url in urls:
+    # Process each URL
+    success_count = 0
+    error_count = 0
+
+    for url in tqdm(urls, desc="Generating embeddings"):
         # Replace the base URL for fetching content
         fetch_url = url.replace(replacement_base_url, embedding_content_base_url)
-        logger.info(f"Processing {fetch_url}...")
+        logger.debug(f"Processing {fetch_url}...")
+
         content = get_page_content(fetch_url)
         if not content:
+            logger.warning(f"Skipping {url} - failed to fetch content")
+            error_count += 1
             continue
 
         embedding = get_embedding(content, api_base, api_key, model)
         if not embedding:
+            logger.warning(f"Skipping {url} - failed to generate embedding")
+            error_count += 1
             continue
 
-        output_data["content"].append(
-            {"uri": url, "embeddings": [{"model": model, "dimensions": len(embedding), "vector": embedding}]}
-        )
+        # Save individual embedding file
+        try:
+            save_embedding(url, embedding, model, replacement_base_url, embeddings_dir)
+            success_count += 1
+        except Exception as e:
+            logger.error(f"Error saving embedding for {url}: {e}")
+            error_count += 1
 
-    with open(output_file, "w") as f:
-        json.dump(output_data, f, indent=2)
-
-    logger.info(f"Embeddings saved to {output_file}")
+    logger.info(f"\nEmbedding generation complete!")
+    logger.info(f"Successfully generated: {success_count}")
+    logger.info(f"Errors: {error_count}")
+    logger.info(f"Output directory: {embeddings_dir}/")
 
 
 if __name__ == "__main__":
