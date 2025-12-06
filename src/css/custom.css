@@ -4,7 +4,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
+/*
  * 5L Labs Design System
  */
 
@@ -12,13 +12,13 @@
     /* Light Mode Variables */
     --bg-page: #f8fafc;
     --bg-card: rgba(255, 255, 255, 0.7);
-    
+
     --text-main: #1e293b;
     --text-muted: #64748b;
-    
+
     --brand-primary: #7c3aed;
     --brand-light: #f5f3ff;
-    
+
     --border-color: #ffffff;
 
     /* Typography */
@@ -43,18 +43,18 @@
     /* Dark Mode Variables */
     --bg-page: #0d1117;
     --bg-card: #161b22;
-    
+
     --text-main: #c9d1d9;
     --text-muted: #8b949e;
-    
+
     --brand-primary: #238636;
     --brand-light: rgba(56, 139, 253, 0.15);
-    
+
     --border-color: #30363d;
 
     /* Typography */
-    --font-heading: 'Plus Jakarta Sans', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    --font-heading: 'JetBrains Mono', monospace;
+    --font-body: 'JetBrains Mono', monospace;
 
     /* UI Globals */
     --radius: 0.375rem;

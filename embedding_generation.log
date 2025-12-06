@@ -1,0 +1,140 @@
+2025-11-30 03:20:48,003 - __main__ - INFO - Fetching sitemap from http://localhost:3000/sitemap.xml...
+2025-11-30 03:20:48,018 - __main__ - INFO - Found 88 URLs in sitemap
+Generating embeddings:   0%|          | 0/88 [00:00<?, ?it/s]2025-11-30 03:20:57,384 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:20:57,384 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering - failed to generate embedding
+Generating embeddings:   1%|          | 1/88 [00:09<13:33,  9.35s/it]2025-11-30 03:20:58,188 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:20:58,188 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/ai-dot-engineer-summit-nyc - failed to generate embedding
+Generating embeddings:   2%|▏         | 2/88 [00:10<06:11,  4.32s/it]2025-11-30 03:20:58,836 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:20:58,836 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/archive - failed to generate embedding
+Generating embeddings:   3%|▎         | 3/88 [00:10<03:44,  2.65s/it]2025-11-30 03:20:59,539 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:20:59,539 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/authors - failed to generate embedding
+Generating embeddings:   5%|▍         | 4/88 [00:11<02:37,  1.88s/it]2025-11-30 03:21:00,210 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:00,210 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/embeddings-pim-particles - failed to generate embedding
+Generating embeddings:   6%|▌         | 5/88 [00:12<01:59,  1.44s/it]2025-11-30 03:21:00,883 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:00,883 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/nvdia-gtc - failed to generate embedding
+Generating embeddings:   7%|▋         | 6/88 [00:12<01:36,  1.18s/it]2025-11-30 03:21:01,690 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:01,690 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/nvdia-gtc-recap - failed to generate embedding
+Generating embeddings:   8%|▊         | 7/88 [00:13<01:25,  1.06s/it]Generating embeddings:   9%|▉         | 8/88 [00:14<01:15,  1.06it/s]Generating embeddings:  10%|█         | 9/88 [00:14<01:05,  1.20it/s]2025-11-30 03:21:03,235 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:03,235 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/blog - failed to generate embedding
+Generating embeddings:  11%|█▏        | 10/88 [00:15<00:51,  1.52it/s]2025-11-30 03:21:03,944 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:03,945 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/claude - failed to generate embedding
+Generating embeddings:  12%|█▎        | 11/88 [00:15<00:51,  1.49it/s]2025-11-30 03:21:04,681 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:04,682 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/deep-learning - failed to generate embedding
+Generating embeddings:  14%|█▎        | 12/88 [00:16<00:52,  1.45it/s]2025-11-30 03:21:05,465 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:05,465 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/embeddings - failed to generate embedding
+Generating embeddings:  15%|█▍        | 13/88 [00:17<00:53,  1.39it/s]2025-11-30 03:21:06,153 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:06,154 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/gemini - failed to generate embedding
+Generating embeddings:  16%|█▌        | 14/88 [00:18<00:52,  1.41it/s]Generating embeddings:  17%|█▋        | 15/88 [00:18<00:51,  1.42it/s]Generating embeddings:  18%|█▊        | 16/88 [00:19<00:47,  1.53it/s]Generating embeddings:  19%|█▉        | 17/88 [00:19<00:40,  1.77it/s]2025-11-30 03:21:08,009 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:08,010 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/nvidia - failed to generate embedding
+Generating embeddings:  20%|██        | 18/88 [00:19<00:33,  2.10it/s]2025-11-30 03:21:08,683 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:08,683 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/python - failed to generate embedding
+Generating embeddings:  22%|██▏       | 19/88 [00:20<00:36,  1.87it/s]2025-11-30 03:21:09,382 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:09,383 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-ai-engineering/tags/warp - failed to generate embedding
+Generating embeddings:  23%|██▎       | 20/88 [00:21<00:39,  1.71it/s]2025-11-30 03:21:10,140 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:10,140 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot - failed to generate embedding
+Generating embeddings:  24%|██▍       | 21/88 [00:22<00:42,  1.57it/s]2025-11-30 03:21:10,807 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:10,807 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/archive - failed to generate embedding
+Generating embeddings:  25%|██▌       | 22/88 [00:22<00:42,  1.55it/s]Generating embeddings:  26%|██▌       | 23/88 [00:23<00:46,  1.40it/s]2025-11-30 03:21:11,938 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/between_two_ferns: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/between_two_ferns
+2025-11-30 03:21:11,939 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/between_two_ferns - failed to fetch content
+Generating embeddings:  27%|██▋       | 24/88 [00:23<00:36,  1.73it/s]2025-11-30 03:21:12,225 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:12,225 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/continued-iot-ml-on-the-cheap - failed to generate embedding
+Generating embeddings:  28%|██▊       | 25/88 [00:24<00:30,  2.04it/s]Generating embeddings:  30%|██▉       | 26/88 [00:25<00:36,  1.68it/s]2025-11-30 03:21:13,281 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/jarvis2.0: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/jarvis2.0
+2025-11-30 03:21:13,281 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/jarvis2.0 - failed to fetch content
+Generating embeddings:  31%|███       | 27/88 [00:25<00:29,  2.08it/s]2025-11-30 03:21:13,511 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/offline-llms: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/offline-llms
+2025-11-30 03:21:13,511 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/offline-llms - failed to fetch content
+Generating embeddings:  32%|███▏      | 28/88 [00:25<00:24,  2.46it/s]2025-11-30 03:21:13,872 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/pim_particles: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/pim_particles
+2025-11-30 03:21:13,872 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/pim_particles - failed to fetch content
+Generating embeddings:  33%|███▎      | 29/88 [00:25<00:23,  2.55it/s]2025-11-30 03:21:14,212 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:14,212 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags - failed to generate embedding
+Generating embeddings:  34%|███▍      | 30/88 [00:26<00:21,  2.66it/s]2025-11-30 03:21:14,427 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/blog: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/blog
+2025-11-30 03:21:14,427 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/blog - failed to fetch content
+Generating embeddings:  35%|███▌      | 31/88 [00:26<00:18,  3.05it/s]2025-11-30 03:21:14,645 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/claude: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/claude
+2025-11-30 03:21:14,645 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/claude - failed to fetch content
+Generating embeddings:  36%|███▋      | 32/88 [00:26<00:16,  3.39it/s]2025-11-30 03:21:14,867 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/embedding-models: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/embedding-models
+2025-11-30 03:21:14,867 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/embedding-models - failed to fetch content
+Generating embeddings:  38%|███▊      | 33/88 [00:26<00:15,  3.66it/s]2025-11-30 03:21:15,096 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/gemini: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/gemini
+2025-11-30 03:21:15,096 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/gemini - failed to fetch content
+Generating embeddings:  39%|███▊      | 34/88 [00:27<00:14,  3.85it/s]Generating embeddings:  40%|███▉      | 35/88 [00:27<00:21,  2.46it/s]2025-11-30 03:21:16,296 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/mcp: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/mcp
+2025-11-30 03:21:16,296 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/mcp - failed to fetch content
+Generating embeddings:  41%|████      | 36/88 [00:28<00:21,  2.38it/s]2025-11-30 03:21:16,643 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/ml: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/ml
+2025-11-30 03:21:16,643 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/ml - failed to fetch content
+Generating embeddings:  42%|████▏     | 37/88 [00:28<00:20,  2.51it/s]2025-11-30 03:21:16,906 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:16,908 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/oasr - failed to generate embedding
+Generating embeddings:  43%|████▎     | 38/88 [00:28<00:17,  2.79it/s]2025-11-30 03:21:17,581 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:17,581 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/privateai - failed to generate embedding
+Generating embeddings:  44%|████▍     | 39/88 [00:29<00:22,  2.21it/s]2025-11-30 03:21:17,808 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/python: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/python
+2025-11-30 03:21:17,808 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/python - failed to fetch content
+Generating embeddings:  45%|████▌     | 40/88 [00:29<00:18,  2.60it/s]2025-11-30 03:21:18,755 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:18,755 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/quartz - failed to generate embedding
+Generating embeddings:  47%|████▋     | 41/88 [00:30<00:26,  1.81it/s]2025-11-30 03:21:19,566 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:19,566 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/scripted - failed to generate embedding
+Generating embeddings:  48%|████▊     | 42/88 [00:31<00:29,  1.59it/s]2025-11-30 03:21:20,451 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:20,451 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/semantic-router - failed to generate embedding
+Generating embeddings:  49%|████▉     | 43/88 [00:32<00:31,  1.41it/s]2025-11-30 03:21:20,806 - __main__ - ERROR - Error fetching page content from https://www.5l-labs.com/applied-home-ml-iot/tags/warp: 404 Client Error: Not Found for url: https://www.5l-labs.com/applied-home-ml-iot/tags/warp
+2025-11-30 03:21:20,807 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/warp - failed to fetch content
+Generating embeddings:  50%|█████     | 44/88 [00:32<00:26,  1.66it/s]2025-11-30 03:21:21,590 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:21,590 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/wyze - failed to generate embedding
+Generating embeddings:  51%|█████     | 45/88 [00:33<00:28,  1.52it/s]2025-11-30 03:21:22,423 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:22,424 - __main__ - WARNING - Skipping https://www.5l-labs.com/applied-home-ml-iot/tags/xterm-and-cloner - failed to generate embedding
+Generating embeddings:  52%|█████▏    | 46/88 [00:34<00:29,  1.41it/s]2025-11-30 03:21:23,336 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:23,336 - __main__ - WARNING - Skipping https://www.5l-labs.com/frontier-research - failed to generate embedding
+Generating embeddings:  53%|█████▎    | 47/88 [00:35<00:31,  1.30it/s]Generating embeddings:  55%|█████▍    | 48/88 [00:36<00:31,  1.28it/s]2025-11-30 03:21:24,412 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:24,413 - __main__ - WARNING - Skipping https://www.5l-labs.com/frontier-research/authors - failed to generate embedding
+Generating embeddings:  56%|█████▌    | 49/88 [00:36<00:24,  1.59it/s]2025-11-30 03:21:25,259 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:25,259 - __main__ - WARNING - Skipping https://www.5l-labs.com/frontier-research/between_two_ferns - failed to generate embedding
+Generating embeddings:  57%|█████▋    | 50/88 [00:37<00:26,  1.44it/s]Generating embeddings:  58%|█████▊    | 51/88 [00:37<00:25,  1.44it/s]2025-11-30 03:21:26,214 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:26,214 - __main__ - WARNING - Skipping https://www.5l-labs.com/frontier-research/tags/blog - failed to generate embedding
+Generating embeddings:  59%|█████▉    | 52/88 [00:38<00:20,  1.77it/s]2025-11-30 03:21:26,873 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:26,873 - __main__ - WARNING - Skipping https://www.5l-labs.com/frontier-research/tags/embedding-models - failed to generate embedding
+Generating embeddings:  60%|██████    | 53/88 [00:38<00:20,  1.69it/s]Generating embeddings:  61%|██████▏   | 54/88 [00:39<00:21,  1.55it/s]2025-11-30 03:21:27,917 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:27,917 - __main__ - WARNING - Skipping https://www.5l-labs.com/markdown-page - failed to generate embedding
+Generating embeddings:  62%|██████▎   | 55/88 [00:39<00:17,  1.87it/s]2025-11-30 03:21:28,752 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:28,752 - __main__ - WARNING - Skipping https://www.5l-labs.com/markdown-page2 - failed to generate embedding
+Generating embeddings:  64%|██████▎   | 56/88 [00:40<00:19,  1.60it/s]2025-11-30 03:21:29,431 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:29,431 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot - failed to generate embedding
+Generating embeddings:  65%|██████▍   | 57/88 [00:41<00:19,  1.56it/s]2025-11-30 03:21:30,090 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:30,090 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/archive - failed to generate embedding
+Generating embeddings:  66%|██████▌   | 58/88 [00:42<00:19,  1.55it/s]Generating embeddings:  67%|██████▋   | 59/88 [00:42<00:20,  1.40it/s]2025-11-30 03:21:31,315 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:31,315 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/getting-off-of-wyze - failed to generate embedding
+Generating embeddings:  68%|██████▊   | 60/88 [00:43<00:16,  1.65it/s]2025-11-30 03:21:32,040 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:32,040 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/getting-off-of-wyze-camv3 - failed to generate embedding
+Generating embeddings:  69%|██████▉   | 61/88 [00:44<00:17,  1.56it/s]2025-11-30 03:21:32,872 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:32,872 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/network-manager-forced-updates - failed to generate embedding
+Generating embeddings:  70%|███████   | 62/88 [00:44<00:18,  1.43it/s]2025-11-30 03:21:33,574 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:33,574 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/school-chromebook-bypassing-content-filters - failed to generate embedding
+Generating embeddings:  72%|███████▏  | 63/88 [00:45<00:17,  1.43it/s]2025-11-30 03:21:34,472 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:34,472 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags - failed to generate embedding
+Generating embeddings:  73%|███████▎  | 64/88 [00:46<00:18,  1.32it/s]2025-11-30 03:21:35,265 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:35,265 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/chromebooks - failed to generate embedding
+Generating embeddings:  74%|███████▍  | 65/88 [00:47<00:17,  1.30it/s]Generating embeddings:  75%|███████▌  | 66/88 [00:47<00:16,  1.34it/s]2025-11-30 03:21:36,217 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:36,217 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/dnsmasq - failed to generate embedding
+Generating embeddings:  76%|███████▌  | 67/88 [00:48<00:12,  1.67it/s]Generating embeddings:  77%|███████▋  | 68/88 [00:48<00:12,  1.56it/s]2025-11-30 03:21:37,217 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:37,217 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/homebridge - failed to generate embedding
+Generating embeddings:  78%|███████▊  | 69/88 [00:49<00:10,  1.90it/s]Generating embeddings:  80%|███████▉  | 70/88 [00:49<00:10,  1.68it/s]2025-11-30 03:21:38,239 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:38,239 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/k-12-tech - failed to generate embedding
+Generating embeddings:  81%|████████  | 71/88 [00:50<00:08,  2.01it/s]2025-11-30 03:21:38,904 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:38,904 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/kill-switch - failed to generate embedding
+Generating embeddings:  82%|████████▏ | 72/88 [00:50<00:08,  1.83it/s]Generating embeddings:  83%|████████▎ | 73/88 [00:51<00:09,  1.53it/s]2025-11-30 03:21:40,117 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:40,117 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/network-security - failed to generate embedding
+Generating embeddings:  84%|████████▍ | 74/88 [00:52<00:07,  1.81it/s]2025-11-30 03:21:40,781 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:40,781 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/nmcli - failed to generate embedding
+Generating embeddings:  85%|████████▌ | 75/88 [00:52<00:07,  1.71it/s]2025-11-30 03:21:41,428 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:41,428 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/parental-controls - failed to generate embedding
+Generating embeddings:  86%|████████▋ | 76/88 [00:53<00:07,  1.66it/s]Generating embeddings:  88%|████████▊ | 77/88 [00:54<00:07,  1.48it/s]2025-11-30 03:21:42,577 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:42,577 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/quartz - failed to generate embedding
+Generating embeddings:  89%|████████▊ | 78/88 [00:54<00:05,  1.77it/s]Generating embeddings:  90%|████████▉ | 79/88 [00:55<00:05,  1.56it/s]Generating embeddings:  91%|█████████ | 80/88 [00:55<00:04,  1.81it/s]2025-11-30 03:21:44,145 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:44,145 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/ubiquiti - failed to generate embedding
+Generating embeddings:  92%|█████████▏| 81/88 [00:56<00:03,  1.97it/s]Generating embeddings:  93%|█████████▎| 82/88 [00:56<00:03,  1.79it/s]2025-11-30 03:21:45,114 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:45,114 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/tags/xterm-and-cloner - failed to generate embedding
+Generating embeddings:  94%|█████████▍| 83/88 [00:57<00:02,  2.09it/s]Generating embeddings:  95%|█████████▌| 84/88 [00:57<00:02,  1.85it/s]2025-11-30 03:21:46,052 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:46,052 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/updated-network-controls - failed to generate embedding
+Generating embeddings:  97%|█████████▋| 85/88 [00:58<00:01,  2.20it/s]2025-11-30 03:21:46,722 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:46,722 - __main__ - WARNING - Skipping https://www.5l-labs.com/self-hosted-iot/what%20is%20my%20private%20home - failed to generate embedding
+Generating embeddings:  98%|█████████▊| 86/88 [00:58<00:01,  1.93it/s]2025-11-30 03:21:47,364 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
+2025-11-30 03:21:47,365 - __main__ - WARNING - Skipping https://www.5l-labs.com/docs/ - failed to generate embedding
+Generating embeddings:  99%|█████████▉| 87/88 [00:59<00:00,  1.80it/s]Generating embeddings: 100%|██████████| 88/88 [01:00<00:00,  1.58it/s]Generating embeddings: 100%|██████████| 88/88 [01:00<00:00,  1.46it/s]
+2025-11-30 03:21:48,176 - __main__ - INFO - 
+Embedding generation complete!
+2025-11-30 03:21:48,176 - __main__ - INFO - Successfully generated: 22
+2025-11-30 03:21:48,176 - __main__ - INFO - Errors: 66
+2025-11-30 03:21:48,176 - __main__ - INFO - Output directory: embeddings/
