@@ -25,3 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 package-lock.json
 static/embeddings
+src/generated
+embedding_generation.log
+.venv
