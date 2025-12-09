@@ -133,10 +133,14 @@ def save_embedding(
     # Create the embedding data structure
     embedding_data = {
         "version": "1.0",
-        "uri": url,
         "metadata": {"generated": datetime.now().isoformat(), "model": model},
-        "embeddings": [
-            {"model": model, "dimensions": len(embedding), "vector": embedding}
+        "content": [
+            {
+                "uri": url,
+                "embeddings": [
+                    {"model": model, "dimensions": len(embedding), "vector": embedding}
+                ],
+            }
         ],
     }
 
