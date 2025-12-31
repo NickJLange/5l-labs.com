@@ -1,5 +1,5 @@
 const homepageConfig = {
-  missionStatement: "To advance privacy-preserving technologies and foster a secure, decentralized digital future for all.",
+  missionStatement: "Advancing privacy-preserving technologies for Tech Enthusiasts, Consumers and Small-Medium Businesses.",
   contactInfo: {
     email: "inquiries@5l-labs.com",
     linkedin: "https://www.linkedin.com/company/5l-labs/",

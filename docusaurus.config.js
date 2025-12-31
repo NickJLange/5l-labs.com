@@ -12,7 +12,7 @@ const config = {
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.svg",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
@@ -108,7 +108,7 @@ const config = {
         title: "5L-Labs",
         logo: {
           alt: "5L Labs Logo",
-          src: "img/5L-Labs.svg",
+          src: "img/5L-Labs-Blue.svg",
         },
         items: [
           {
