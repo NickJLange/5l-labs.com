@@ -35,7 +35,7 @@ function getLatestPost() {
 
                 // Keep markdown but truncate
                 const postContent = markdownContent.trim();
-                const truncated = postContent.length > 150 ? postContent.substring(0, 150) + '...' : postContent;
+                const truncated = postContent.length > 550 ? postContent.substring(0, 550) + '...' : postContent;
 
                 const slug = data.slug || file.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.(md|mdx)$/, '');
 
