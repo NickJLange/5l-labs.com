@@ -56,7 +56,7 @@ export default function HomepageContent() {
       <div className="container">
         <div className="row">
           <div className="col col--12">
-            <div className="text--center padding-horiz--md">
+            <div className="text--center padding-horiz--md margin-bottom--xl">
               <h2>Mission Statement</h2>
               <p>{homepageConfig.missionStatement}</p>
             </div>
