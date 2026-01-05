@@ -1,5 +1,5 @@
 const homepageConfig = {
-  missionStatement: "Advancing privacy-preserving technologies for Tech Enthusiasts, Consumers and Small-Medium Businesses.",
+  missionStatement: "Advancing Technology for Humans and Bots with Privacy in mind.",
   contactInfo: {
     email: "inquiries@5l-labs.com",
     linkedin: "https://www.linkedin.com/company/5l-labs/",
@@ -16,20 +16,22 @@ const homepageConfig = {
       description: "Building secure and decentralized IoT solutions that protect user data and privacy.",
       link: "/self-hosted-iot",
     },
-    {
-      title: "Consulting Services",
-      description: "Providing expert guidance on integrating privacy-preserving technologies into your products and services.",
-      link: "/docs",
-    },
   ],
   products: [
     {
-      title: "P-SDK",
-      description: "A comprehensive toolkit for building privacy-preserving applications.",
+      title: "Recruiter Rankings (Preview)",
+      description: "The industry standard for evaluating and ranking recruitment firms based on verified performance and data.",
+      link: "http://recruiter-rankings.com",
     },
     {
-      title: "P-VM",
-      description: "A virtual machine designed for secure and private data processing.",
+      title: "Open Embeddings",
+      description: "A community-driven standard and registry for high-quality, open-source vector embeddings for AI applications.",
+      link: "http://www.open-embeddings.org",
+    },
+    {
+      title: "Overlord Network Kill Switch",
+      description: "A hardware-independent network control system designed for immediate and complete network isolation in commercial environments.",
+      link: "https://github.com/5L-Labs/overlord-network-kill-switch",
     },
   ],
 };

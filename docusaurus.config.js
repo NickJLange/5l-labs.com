@@ -126,6 +126,14 @@ const config = {
             position: "left",
             items: [
               {
+                label: "Open Embeddings",
+                href: "http://www.open-embeddings.org",
+              },
+              {
+                label: "Recruiter Rankings (Preview)",
+                href: "http://recruiter-rankings.com",
+              },
+              {
                 label: "Overlord Network Kill Switch",
                 href: "https://github.com/5L-Labs/overlord-network-kill-switch",
               },
