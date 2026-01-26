@@ -1,7 +1,11 @@
-const fs = require('fs');
-const path = require('path');
-const matter = require('gray-matter');
-const { marked } = require('marked');
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import { marked } from 'marked';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const BLOG_DIRS = [
     'blog-self-hosted-iot',
