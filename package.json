@@ -3,9 +3,9 @@
   "version": "0.2.1",
   "private": true,
   "scripts": {
-    "docusaurus": "docusaurus",
-    "start": "node scripts/generate-latest-post.mjs && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus start",
-    "build": "node scripts/generate-latest-post.mjs && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus build",
+    "docusaurus": "bun scripts/generate-latest-post.mjs && bun --bun ./node_modules/.bin/docusaurus",
+    "start": "bun scripts/generate-latest-post.mjs && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && bun --bun ./node_modules/.bin/docusaurus start",
+    "build": "bun scripts/generate-latest-post.mjs && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && bun --bun ./node_modules/.bin/docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -21,8 +21,8 @@
     "@mdx-js/react": "3.1.1",
     "clsx": "2.1.1",
     "prism-react-renderer": "2.4.1",
-    "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
