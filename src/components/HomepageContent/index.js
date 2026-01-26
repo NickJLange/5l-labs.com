@@ -42,7 +42,7 @@ function LatestPost() {
             <ReactMarkdown>{latestPost.content}</ReactMarkdown>
           </div>
           <div className="card__footer">
-            <a href={latestPost.url} className="button button--primary button--block">Read More</a>
+            <a href={latestPost.url} className="button button--primary button--block" aria-label={`Read more about ${latestPost.title}`}>Read More</a>
           </div>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function HomepageContent() {
                     </div>
                     {product.link && (
                       <div className="card__footer">
-                        <a href={product.link} className="button button--outline button--primary button--block">Learn More</a>
+                        <a href={product.link} className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`}>Learn More</a>
                       </div>
                     )}
                   </div>
