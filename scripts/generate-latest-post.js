@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
+const { marked } = require('marked');
 
 const BLOG_DIRS = [
     'blog-self-hosted-iot',
@@ -52,6 +53,7 @@ function getLatestPost() {
                     date: date,
                     title: data.title || slug,
                     content: truncated,
+                    contentHtml: marked.parse(truncated),
                     url: url
                 };
             }

@@ -2,5 +2,6 @@
   "date": "2025-12-10T00:00:00.000Z",
   "title": "Time",
   "content": "The below is an evolving thought process on how to deal with information aging out in machine learning models.\n\nInformation aging out for learning (human and machine) requires thinking about the problem space from two different angles:\n1.) Embeddings\n2.) Weights / Models\n\nOf which there are three scenarios:\n1.) Explicitly dated information\n2.) Implicity dated information\n3.) Undated information\n\nOf sources across a different set of vectors:\na.) Mostly Trusted\nb.) Untrusted\n\nfrom multiple sources including, but not limited to:\n1. Books (our olde...",
+  "contentHtml": "<p>The below is an evolving thought process on how to deal with information aging out in machine learning models.</p>\n<p>Information aging out for learning (human and machine) requires thinking about the problem space from two different angles:\n1.) Embeddings\n2.) Weights / Models</p>\n<p>Of which there are three scenarios:\n1.) Explicitly dated information\n2.) Implicity dated information\n3.) Undated information</p>\n<p>Of sources across a different set of vectors:\na.) Mostly Trusted\nb.) Untrusted</p>\n<p>from multiple sources including, but not limited to:</p>\n<ol>\n<li>Books (our olde...</li>\n</ol>\n",
   "url": "/frontier-research/information-aging-out"
 }
