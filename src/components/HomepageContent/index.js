@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 import homepageConfig from '../../config/homepage';
 
@@ -15,7 +16,17 @@ function Section({ title, items }) {
           {items.map((item, idx) => (
             <li key={idx} style={{ marginBottom: '1rem' }}>
               <strong>
-                {item.link ? <a href={item.link}>{item.title}</a> : item.title}
+                {item.link ? (
+                  <Link
+                    to={item.link}
+                    target={/^http/.test(item.link) ? "_blank" : undefined}
+                    rel={/^http/.test(item.link) ? "noopener noreferrer" : undefined}
+                  >
+                    {item.title}
+                  </Link>
+                ) : (
+                  item.title
+                )}
               </strong>
               : {item.description}
             </li>
@@ -35,14 +46,18 @@ function LatestPost() {
         <h3>Latest Update</h3>
         <div className="card shadow--md">
           <div className="card__header">
-            <h3><a href={latestPost.url}>{latestPost.title}</a></h3>
+            <h3>
+              <Link to={latestPost.url}>{latestPost.title}</Link>
+            </h3>
             <small>{new Date(latestPost.date).toLocaleDateString()}</small>
           </div>
           <div className="card__body text--center">
             <ReactMarkdown>{latestPost.content}</ReactMarkdown>
           </div>
           <div className="card__footer">
-            <a href={latestPost.url} className="button button--primary button--block">Read More</a>
+            <Link to={latestPost.url} className="button button--primary button--block">
+              Read More
+            </Link>
           </div>
         </div>
       </div>
@@ -59,7 +74,10 @@ export default function HomepageContent() {
           <div className="col col--8 col--offset-2">
             <div className="text--center padding-horiz--md">
               <h1 className="hero__title margin-bottom--md">Mission Statement</h1>
-              <p className="hero__subtitle shadow--lw padding--md" style={{ borderRadius: 'var(--radius)', background: 'var(--bg-card)' }}>
+              <p
+                className="hero__subtitle shadow--lw padding--md"
+                style={{ borderRadius: 'var(--radius)', background: 'var(--bg-card)' }}
+              >
                 {homepageConfig.missionStatement}
               </p>
             </div>
@@ -77,14 +95,33 @@ export default function HomepageContent() {
                 <div key={idx} className="col col--6 margin-bottom--md">
                   <div className="card shadow--md h-100">
                     <div className="card__header">
-                      <h3>{product.link ? <a href={product.link}>{product.title}</a> : product.title}</h3>
+                      <h3>
+                        {product.link ? (
+                          <Link
+                            to={product.link}
+                            target={/^http/.test(product.link) ? "_blank" : undefined}
+                            rel={/^http/.test(product.link) ? "noopener noreferrer" : undefined}
+                          >
+                            {product.title}
+                          </Link>
+                        ) : (
+                          product.title
+                        )}
+                      </h3>
                     </div>
                     <div className="card__body">
                       <p>{product.description}</p>
                     </div>
                     {product.link && (
                       <div className="card__footer">
-                        <a href={product.link} className="button button--outline button--primary button--block">Learn More</a>
+                        <Link
+                          to={product.link}
+                          className="button button--outline button--primary button--block"
+                          target={/^http/.test(product.link) ? "_blank" : undefined}
+                          rel={/^http/.test(product.link) ? "noopener noreferrer" : undefined}
+                        >
+                          Learn More
+                        </Link>
                       </div>
                     )}
                   </div>
