@@ -7,6 +7,8 @@ services:
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
+    fromEnvVarGroups:
+      - node_version
     headers:
       - path: /*
         name: X-Frame-Options

@@ -13,3 +13,7 @@
 ## 2025-05-26 - Render Environment Variable Precedence
 **Learning:** Render Dashboard environment variables override `render.yaml` settings. Even if you update `render.yaml`, the old dashboard value will persist and cause build failures.
 **Action:** When updating critical environment variables (like `NODE_VERSION`), explicitly instruct the user to check and update the Render Dashboard settings.
+
+## 2025-05-26 - Render Blueprint Variables Scope
+**Learning:** Environment variables defined in `envVarGroups` in `render.yaml` are NOT automatically applied to services. You must explicitly link them using `fromEnvVarGroups` or define them inline in the service block.
+**Action:** Always verify that defined `envVarGroups` are actually referenced in the `services` definition.
