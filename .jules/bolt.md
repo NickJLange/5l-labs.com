@@ -9,3 +9,7 @@
 ## 2025-05-24 - Render Deployment Node.js Version
 **Learning:** Render defaults to Node.js 14/16/18 if not specified, which causes build failures for modern stacks (e.g., Docusaurus 3 + React 19). Explicitly setting `NODE_VERSION` in `render.yaml` environment variables is critical.
 **Action:** Always verify `render.yaml` `envVars` matches `package.json` `engines` requirement.
+
+## 2025-05-26 - Render Environment Variable Precedence
+**Learning:** Render Dashboard environment variables override `render.yaml` settings. Even if you update `render.yaml`, the old dashboard value will persist and cause build failures.
+**Action:** When updating critical environment variables (like `NODE_VERSION`), explicitly instruct the user to check and update the Render Dashboard settings.
