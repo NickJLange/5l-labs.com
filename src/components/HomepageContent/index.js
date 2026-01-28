@@ -1,6 +1,5 @@
 import React from 'react';
 import clsx from 'clsx';
-import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 import homepageConfig from '../../config/homepage';
 
@@ -15,7 +14,7 @@ function Section({ title, items }) {
           {items.map((item, idx) => (
             <li key={idx} style={{ marginBottom: '1rem' }}>
               <strong>
-                {item.link ? <Link to={item.link}>{item.title}</Link> : item.title}
+                {item.link ? <a href={item.link}>{item.title}</a> : item.title}
               </strong>
               : {item.description}
             </li>
@@ -35,27 +34,20 @@ function LatestPost() {
         <h3>Latest Update</h3>
         <div className="card shadow--md">
           <div className="card__header">
-            <h3><Link to={latestPost.url}>{latestPost.title}</Link></h3>
-            <small>
-              {new Date(latestPost.date).toLocaleDateString('en-US', {
-                timeZone: 'UTC',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </small>
+            <h3><a href={latestPost.url}>{latestPost.title}</a></h3>
+            <small>{new Date(latestPost.date).toLocaleDateString()}</small>
           </div>
           <div className="card__body text--center">
             <p>{latestPost.content}</p>
           </div>
           <div className="card__footer">
-            <Link
-              to={latestPost.url}
+            <a
+              href={latestPost.url}
               className="button button--primary button--block"
               aria-label={`Read more about ${latestPost.title}`}
             >
               Read More
-            </Link>
+            </a>
           </div>
         </div>
       </div>
