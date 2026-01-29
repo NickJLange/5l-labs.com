@@ -3,7 +3,7 @@ services:
   - type: web
     name: 5L Labs.com
     env: static
-    buildCommand: npx docusaurus build
+    buildCommand: npm run build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
@@ -20,6 +20,9 @@ services:
       - path: /*
         name: Permissions-Policy
         value: "camera=(), microphone=(), geolocation=(), payment=()"
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000; includeSubDomains
 envVarGroups:
   - name: node_version
     envVars:

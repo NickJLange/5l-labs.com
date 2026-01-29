@@ -76,14 +76,14 @@ export default function HomepageContent() {
                 <div key={idx} className="col col--6 margin-bottom--md">
                   <div className="card shadow--md h-100">
                     <div className="card__header">
-                      <h3>{product.link ? <a href={product.link}>{product.title}</a> : product.title}</h3>
+                      <h3>{product.link ? <a href={product.link} target="_blank" rel="noopener noreferrer">{product.title}</a> : product.title}</h3>
                     </div>
                     <div className="card__body">
                       <p>{product.description}</p>
                     </div>
                     {product.link && (
                       <div className="card__footer">
-                        <a href={product.link} className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`}>Learn More</a>
+                        <a href={product.link} className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`} target="_blank" rel="noopener noreferrer">Learn More</a>
                       </div>
                     )}
                   </div>
