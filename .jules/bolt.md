@@ -5,3 +5,7 @@
 ## 2025-05-25 - Blocking Font Imports in CSS
 **Learning:** Loading fonts via `@import` in CSS files blocks the critical rendering path, delaying First Contentful Paint (FCP).
 **Action:** Move external font loading to `docusaurus.config.js` using `stylesheets` and `headTags` (with preconnect) to unblock rendering.
+
+## 2025-05-25 - Render Production Build Dependencies
+**Learning:** Render sets `NODE_ENV=production` during builds, which causes `npm install` to prune `devDependencies`. If build tools (like `tailwindcss`, `postcss`, `gray-matter`) are in `devDependencies`, the build will fail.
+**Action:** Ensure all dependencies required for the build process (even if not used at runtime by the client) are listed in `dependencies` in `package.json`.
