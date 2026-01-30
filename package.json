@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus start",
-    "build": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus build",
+    "prepare-assets": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && (cp -r embeddings/* static/embeddings/ || echo 'No embeddings to copy')",
+    "start": "npm run prepare-assets && docusaurus start",
+    "build": "npm run prepare-assets && docusaurus build",
+    "postinstall": "npm run prepare-assets",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
