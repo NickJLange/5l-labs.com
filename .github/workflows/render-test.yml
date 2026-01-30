@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: Build website
-        run: bun docusaurus build
+        run: bun run build
       - name: upload
         uses: actions/upload-pages-artifact@v3
         with:
