@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 import homepageConfig from '../../config/homepage';
 
@@ -14,7 +15,7 @@ function Section({ title, items }) {
           {items.map((item, idx) => (
             <li key={idx} style={{ marginBottom: '1rem' }}>
               <strong>
-                {item.link ? <a href={item.link}>{item.title}</a> : item.title}
+                {item.link ? <Link to={item.link}>{item.title}</Link> : item.title}
               </strong>
               : {item.description}
             </li>
@@ -34,14 +35,14 @@ function LatestPost() {
         <h3>Latest Update</h3>
         <div className="card shadow--md">
           <div className="card__header">
-            <h3><a href={latestPost.url}>{latestPost.title}</a></h3>
-            <small>{new Date(latestPost.date).toLocaleDateString()}</small>
+            <h3><Link to={latestPost.url}>{latestPost.title}</Link></h3>
+            <small>{new Date(latestPost.date).toLocaleDateString('en-US', { timeZone: 'UTC' })}</small>
           </div>
           <div className="card__body text--center">
             <p>{latestPost.content}</p>
           </div>
           <div className="card__footer">
-            <a href={latestPost.url} className="button button--primary button--block" aria-label={`Read more about ${latestPost.title}`}>Read More</a>
+            <Link to={latestPost.url} className="button button--primary button--block" aria-label={`Read more about ${latestPost.title}`}>Read More</Link>
           </div>
         </div>
       </div>
@@ -76,14 +77,14 @@ export default function HomepageContent() {
                 <div key={idx} className="col col--6 margin-bottom--md">
                   <div className="card shadow--md h-100">
                     <div className="card__header">
-                      <h3>{product.link ? <a href={product.link}>{product.title}</a> : product.title}</h3>
+                      <h3>{product.link ? <a href={product.link} target="_blank" rel="noopener noreferrer">{product.title}</a> : product.title}</h3>
                     </div>
                     <div className="card__body">
                       <p>{product.description}</p>
                     </div>
                     {product.link && (
                       <div className="card__footer">
-                        <a href={product.link} className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`}>Learn More</a>
+                        <a href={product.link} target="_blank" rel="noopener noreferrer" className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`}>Learn More</a>
                       </div>
                     )}
                   </div>
