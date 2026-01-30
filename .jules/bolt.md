@@ -13,3 +13,7 @@
 ## 2025-05-25 - Render Lockfile Precedence (Bun vs NPM)
 **Learning:** Render prioritizes `bun.lock` (if present) over `package-lock.json`, attempting to build with Bun. If `bun.lock` is stale or inconsistent with `package.json` (e.g., listing critical build tools as `devDependencies` when they are needed in production), the build will fail.
 **Action:** Ensure only one lockfile exists. If using `npm`, delete `bun.lock` to prevent Render from switching to Bun and using stale dependency definitions.
+
+## 2025-05-25 - Docusaurus Build Command Mismatch
+**Learning:** The default `buildCommand` in `render.yaml` (`npx docusaurus build`) bypasses custom `npm run build` scripts. If the project relies on pre-build steps (like `node scripts/generate-latest-post.js`) defined in `package.json`, using the direct CLI command will cause build failures due to missing generated assets.
+**Action:** Always configure the deployment platform's build command to use `npm run build` (or the equivalent package manager script) to ensure the full build pipeline, including pre-build hooks, is executed.
