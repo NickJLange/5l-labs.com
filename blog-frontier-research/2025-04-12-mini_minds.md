@@ -1,5 +1,5 @@
 ---
-slug: between_two_ferns
+slug: interoperability-and-monetization
 title: Interoperability
 authors: [njl]
 tags: [blog, ml, embedding_models,]

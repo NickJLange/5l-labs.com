@@ -157,8 +157,9 @@ def main():
     config = toml.load("scripts/config.toml")
     settings = config.get("settings", {})
 
-    model = settings.get("model", "nomic-embed-text:v1.5")
-    api_base = settings.get("embedding_api_url", "http://localhost:11434/v1")
+    # Environment variables override config file
+    model = os.environ.get("EMBEDDING_MODEL", settings.get("model", "nomic-embed-text:v1.5"))
+    api_base = os.environ.get("OPENAI_API_BASE", settings.get("embedding_api_url", "http://localhost:11434/v1"))
     embedding_content_base_url = settings.get(
         "embedding_content_base_url", "http://localhost:3000"
     )
