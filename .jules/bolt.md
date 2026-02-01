@@ -5,3 +5,7 @@
 ## 2025-05-24 - Client-side Routing and Hydration
 **Learning:** Replacing `<a>` tags with Docusaurus `<Link>` components for internal links enables client-side routing, avoiding full page reloads. Also, explicitly setting the locale in `toLocaleDateString` prevents hydration mismatches between server (Node.js) and client (Browser).
 **Action:** Use `<Link>` for all navigation and always define a locale for date formatting.
+
+## 2025-05-24 - Build Dependencies in Production
+**Learning:** Render sets `NODE_ENV=production` by default, skipping `devDependencies`. Docusaurus build scripts and plugins (like gray-matter, tailwindcss, postcss) must be in `dependencies` to function during the build on Render.
+**Action:** Always move build-time tools to `dependencies` if they are required for the production build command.
