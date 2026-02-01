@@ -49,3 +49,7 @@ npm@11.7.0 /home/jules/.nvm/versions/node/v22.22.0/lib/node_modules/npm) is used
 ## 2025-05-24 - Lockfile Conflicts on Render
 **Learning:** Render may fail if conflicting lockfiles (e.g. bun.lock vs package-lock.json) exist. Always remove unused lockfiles to ensure the correct package manager (npm) is used consistently.
 **Action:** Deleted bun.lock.
+
+## 2025-05-24 - PostCSS Module Resolution on Render
+**Learning:** Docusaurus or Render build environment can fail to resolve PostCSS plugins defined as strings (e.g., `plugins: { 'tailwindcss': {} }`).
+**Action:** Use explicit `require()` calls in `postcss.config.js` (e.g., `plugins: [require('tailwindcss'), ...]`) to guarantee correct module resolution from the project root.
