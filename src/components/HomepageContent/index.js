@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Link from '@docusaurus/Link';
 import styles from './styles.module.css';
 import homepageConfig from '../../config/homepage';
 
@@ -11,14 +12,27 @@ function Section({ title, items }) {
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <ul style={{ listStyle: 'none', padding: 0 }}>
-          {items.map((item, idx) => (
-            <li key={idx} style={{ marginBottom: '1rem' }}>
-              <strong>
-                {item.link ? <a href={item.link}>{item.title}</a> : item.title}
-              </strong>
-              : {item.description}
-            </li>
-          ))}
+          {items.map((item, idx) => {
+            const isExternal = item.link && item.link.startsWith('http');
+            return (
+              <li key={idx} style={{ marginBottom: '1rem' }}>
+                <strong>
+                  {item.link ? (
+                    <Link
+                      to={item.link}
+                      target={isExternal ? '_blank' : undefined}
+                      rel={isExternal ? 'noopener noreferrer' : undefined}
+                    >
+                      {item.title}
+                    </Link>
+                  ) : (
+                    item.title
+                  )}
+                </strong>
+                : {item.description}
+              </li>
+            );
+          })}
         </ul>
       </div>
     </div>
@@ -34,14 +48,26 @@ function LatestPost() {
         <h3>Latest Update</h3>
         <div className="card shadow--md">
           <div className="card__header">
-            <h3><a href={latestPost.url}>{latestPost.title}</a></h3>
-            <small>{new Date(latestPost.date).toLocaleDateString()}</small>
+            <h3><Link to={latestPost.url}>{latestPost.title}</Link></h3>
+            <small>
+              {new Date(latestPost.date).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })}
+            </small>
           </div>
           <div className="card__body text--center">
             <p>{latestPost.content}</p>
           </div>
           <div className="card__footer">
-            <a href={latestPost.url} className="button button--primary button--block" aria-label={`Read more about ${latestPost.title}`}>Read More</a>
+            <Link
+              to={latestPost.url}
+              className="button button--primary button--block"
+              aria-label={`Read more about ${latestPost.title}`}
+            >
+              Read More
+            </Link>
           </div>
         </div>
       </div>
@@ -72,23 +98,46 @@ export default function HomepageContent() {
               <h2 style={{ fontSize: '2.5rem' }}>Products</h2>
             </div>
             <div className="row">
-              {homepageConfig.products.map((product, idx) => (
-                <div key={idx} className="col col--6 margin-bottom--md">
-                  <div className="card shadow--md h-100">
-                    <div className="card__header">
-                      <h3>{product.link ? <a href={product.link}>{product.title}</a> : product.title}</h3>
-                    </div>
-                    <div className="card__body">
-                      <p>{product.description}</p>
-                    </div>
-                    {product.link && (
-                      <div className="card__footer">
-                        <a href={product.link} className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`}>Learn More</a>
+              {homepageConfig.products.map((product, idx) => {
+                const isExternal = product.link && product.link.startsWith('http');
+                return (
+                  <div key={idx} className="col col--6 margin-bottom--md">
+                    <div className="card shadow--md h-100">
+                      <div className="card__header">
+                        <h3>
+                          {product.link ? (
+                            <Link
+                              to={product.link}
+                              target={isExternal ? '_blank' : undefined}
+                              rel={isExternal ? 'noopener noreferrer' : undefined}
+                            >
+                              {product.title}
+                            </Link>
+                          ) : (
+                            product.title
+                          )}
+                        </h3>
                       </div>
-                    )}
+                      <div className="card__body">
+                        <p>{product.description}</p>
+                      </div>
+                      {product.link && (
+                        <div className="card__footer">
+                          <Link
+                            to={product.link}
+                            className="button button--outline button--primary button--block"
+                            aria-label={`Learn more about ${product.title}`}
+                            target={isExternal ? '_blank' : undefined}
+                            rel={isExternal ? 'noopener noreferrer' : undefined}
+                          >
+                            Learn More
+                          </Link>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
