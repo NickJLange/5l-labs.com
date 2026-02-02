@@ -10,6 +10,15 @@ src/generated
 .cache-loader
 .vscode
 
+# AI Agent directories (auto-generated)
+.agent
+.claude
+.codex
+.factory
+.gemini
+.kilocode
+.opencode
+
 # Misc
 .DS_Store
 

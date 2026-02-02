@@ -36,6 +36,20 @@ logger = logging.getLogger(__name__)
 DEFAULT_EMBEDDING_MODEL_NAME = "nomic-embed-text:v1.5"
 
 
+def is_publish_mode() -> bool:
+    """Check if we're in publish mode."""
+    return os.environ.get("PUBLISH_MODE", "false").lower() == "true"
+
+
+def should_generate_embeddings() -> bool:
+    """Determine if embeddings should be generated based on mode."""
+    if is_publish_mode():
+        return True
+    logger.info("Skipping embeddings generation (not in publish mode)")
+    logger.info("Set PUBLISH_MODE=true to generate embeddings")
+    return False
+
+
 def run_embed(input_text: str, model: str = DEFAULT_EMBEDDING_MODEL_NAME):
     """
     Gets an embedding using Ollama directly.
@@ -152,7 +166,32 @@ def save_embedding(
     return file_path
 
 
+def parse_args():
+    """Parse command line arguments."""
+    parser = argparse.ArgumentParser(
+        description="Generate embeddings for blog content"
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force embedding generation even if not in publish mode",
+    )
+    parser.add_argument(
+        "--locales",
+        type=str,
+        default="en",
+        help="Comma-separated list of locales to generate embeddings for (default: en)",
+    )
+    return parser.parse_args()
+
+
 def main():
+    args = parse_args()
+
+    # Check if we should generate embeddings
+    if not args.force and not should_generate_embeddings():
+        return
+
     # Configuration from config.toml
     config = toml.load("scripts/config.toml")
     settings = config.get("settings", {})

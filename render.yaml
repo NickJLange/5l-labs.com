@@ -1,12 +1,26 @@
 services:
-  # A static site
+  # A static site with multi-language support
   - type: web
     name: 5L Labs.com
     env: static
-    buildCommand: npx docusaurus build
+    buildCommand: |
+      # Fetch all language branches
+      git fetch origin main
+      git fetch origin ja/master
+      git fetch origin es/master
+      git fetch origin fr/master
+      
+      # Set publish mode to generate embeddings
+      export PUBLISH_MODE=true
+      
+      # Build with all languages
+      npx docusaurus build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
+envVars:
+  - key: PUBLISH_MODE
+    value: "true"
 envVarGroups:
   - name: node_version
     envVars:

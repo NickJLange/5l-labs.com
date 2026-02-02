@@ -6,6 +6,8 @@
     "docusaurus": "docusaurus",
     "start": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus start",
     "build": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus build",
+    "build:publish": "node scripts/generate_embeddings.py && npm run build",
+    "build:i18n": "docusaurus build --locale en --locale ja --locale es --locale fr",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
