@@ -4,16 +4,16 @@ services:
     name: 5L Labs.com
     env: static
     buildCommand: |
-      # Fetch all language branches
-      git fetch origin main
-      git fetch origin ja/master
-      git fetch origin es/master
-      git fetch origin fr/master
+      # Fetch all language branches (if they exist)
+      git fetch origin main 2>/dev/null || true
+      git fetch origin ja/master 2>/dev/null || true
+      git fetch origin es/master 2>/dev/null || true
+      git fetch origin fr/master 2>/dev/null || true
       
       # Set publish mode to generate embeddings
       export PUBLISH_MODE=true
       
-      # Build with all languages
+      # Build with all configured languages
       npx docusaurus build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
