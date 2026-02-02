@@ -116,10 +116,6 @@ const config = {
         },
         items: [
           {
-            type: "locale",
-            position: "right",
-          },
-          {
             label: "Blog(s)",
             position: "left",
             items: [
