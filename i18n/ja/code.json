@@ -1,20 +1,56 @@
 {
-  "5L-Labs": "5L Labs",
-  "Home": "ホーム",
-  "Blog(s)": "ブログ",
-  "Products/Projects": "製品/プロジェクト",
-  "Consulting Services": "コンサルティングサービス",
-  "GitHub": "GitHub",
-  "Private AI": "プライベートAI",
-  "Applied AI Engineering": "応用AIエンジニアリング",
-  "Frontier Research": "フロンティア研究",
-  "Private IoT": "プライベートIoT",
-  "Self-Hosted IOT": "セルフホストIoT",
-  "Applied Home ML IOT": "ホームML IoT",
-  "Contact Us": "お問い合わせ",
-  "Email": "メール",
-  "Google Maps": "Googleマップ",
-  "LinkedIn": "LinkedIn",
-  "Twitter": "Twitter",
-  "Copyright": "著作権"
+  "5L-Labs": {
+    "message": "5L Labs"
+  },
+  "Home": {
+    "message": "ホーム"
+  },
+  "Blog(s)": {
+    "message": "ブログ"
+  },
+  "Products/Projects": {
+    "message": "製品/プロジェクト"
+  },
+  "Consulting Services": {
+    "message": "コンサルティングサービス"
+  },
+  "GitHub": {
+    "message": "GitHub"
+  },
+  "Private AI": {
+    "message": "プライベートAI"
+  },
+  "Applied AI Engineering": {
+    "message": "応用AIエンジニアリング"
+  },
+  "Frontier Research": {
+    "message": "フロンティア研究"
+  },
+  "Private IoT": {
+    "message": "プライベートIoT"
+  },
+  "Self-Hosted IOT": {
+    "message": "セルフホストIoT"
+  },
+  "Applied Home ML IOT": {
+    "message": "ホームML IoT"
+  },
+  "Contact Us": {
+    "message": "お問い合わせ"
+  },
+  "Email": {
+    "message": "メール"
+  },
+  "Google Maps": {
+    "message": "Googleマップ"
+  },
+  "LinkedIn": {
+    "message": "LinkedIn"
+  },
+  "Twitter": {
+    "message": "Twitter"
+  },
+  "Copyright": {
+    "message": "著作権"
+  }
 }
