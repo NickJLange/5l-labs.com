@@ -25,6 +25,10 @@ const config = {
   i18n: {
     defaultLocale: "en",
     locales: ["en", "ja"],
+    localeConfigs: {
+      en: { label: "English", direction: "ltr" },
+      ja: { label: "日本語", direction: "ltr" },
+    },
   },
   markdown: {
     format: "detect",
@@ -111,6 +115,10 @@ const config = {
           src: "img/5L-Labs.svg",
         },
         items: [
+          {
+            type: "locale",
+            position: "right",
+          },
           {
             label: "Blog(s)",
             position: "left",
