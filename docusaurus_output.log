@@ -1,0 +1,43 @@
+
+> 5-l-labs-com@0.2.1 start
+> node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus start
+
+Latest post generated: Time
+[INFO] Starting the development server...
+[WARNING] The `siteConfig.onBrokenMarkdownLinks` config option is deprecated and will be removed in Docusaurus v4.
+Please migrate and move this option to `siteConfig.markdown.hooks.onBrokenMarkdownLinks` instead.
+[WARNING] Docusaurus found blog posts without truncation markers:
+- "blog-self-hosted-iot/2025-12-01-vpn_tunneling.md"
+- "blog-self-hosted-iot/2025-10-19-updated-network-controls.md"
+- "blog-self-hosted-iot/2025-05-17-thingino_adventures.md"
+- "blog-self-hosted-iot/2025-05-03-camera-conversion.md"
+- "blog-self-hosted-iot/2025-01-01-what-is-a-private-home.mdx"
+- "blog-self-hosted-iot/2024-09-30-falling_back_on_tls_12.md"
+
+We recommend using truncation markers (`<!-- truncate -->` or `{/* truncate */}`) in blog posts to create shorter previews on blog paginated lists.
+Tip: turn this security off with the `onUntruncatedBlogPosts: 'ignore'` blog plugin option.
+[WARNING] Docusaurus found blog posts without truncation markers:
+- "blog-applied-home-ml-iot/2025-11-16-Jarvis20.md"
+- "blog-applied-home-ml-iot/2025-09-15-GarageCam-updated.md"
+- "blog-applied-home-ml-iot/2025-06-08-GarageCam.md"
+- "blog-applied-home-ml-iot/2025-02-16-private_llms.md"
+
+We recommend using truncation markers (`<!-- truncate -->` or `{/* truncate */}`) in blog posts to create shorter previews on blog paginated lists.
+Tip: turn this security off with the `onUntruncatedBlogPosts: 'ignore'` blog plugin option.
+[WARNING] Docusaurus found blog posts without truncation markers:
+- "blog-applied-ai-engineering/2025-03-16-nvidia-gtc.md"
+
+We recommend using truncation markers (`<!-- truncate -->` or `{/* truncate */}`) in blog posts to create shorter previews on blog paginated lists.
+Tip: turn this security off with the `onUntruncatedBlogPosts: 'ignore'` blog plugin option.
+[WARNING] Docusaurus found blog posts without truncation markers:
+- "blog-frontier-research/2025-12-10-time.md"
+
+We recommend using truncation markers (`<!-- truncate -->` or `{/* truncate */}`) in blog posts to create shorter previews on blog paginated lists.
+Tip: turn this security off with the `onUntruncatedBlogPosts: 'ignore'` blog plugin option.
+[SUCCESS] Docusaurus website is running at: http://localhost:3000/
+[webpackbar] ℹ Compiling Client
+[webpackbar] ✔ Client: Compiled successfully in 28.69s
+client (webpack 5.104.1) compiled successfully
+[webpackbar] ℹ Compiling Client
+[webpackbar] ✔ Client: Compiled successfully in 781.93ms
+client (webpack 5.104.1) compiled successfully
