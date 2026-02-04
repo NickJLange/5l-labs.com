@@ -26,17 +26,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
+      - uses: oven-sh/setup-bun@v2
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: 'npm'
+          node-version: 24
       - name: Install dependencies
-        run: npm ci
+        run: bun install
       - name: Build website
-        run: npm run build
+        run: bun docusaurus build
       - name: upload
         uses: actions/upload-pages-artifact@v3
         with:
