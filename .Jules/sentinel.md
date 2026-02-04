@@ -12,3 +12,8 @@
 **Vulnerability:** Build failed in production because critical build tools (`tailwindcss`, `gray-matter`, etc.) were listed in `devDependencies`, which Render prunes when `NODE_ENV=production`.
 **Learning:** Build-time dependencies required for generating static assets (like CSS or JSON content) must be listed in `dependencies`, not `devDependencies`, or the build environment must be configured to install dev dependencies.
 **Prevention:** Verify build scripts' dependencies and ensure they are present in the production environment. Test locally with `npm install --omit=dev && npm run build`.
+
+## 2026-02-04 - CI/CD Configuration and Submodules
+**Vulnerability:** GitHub Actions workflow failed because it used `bun` instead of `npm` (mismatching lockfiles) and failed to checkout submodules recursively.
+**Learning:** CI workflows must mirror the production build environment (using `npm ci` if `package-lock.json` is tracked) and correctly handle git submodules using HTTPS URLs and recursive checkout options.
+**Prevention:** Verify CI workflows match the local/production package manager and test submodule checkout in a clean environment.
