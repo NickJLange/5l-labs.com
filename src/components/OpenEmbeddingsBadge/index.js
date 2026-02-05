@@ -33,10 +33,6 @@ export default function OpenEmbeddingsBadge() {
                 }}
                 onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
                 onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                onFocus={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-                onBlur={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                aria-label="Open Embeddings"
-                title="Open Embeddings"
             >
                 OE
             </Link>
