@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus start",
-    "build": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus build",
+    "start": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && (cp -r embeddings/* static/embeddings/ || true) && docusaurus start",
+    "build": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && (cp -r embeddings/* static/embeddings/ || true) && docusaurus build",
+    "postinstall": "node scripts/generate-latest-post.js",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
