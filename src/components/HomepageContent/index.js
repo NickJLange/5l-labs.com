@@ -6,6 +6,16 @@ import homepageConfig from '../../config/homepage';
 
 import latestPost from '../../generated/latest-post.json';
 
+function SecureLink({ to, children, ...props }) {
+  const isExternal = to && to.startsWith('http');
+  const externalProps = isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+  return (
+    <Link to={to} {...props} {...externalProps}>
+      {children}
+    </Link>
+  );
+}
+
 function Section({ title, items }) {
   return (
     <div className={clsx('col col--6')}>
@@ -15,7 +25,7 @@ function Section({ title, items }) {
           {items.map((item, idx) => (
             <li key={idx} style={{ marginBottom: '1rem' }}>
               <strong>
-                {item.link ? <Link to={item.link}>{item.title}</Link> : item.title}
+                {item.link ? <SecureLink to={item.link}>{item.title}</SecureLink> : item.title}
               </strong>
               : {item.description}
             </li>
@@ -77,14 +87,14 @@ export default function HomepageContent() {
                 <div key={idx} className="col col--6 margin-bottom--md">
                   <div className="card shadow--md h-100">
                     <div className="card__header">
-                      <h3>{product.link ? <Link to={product.link}>{product.title}</Link> : product.title}</h3>
+                      <h3>{product.link ? <SecureLink to={product.link}>{product.title}</SecureLink> : product.title}</h3>
                     </div>
                     <div className="card__body">
                       <p>{product.description}</p>
                     </div>
                     {product.link && (
                       <div className="card__footer">
-                        <Link to={product.link} className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`}>Learn More</Link>
+                        <SecureLink to={product.link} className="button button--outline button--primary button--block" aria-label={`Learn more about ${product.title}`}>Learn More</SecureLink>
                       </div>
                     )}
                   </div>
