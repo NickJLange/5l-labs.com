@@ -85,6 +85,9 @@ function getLatestPost() {
 
 const latestPost = getLatestPost();
 
+// Ensure the directory exists
+fs.mkdirSync(path.dirname(OUTPUT_FILE), { recursive: true });
+
 if (latestPost) {
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(latestPost, null, 2));
     console.log(`Latest post generated: ${latestPost.title}`);
