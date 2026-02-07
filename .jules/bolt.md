@@ -5,3 +5,7 @@
 ## 2024-05-24 - [Render Deployment Dependency Pruning]
 **Learning:** Render sets `NODE_ENV=production` by default, which causes `npm install` to skip `devDependencies`. However, the build script (`generate-latest-post.js`) relies on packages like `gray-matter` which were in `devDependencies`. This caused the build to fail in production.
 **Action:** Always verify that packages required for the build process (even if not part of the runtime bundle) are listed in `dependencies` or that the build environment is configured to install dev dependencies. For this repo, move critical build tools to `dependencies`.
+
+## 2024-05-24 - [CI/CD Migration from Bun to NPM]
+**Learning:** The project was using Bun in CI but had conflicting configuration (missing `bun.lock` initially, then switched to `package-lock.json`). GitHub Actions failed with 404s for packages and submodule errors.
+**Action:** Migrated CI workflow to use `npm ci` and ensured `package-lock.json` is tracked. Also updated the checkout step to include `submodules: recursive` to correctly fetch the `embeddings` submodule, and removed the phantom `embeddings-source` submodule from the git index.
