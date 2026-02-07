@@ -133,7 +133,7 @@
 Generating embeddings:  98%|█████████▊| 86/88 [00:58<00:01,  1.93it/s]2025-11-30 03:21:47,364 - __main__ - ERROR - Error getting embedding: 500 Server Error: Internal Server Error for url: http://localhost:11434/v1/embeddings
 2025-11-30 03:21:47,365 - __main__ - WARNING - Skipping https://www.5l-labs.com/docs/ - failed to generate embedding
 Generating embeddings:  99%|█████████▉| 87/88 [00:59<00:00,  1.80it/s]Generating embeddings: 100%|██████████| 88/88 [01:00<00:00,  1.58it/s]Generating embeddings: 100%|██████████| 88/88 [01:00<00:00,  1.46it/s]
-2025-11-30 03:21:48,176 - __main__ - INFO - 
+2025-11-30 03:21:48,176 - __main__ - INFO -
 Embedding generation complete!
 2025-11-30 03:21:48,176 - __main__ - INFO - Successfully generated: 22
 2025-11-30 03:21:48,176 - __main__ - INFO - Errors: 66
