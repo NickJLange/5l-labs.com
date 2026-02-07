@@ -9,3 +9,7 @@
 ## 2024-05-24 - [CI/CD Migration from Bun to NPM]
 **Learning:** The project was using Bun in CI but had conflicting configuration (missing `bun.lock` initially, then switched to `package-lock.json`). GitHub Actions failed with 404s for packages and submodule errors.
 **Action:** Migrated CI workflow to use `npm ci` and ensured `package-lock.json` is tracked. Also updated the checkout step to include `submodules: recursive` to correctly fetch the `embeddings` submodule, and removed the phantom `embeddings-source` submodule from the git index.
+
+## 2024-05-24 - [Render Build Command Pitfall]
+**Learning:** Render's `buildCommand` setting overrides the default behavior. If set to `npx docusaurus build`, it skips the `npm run build` script defined in `package.json`. This is critical if `npm run build` includes pre-build steps like generating content or copying assets.
+**Action:** Always set `buildCommand` to `npm run build` (or equivalent) in `render.yaml` to ensure the full build pipeline is executed. Also, verify that environment variable groups defined in `render.yaml` are explicitly applied to the service definition.
