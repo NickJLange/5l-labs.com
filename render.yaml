@@ -3,12 +3,10 @@ services:
   - type: web
     name: 5L Labs.com
     env: static
-    buildCommand: npm run build
+    buildCommand: npx docusaurus build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
-    envVarGroups:
-      - node_version
     headers:
       - path: /*
         name: X-Frame-Options
