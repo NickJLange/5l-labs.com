@@ -79,14 +79,34 @@ def get_embedding(text, api_base, api_key, model):
         return None
 
 
-def get_page_content(url):
+def get_page_content(url, max_size=10 * 1024 * 1024):  # 10MB limit
     """
-    Fetches the text content of a web page.
+    Fetches the text content of a web page with a size limit.
     """
     try:
-        response = requests.get(url, timeout=30)
+        response = requests.get(url, timeout=30, stream=True)
         response.raise_for_status()
-        return response.text
+
+        # Check Content-Length if available
+        if 'Content-Length' in response.headers:
+            try:
+                content_length = int(response.headers['Content-Length'])
+                if content_length > max_size:
+                    logger.warning(f"Skipping {url}: Content-Length {content_length} exceeds limit {max_size}")
+                    return None
+            except (ValueError, TypeError):
+                pass  # Ignore invalid Content-Length
+
+        content_chunks = []
+        current_size = 0
+        for chunk in response.iter_content(chunk_size=8192, decode_unicode=True):
+            if chunk:
+                content_chunks.append(chunk)
+                current_size += len(chunk)
+                if current_size > max_size:
+                    logger.warning(f"Skipping {url}: Content size exceeds limit {max_size}")
+                    return None
+        return "".join(content_chunks)
     except requests.exceptions.RequestException as e:
         logger.error(f"Error fetching page content from {url}: {e}")
         return None
