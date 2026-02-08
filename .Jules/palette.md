@@ -8,3 +8,15 @@
 ## 2026-01-30 - Context for Icon-Only/Abbreviated Badges
 **Learning:** Fixed position badges or icon-only elements with abbreviated text (like "OE") are ambiguous for both screen readers and visual users.
 **Action:** Always provide `aria-label` for screen readers and `title` attributes for tooltips on such elements to explain their purpose.
+
+## 2026-02-08 - SSG Hydration and Semantic Dates
+**Learning:** `toLocaleDateString()` without fixed locale arguments and explicit `timeZone` causes hydration mismatches in SSG sites (like Docusaurus) between server build and client browser. Also, generic `<span>` or `<small>` for dates lacks semantic meaning.
+**Action:** Use the `<time>` element with `dateTime` attribute, fixed locale/options, and explicit `timeZone: 'UTC'` for date formatting to ensure consistency and accessibility.
+
+## 2026-02-08 - Render Build Commands for Custom Scripts
+**Learning:** `npx docusaurus build` in `render.yaml` bypasses `package.json` scripts. If a project relies on pre-build scripts (e.g., generating content), using the framework command directly causes build failures due to missing assets.
+**Action:** Always use `npm run build` (or equivalent) in `render.yaml` to ensure the full build pipeline defined in `package.json` is executed.
+
+## 2026-02-08 - Dependencies for Production Build
+**Learning:** Build tools like `tailwindcss`, `postcss`, and `autoprefixer` are often needed during the production build of static sites. If they are in `devDependencies`, `bun install --production` (default on platforms like Render) will skip them, causing build failures.
+**Action:** Move build-critical tools from `devDependencies` to `dependencies` in `package.json` to ensure they are available in the production environment.
