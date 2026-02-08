@@ -7,6 +7,8 @@ tags: [homekit, wyze, scripted, quartz, xterm and cloner]
 
 I have probably bit off more than I can chew with this project.
 
+<!-- truncate -->
+
 ## What is hard (or time consuming) about this?
 
 *  Generating the testing/training data set. I ended up using a VLM to do the initial labelling, with manual overrides possible

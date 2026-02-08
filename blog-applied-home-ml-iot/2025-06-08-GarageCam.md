@@ -7,6 +7,8 @@ tags: [homekit, wyze, scripted, quartz, xterm and cloner]
 
 With Scrypted / Thingino up and stable, the next goal is to replace my janky garage door sensor with a camera-based sensor. With some luck, I can extend this to every camera in the house cheaper and more accurately than Frigate, but let's not get ahead of ourselves.
 
+<!-- truncate -->
+
 1. What I have:
    - Wyze Cam v3
    - Scrypted

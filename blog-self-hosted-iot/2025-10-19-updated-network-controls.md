@@ -7,6 +7,8 @@ tags: [homekit, homebridge, pihole, ubiquiti, network, kill-switch]
 
 ## For exactly zero-users,
 
+<!-- truncate -->
+
 I've spent some time firming up the Home Network Kill Switch project due to some breaking changes in Pi-hole v6 and Ubiquiti Control 9.4.19. Its a home project that uses iOS HomeKit buttons, backed by a Ubiquiti and Pi-hole setup, to simplify parental controls. I suspect others might appreciate a one-tap solution for managing network access, especially one that's easy enough for less technical family members to use.
 
 ## Why I Built This
