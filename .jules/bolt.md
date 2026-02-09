@@ -9,3 +9,7 @@
 ## 2025-05-24 - Hero Image Optimization & CLS
 **Learning:** Large unoptimized images in the hero section are a primary cause of slow LCP and CLS. Providing explicit `width` and `height` attributes to the `img` tag, even if overridden by CSS, allows the browser to reserve the correct aspect ratio space immediately.
 **Action:** Always optimize hero images (compress/resize) and define explicit dimensions to prevent layout shifts.
+
+## 2025-02-18 - Eliminating Unused Build Scripts
+**Learning:** Scripts executed on every `start` and `build` command (like `scripts/generate-latest-post.js`) impose a recurring performance penalty. If the generated output is unused (dead code), removing the script and its dependencies immediately improves developer experience and CI times.
+**Action:** Audit `package.json` scripts and trace the usage of their outputs to identify and remove dead code.
