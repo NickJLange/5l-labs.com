@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus start",
-    "build": "mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus build",
+    "start": "mkdir -p static/embeddings && (cp -r embeddings/* static/embeddings/ || true) && docusaurus start",
+    "build": "mkdir -p static/embeddings && (cp -r embeddings/* static/embeddings/ || true) && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -15,24 +15,24 @@
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
+    "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
     "@docusaurus/theme-mermaid": "3.9.2",
+    "@docusaurus/tsconfig": "3.9.2",
+    "@docusaurus/types": "3.9.2",
     "@iconify/react": "6.0.2",
     "@mdx-js/react": "3.1.1",
+    "@types/react": "18.2.29",
     "autoprefixer": "^10.4.22",
     "clsx": "2.1.1",
     "postcss": "^8.5.6",
     "prism-react-renderer": "2.4.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "tailwindcss": "^3.4.18"
+    "tailwindcss": "^3.4.18",
+    "typescript": "5.2.2"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.9.2",
-    "@docusaurus/tsconfig": "3.9.2",
-    "@docusaurus/types": "3.9.2",
-    "@types/react": "18.2.29",
-    "typescript": "5.2.2"
   },
   "browserslist": {
     "production": [
