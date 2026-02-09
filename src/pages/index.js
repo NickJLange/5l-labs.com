@@ -46,7 +46,7 @@ function ServiceItem({ number, title, content, children }) {
       <div 
         id={contentId}
         className="service-content"
-        hidden={!expanded}
+        aria-hidden={!expanded}
       >
         <p>{content}</p>
         {children}

@@ -153,7 +153,8 @@ h6 {
   background-color: transparent;
 }
 
-.service-item:hover {
+.service-item:hover,
+.service-item:focus-within {
   border-color: var(--brand-primary);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   /* Subtle lift */
@@ -234,6 +235,7 @@ h6 {
 }
 
 .service-content {
+  visibility: hidden;
   max-height: 0;
   overflow: hidden;
   opacity: 0;
@@ -243,6 +245,7 @@ h6 {
 }
 
 .service-item[data-expanded="true"] .service-content {
+  visibility: visible;
   max-height: 800px;
   margin-top: 1.5rem;
   opacity: 1;
