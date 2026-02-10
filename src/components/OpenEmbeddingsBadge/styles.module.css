@@ -22,7 +22,12 @@
   transition: transform 0.2s;
 }
 
-.badgeLink:hover {
+.badgeLink:hover,
+.badgeLink:focus-visible {
   transform: scale(1.1);
   color: white !important;
+  outline: none;
+  box-shadow:
+    0 0 0 4px var(--brand-primary),
+    0 4px 6px rgba(0, 0, 0, 0.3);
 }
