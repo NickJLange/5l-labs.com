@@ -36,7 +36,7 @@ function LatestPost() {
         <div className="card shadow--md">
           <div className="card__header">
             <h3><Link to={latestPost.url}>{latestPost.title}</Link></h3>
-            <small>{new Date(latestPost.date).toLocaleDateString()}</small>
+            <small>{new Date(latestPost.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })}</small>
           </div>
           <div className="card__body text--center">
             <p>{latestPost.content}</p>
@@ -44,10 +44,14 @@ function LatestPost() {
           <div className="card__footer">
             <Link
               to={latestPost.url}
-              className="button button--primary button--block"
+              className={clsx('button button--primary button--block', styles.readMoreButton)}
               aria-label={`Read more about ${latestPost.title}`}
             >
               Read More
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
             </Link>
           </div>
         </div>
