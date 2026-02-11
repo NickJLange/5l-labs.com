@@ -14,6 +14,31 @@ const config = {
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.svg",
 
+  stylesheets: [
+    {
+      href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+      type: "text/css",
+      rel: "stylesheet",
+    },
+  ],
+  headTags: [
+    {
+      tagName: "link",
+      attributes: {
+        rel: "preconnect",
+        href: "https://fonts.googleapis.com",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossorigin: "anonymous",
+      },
+    },
+  ],
+
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "5L-Labs", // Usually your GitHub org/user name.
