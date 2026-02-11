@@ -8,3 +8,7 @@
 ## 2026-01-30 - Context for Icon-Only/Abbreviated Badges
 **Learning:** Fixed position badges or icon-only elements with abbreviated text (like "OE") are ambiguous for both screen readers and visual users.
 **Action:** Always provide `aria-label` for screen readers and `title` attributes for tooltips on such elements to explain their purpose.
+
+## 2026-02-10 - Focus Visibility on Fixed Elements
+**Learning:** Fixed position elements (like badges) often lack visible focus indicators, making them invisible to keyboard users even if they have `aria-label`.
+**Action:** Always verify `:focus-visible` styles match or exceed `:hover` styles, using `outline` or `box-shadow` to ensure the element is clearly highlighted when focused via keyboard.
