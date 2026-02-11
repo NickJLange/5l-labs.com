@@ -6,6 +6,8 @@ tags: [homekit, wyze, scripted]
 ---
 
 Getting more private from Wyze:
+
+<!-- truncate -->
  * Battery Cam Protocol
  * Non-Recent Cameras
 

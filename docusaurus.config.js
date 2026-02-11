@@ -11,7 +11,6 @@ const config = {
   url: "https://www.5l-labs.com",
   baseUrl: "/",
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.svg",
 
   // GitHub pages deployment config.
@@ -29,6 +28,9 @@ const config = {
   markdown: {
     format: "detect",
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
   },
   plugins: [
     [

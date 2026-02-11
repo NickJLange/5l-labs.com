@@ -6,6 +6,8 @@ tags: [k12-tech, network-security, parental-controls, chromebooks, content-filte
 ---
 
 
+
+<!-- truncate -->
 # When School Chromebooks Bypass Your Home Network Controls
 
 School-issued Chromebooks present unique challenges for parents trying to manage screen time and content access at home. In this post, I'll share how I tackled a persistent problem: a school Chromebook that bypassed our home network controls and allowed unrestricted video streaming despite our best efforts.

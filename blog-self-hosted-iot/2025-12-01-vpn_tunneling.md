@@ -6,6 +6,8 @@ tags: [homekit, homebridge, pihole, ubiquiti, network, dnsmasq, nmcli]
 ---
 
 
+
+<!-- truncate -->
 With the cold and the early darkness, it's time for more TV than less. With that in mind, I needed to fix a few things that "broke" over the last few months. This entry is more of a mental dump so that in the future I can remember what I did to fix things.
 
 
