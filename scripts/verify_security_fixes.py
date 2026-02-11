@@ -2,6 +2,7 @@ import sys
 import os
 from pathlib import Path
 import shutil
+from unittest.mock import MagicMock, patch
 
 # Ensure we can import the script
 sys.path.append('scripts')
@@ -44,16 +45,9 @@ def verify_path_traversal():
         return False
 
     # Case 2: Prefix matching attack
-    # We attempt to write to 'embeddings-suffix' which shares prefix with 'embeddings'
-    # 'embeddings' resolves to .../embeddings
-    # 'embeddings-suffix' resolves to .../embeddings-suffix
-    # In string comparison, .../embeddings-suffix STARTSWITH .../embeddings is TRUE (if no separator check)
-    # So this tests if we use secure check.
-
     malicious_url_2 = "http://example.com/../../embeddings-suffix/foo"
     print(f"\nTest Case 2: Prefix matching attack: {malicious_url_2}")
 
-    # We create the directory so real path resolution works if needed (though Python pathlib handles abstract paths too)
     Path("embeddings-suffix").mkdir(exist_ok=True)
 
     try:
@@ -81,6 +75,53 @@ def verify_path_traversal():
 
     return True
 
+def verify_response_size_limit():
+    print("\nVerifying response size limit...")
+
+    # 1. Content-Length check
+    with patch('requests.get') as mock_get:
+        mock_resp = MagicMock()
+        mock_resp.headers = {'Content-Length': str(20 * 1024 * 1024)} # 20MB
+        mock_resp.raise_for_status.return_value = None
+        mock_get.return_value = mock_resp
+
+        result = generate_embeddings.get_page_content("http://example.com/huge-header")
+        if result is None:
+            print("✅ Content-Length check passed (returned None for 20MB)")
+        else:
+            print("❌ Content-Length check failed (did not return None)")
+            return False
+
+    # 2. Stream size check
+    with patch('requests.get') as mock_get:
+        mock_resp = MagicMock()
+        mock_resp.headers = {}
+        mock_resp.raise_for_status.return_value = None
+        # Generator yielding 1MB chunks
+        def oversized_generator():
+            chunk = "A" * (1024 * 1024) # 1MB
+            for _ in range(15): # 15MB total
+                yield chunk
+
+        mock_resp.iter_content.return_value = oversized_generator()
+        mock_get.return_value = mock_resp
+
+        result = generate_embeddings.get_page_content("http://example.com/stream", max_size=10 * 1024 * 1024)
+        if result is None:
+            print("✅ Stream size check passed (returned None for >10MB stream)")
+        else:
+            # We can't check len(result) if result is None
+            print(f"❌ Stream size check failed (returned content)")
+            return False
+
+    return True
+
 if __name__ == "__main__":
+    success = True
     if not verify_path_traversal():
+        success = False
+    if not verify_response_size_limit():
+        success = False
+
+    if not success:
         sys.exit(1)
