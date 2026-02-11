@@ -36,7 +36,16 @@ function LatestPost() {
         <div className="card shadow--md">
           <div className="card__header">
             <h3><Link to={latestPost.url}>{latestPost.title}</Link></h3>
-            <small>{new Date(latestPost.date).toLocaleDateString()}</small>
+            <small>
+              <time dateTime={latestPost.date}>
+                {new Date(latestPost.date).toLocaleDateString('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  timeZone: 'UTC',
+                })}
+              </time>
+            </small>
           </div>
           <div className="card__body text--center">
             <p>{latestPost.content}</p>
