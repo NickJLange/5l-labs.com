@@ -9,3 +9,21 @@
   height: 200px;
   width: 200px;
 }
+
+.readMoreBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.arrowIcon {
+  transition: transform 0.2s ease-in-out;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.readMoreBtn:hover .arrowIcon,
+.readMoreBtn:focus-visible .arrowIcon {
+  transform: translateX(4px);
+}

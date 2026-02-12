@@ -20,3 +20,7 @@
 ## 2026-02-08 - Dependencies for Production Build
 **Learning:** Build tools like `tailwindcss`, `postcss`, and `autoprefixer` are often needed during the production build of static sites. If they are in `devDependencies`, `bun install --production` (default on platforms like Render) will skip them, causing build failures.
 **Action:** Move build-critical tools from `devDependencies` to `dependencies` in `package.json` to ensure they are available in the production environment.
+
+## 2026-02-12 - Directional Affordance in Buttons
+**Learning:** Adding a directional icon (arrow) to primary action buttons enhances affordance. Animating it on hover/focus creates delight and reinforces the action direction.
+**Action:** Use the `readMoreBtn` pattern with inline SVG arrow and `transform` transition for future "Read More" or directional links.
