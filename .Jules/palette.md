@@ -32,3 +32,7 @@
 ## 2026-02-12 - Render Build Script Robustness
 **Learning:** Build scripts relying on submodules must explicitly initialize them if not guaranteed by the CI environment. `cp` commands should use `source/.` instead of `source/*` to avoid failure on empty directories. Critical tools like `typescript` must be in `dependencies` if the build process invokes them, as production builds prune `devDependencies`.
 **Action:** Update `build` scripts to include `git submodule update --init --recursive` and use `cp -r source/. dest/`. Move `typescript` to `dependencies` for Docusaurus projects.
+
+## 2026-02-12 - Render Submodule Configuration
+**Learning:** Render does not support SSH keys for submodules by default. Always use HTTPS URLs in `.gitmodules` for public submodules or when no SSH keys are configured.
+**Action:** Update `.gitmodules` to use HTTPS URLs (e.g., `https://github.com/...`) instead of SSH URLs.
