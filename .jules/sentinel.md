@@ -12,3 +12,8 @@
 **Vulnerability:** The `generate_embeddings.py` script fetched external URLs without a size limit, potentially leading to memory exhaustion (DoS) if a large file or infinite stream was encountered.
 **Learning:** `requests.get()` by default downloads the entire response body into memory.
 **Prevention:** Always use `stream=True` with `requests.get()` and enforce a strict byte/size limit when iterating over the response content.
+
+## 2026-02-12 - [SSRF in Sitemap Processing]
+**Vulnerability:** The `generate_embeddings.py` script fetched URLs found in the sitemap without validating that they belong to the local domain, allowing potential SSRF if the sitemap contained external or malicious internal links.
+**Learning:** String replacement of base URLs is insufficient validation; explicit checks (e.g. `startswith`) are required to ensure fetched URLs are within the intended scope.
+**Prevention:** Always validate that the URL to be fetched matches the expected base URL or domain before making the request.
