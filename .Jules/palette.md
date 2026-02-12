@@ -24,3 +24,7 @@
 ## 2026-02-12 - Directional Affordance in Buttons
 **Learning:** Adding a directional icon (arrow) to primary action buttons enhances affordance. Animating it on hover/focus creates delight and reinforces the action direction.
 **Action:** Use the `readMoreBtn` pattern with inline SVG arrow and `transform` transition for future "Read More" or directional links.
+
+## 2026-02-12 - Render Build Configuration for NPM
+**Learning:** Render projects configured for NPM must track `package-lock.json` and remove `bun.lock` to avoid mixed package manager errors. The build command in `render.yaml` must use `npm run build`.
+**Action:** Ensure `package-lock.json` is not in `.gitignore`, `bun.lock` is removed, and `render.yaml` explicitly calls `npm run build`.
