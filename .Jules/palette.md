@@ -28,3 +28,7 @@
 ## 2026-02-12 - Render Build Configuration for NPM
 **Learning:** Render projects configured for NPM must track `package-lock.json` and remove `bun.lock` to avoid mixed package manager errors. The build command in `render.yaml` must use `npm run build`.
 **Action:** Ensure `package-lock.json` is not in `.gitignore`, `bun.lock` is removed, and `render.yaml` explicitly calls `npm run build`.
+
+## 2026-02-12 - Render Build Script Robustness
+**Learning:** Build scripts relying on submodules must explicitly initialize them if not guaranteed by the CI environment. `cp` commands should use `source/.` instead of `source/*` to avoid failure on empty directories. Critical tools like `typescript` must be in `dependencies` if the build process invokes them, as production builds prune `devDependencies`.
+**Action:** Update `build` scripts to include `git submodule update --init --recursive` and use `cp -r source/. dest/`. Move `typescript` to `dependencies` for Docusaurus projects.
