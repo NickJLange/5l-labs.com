@@ -20,3 +20,19 @@
 ## 2026-02-08 - Dependencies for Production Build
 **Learning:** Build tools like `tailwindcss`, `postcss`, and `autoprefixer` are often needed during the production build of static sites. If they are in `devDependencies`, `bun install --production` (default on platforms like Render) will skip them, causing build failures.
 **Action:** Move build-critical tools from `devDependencies` to `dependencies` in `package.json` to ensure they are available in the production environment.
+
+## 2026-02-12 - Directional Affordance in Buttons
+**Learning:** Adding a directional icon (arrow) to primary action buttons enhances affordance. Animating it on hover/focus creates delight and reinforces the action direction.
+**Action:** Use the `readMoreBtn` pattern with inline SVG arrow and `transform` transition for future "Read More" or directional links.
+
+## 2026-02-12 - Render Build Configuration for NPM
+**Learning:** Render projects configured for NPM must track `package-lock.json` and remove `bun.lock` to avoid mixed package manager errors. The build command in `render.yaml` must use `npm run build`.
+**Action:** Ensure `package-lock.json` is not in `.gitignore`, `bun.lock` is removed, and `render.yaml` explicitly calls `npm run build`.
+
+## 2026-02-12 - Render Build Script Robustness
+**Learning:** Build scripts relying on submodules must explicitly initialize them if not guaranteed by the CI environment. `cp` commands should use `source/.` instead of `source/*` to avoid failure on empty directories. Critical tools like `typescript` must be in `dependencies` if the build process invokes them, as production builds prune `devDependencies`.
+**Action:** Update `build` scripts to include `git submodule update --init --recursive` and use `cp -r source/. dest/`. Move `typescript` to `dependencies` for Docusaurus projects.
+
+## 2026-02-12 - Render Submodule Configuration
+**Learning:** Render does not support SSH keys for submodules by default. Always use HTTPS URLs in `.gitmodules` for public submodules or when no SSH keys are configured.
+**Action:** Update `.gitmodules` to use HTTPS URLs (e.g., `https://github.com/...`) instead of SSH URLs.
