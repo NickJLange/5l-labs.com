@@ -245,6 +245,15 @@ def main():
     for url in tqdm(urls, desc="Generating embeddings"):
         # Replace the base URL for fetching content
         fetch_url = url.replace(replacement_base_url, embedding_content_base_url)
+
+        # SECURITY FIX: Ensure we are only fetching from the intended local server
+        if not fetch_url.startswith(embedding_content_base_url):
+            logger.warning(
+                f"Skipping {url} - fetches outside of expected base URL: {fetch_url}"
+            )
+            error_count += 1
+            continue
+
         logger.debug(f"Processing {fetch_url}...")
 
         content = get_page_content(fetch_url)

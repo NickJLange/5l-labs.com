@@ -116,11 +116,72 @@ def verify_response_size_limit():
 
     return True
 
+def verify_ssrf_protection():
+    print("\nVerifying SSRF protection...")
+
+    # Mock sitemap content
+    sitemap_content = """<?xml version="1.0" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        <url>
+            <loc>https://5l-labs.com/good-url</loc>
+        </url>
+        <url>
+            <loc>http://evil.com/ssrf-target</loc>
+        </url>
+    </urlset>
+    """
+
+    # Mock get_page_content
+    mock_get_page_content = MagicMock()
+
+    def side_effect(url, *args, **kwargs):
+        if "sitemap.xml" in url:
+            return sitemap_content
+        return "Generic content"
+
+    mock_get_page_content.side_effect = side_effect
+
+    # We need to mock toml.load to return predictable settings
+    mock_config = {
+        "settings": {
+            "replacement_base_url": "https://5l-labs.com",
+            "embedding_content_base_url": "http://localhost:3000"
+        }
+    }
+
+    with patch('generate_embeddings.get_page_content', mock_get_page_content), \
+         patch('generate_embeddings.get_embedding', return_value=[0.1]*10), \
+         patch('generate_embeddings.save_embedding'), \
+         patch('toml.load', return_value=mock_config), \
+         patch.dict(os.environ, {
+            'EMBEDDING_MODEL': 'test-model',
+            'OPENAI_API_BASE': 'http://localhost:11434/v1',
+            'OPENAI_API_KEY': 'ollama'
+         }):
+
+        try:
+            generate_embeddings.main()
+        except Exception as e:
+            print(f"Error running main: {e}")
+            return False
+
+    calls = [args[0] for args, _ in mock_get_page_content.call_args_list]
+    evil_fetched = any("evil.com" in url for url in calls)
+
+    if evil_fetched:
+        print("❌ SSRF check failed: external URL was fetched!")
+        return False
+    else:
+        print("✅ SSRF check passed: external URL was skipped.")
+        return True
+
 if __name__ == "__main__":
     success = True
     if not verify_path_traversal():
         success = False
     if not verify_response_size_limit():
+        success = False
+    if not verify_ssrf_protection():
         success = False
 
     if not success:
