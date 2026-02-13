@@ -39,6 +39,27 @@ logger = logging.getLogger(__name__)
 DEFAULT_EMBEDDING_MODEL_NAME = "nomic-embed-text:v1.5"
 
 
+def resolve_fetch_url(url: str, replacement_base: str, content_base: str) -> str | None:
+    """
+    Resolves the URL to fetch content from, ensuring it starts with the content base URL.
+    Returns None if the URL is invalid or points outside the content base.
+    """
+    fetch_url = url.replace(replacement_base, content_base)
+
+    # Ensure content_base ends with / for safer prefix matching to prevent
+    # attacks like http://localhost:3000.evil.com matching http://localhost:3000
+    base_with_slash = (
+        content_base if content_base.endswith("/") else f"{content_base}/"
+    )
+
+    if not (fetch_url == content_base or fetch_url.startswith(base_with_slash)):
+        logger.warning(
+            f"SSRF Protection: Skipping {url} - resolved to {fetch_url} which is outside {content_base}"
+        )
+        return None
+    return fetch_url
+
+
 def run_embed(input_text: str, model: str = DEFAULT_EMBEDDING_MODEL_NAME):
     """
     Gets an embedding using Ollama directly.
@@ -244,7 +265,11 @@ def main():
 
     for url in tqdm(urls, desc="Generating embeddings"):
         # Replace the base URL for fetching content
-        fetch_url = url.replace(replacement_base_url, embedding_content_base_url)
+        fetch_url = resolve_fetch_url(url, replacement_base_url, embedding_content_base_url)
+        if not fetch_url:
+            error_count += 1
+            continue
+
         logger.debug(f"Processing {fetch_url}...")
 
         content = get_page_content(fetch_url)
