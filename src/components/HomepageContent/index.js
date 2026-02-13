@@ -9,18 +9,31 @@ import latestPost from '../../generated/latest-post.json';
 function Section({ title, items }) {
   return (
     <div className={clsx('col col--6')}>
-      <div className="text--center padding-horiz--md">
-        <h3>{title}</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          {items.map((item, idx) => (
-            <li key={idx} style={{ marginBottom: '1rem' }}>
-              <strong>
+      <div className="padding-horiz--md">
+        <h3 className="text--center">{title}</h3>
+        {items.map((item, idx) => (
+          <div key={idx} className="card shadow--md margin-bottom--md">
+            <div className="card__header">
+              <h3>
                 {item.link ? <Link to={item.link}>{item.title}</Link> : item.title}
-              </strong>
-              : {item.description}
-            </li>
-          ))}
-        </ul>
+              </h3>
+            </div>
+            <div className="card__body">
+              <p>{item.description}</p>
+            </div>
+            {item.link && (
+              <div className="card__footer">
+                <Link
+                  to={item.link}
+                  className="button button--primary button--block"
+                  aria-label={`Learn more about ${item.title}`}
+                >
+                  Learn More
+                </Link>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   );
