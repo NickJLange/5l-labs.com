@@ -11,16 +11,26 @@ function Section({ title, items }) {
     <div className={clsx('col col--6')}>
       <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          {items.map((item, idx) => (
-            <li key={idx} style={{ marginBottom: '1rem' }}>
-              <strong>
-                {item.link ? <Link to={item.link}>{item.title}</Link> : item.title}
-              </strong>
-              : {item.description}
-            </li>
-          ))}
-        </ul>
+        <div className="card shadow--md">
+          <div className="card__body">
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {items.map((item, idx) => (
+                <li key={idx} style={{ marginBottom: '1rem' }}>
+                  <strong>
+                    {item.link ? (
+                      <Link to={item.link}>
+                        {item.title} <span aria-hidden="true">→</span>
+                      </Link>
+                    ) : (
+                      item.title
+                    )}
+                  </strong>
+                  &nbsp;{item.description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );
