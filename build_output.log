@@ -1,0 +1,18 @@
+$ node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus build
+Latest post generated: Time
+[INFO] Website will be built for all these locales:
+- en
+- ja
+[INFO] [en] Creating an optimized production build...
+[webpackbar] ℹ Compiling Client
+[webpackbar] ℹ Compiling Server
+[webpackbar] ✔ Server: Compiled successfully in 51.20s
+[webpackbar] ✔ Client: Compiled successfully in 1.32m
+[SUCCESS] Generated static files in "build".
+[INFO] [ja] Creating an optimized production build...
+[webpackbar] ℹ Compiling Client
+[webpackbar] ℹ Compiling Server
+[webpackbar] ✔ Server: Compiled successfully in 24.82s
+[webpackbar] ✔ Client: Compiled successfully in 1.24m
+[SUCCESS] Generated static files in "build/ja".
+[INFO] Use `npm run serve` command to test your build locally.

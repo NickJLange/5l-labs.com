@@ -116,11 +116,43 @@ def verify_response_size_limit():
 
     return True
 
+def verify_ssrf_protection():
+    print("\nVerifying SSRF protection (resolve_fetch_url)...")
+
+    replacement_base = "https://5l-labs.com"
+    target_base = "http://localhost:3000"
+
+    # Case 1: Malicious URL (prefix match)
+    malicious_url = "https://5l-labs.com.evil.com/pwned"
+    print(f"Test Case 1: Prefix matching attack: {malicious_url}")
+
+    resolved = generate_embeddings.resolve_fetch_url(malicious_url, replacement_base, target_base)
+    if resolved is None:
+        print("✅ Protection triggered (returned None)")
+    else:
+        print(f"❌ VULNERABILITY Case 1: Resolved to {resolved}")
+        return False
+
+    # Case 2: Valid URL
+    valid_url = "https://5l-labs.com/blog/cool-post"
+    print(f"Test Case 2: Valid URL: {valid_url}")
+    resolved = generate_embeddings.resolve_fetch_url(valid_url, replacement_base, target_base)
+    expected = "http://localhost:3000/blog/cool-post"
+    if resolved == expected:
+        print(f"✅ Resolved correctly to {resolved}")
+    else:
+        print(f"❌ Failed to resolve valid URL. Got {resolved}, expected {expected}")
+        return False
+
+    return True
+
 if __name__ == "__main__":
     success = True
     if not verify_path_traversal():
         success = False
     if not verify_response_size_limit():
+        success = False
+    if not verify_ssrf_protection():
         success = False
 
     if not success:

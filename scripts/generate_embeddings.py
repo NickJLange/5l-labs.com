@@ -6,18 +6,15 @@ import logging
 import os
 import sys
 import time
-try:
-    import defusedxml.ElementTree as ET
-except ImportError:
-    raise ImportError("defusedxml is required. Install it with: pip install defusedxml")
 from datetime import datetime
 from io import StringIO
 from pathlib import Path
 from urllib.parse import urlparse
 
-import requests
-import toml
-from tqdm import tqdm
+# Lazy import dependencies inside functions to prevent ImportErrors
+# import requests
+# import toml
+# from tqdm import tqdm
 
 # Conditionally import ollama if available
 try:
@@ -26,9 +23,8 @@ try:
     OLLAMA_AVAILABLE = True
 except ImportError:
     OLLAMA_AVAILABLE = False
-    logging.warning(
-        "ollama package not available. Only OpenAI-compatible API mode will work."
-    )
+    # Logging configuration happens later, so we can't log yet unless we move basicConfig up.
+    # But basicConfig is safe.
 
 
 logging.basicConfig(
@@ -59,6 +55,12 @@ def get_embedding(text, api_base, api_key, model):
     """
     Gets an embedding for the given text using an OpenAI-compatible API.
     """
+    try:
+        import requests
+    except ImportError:
+        logger.error("requests is required. Install it with: pip install requests")
+        return None
+
     headers = {
         "Content-Type": "application/json",
     }
@@ -83,6 +85,12 @@ def get_page_content(url, max_size=10 * 1024 * 1024):  # 10MB limit
     """
     Fetches the text content of a web page with a size limit.
     """
+    try:
+        import requests
+    except ImportError:
+        logger.error("requests is required. Install it with: pip install requests")
+        return None
+
     try:
         response = requests.get(url, timeout=30, stream=True)
         response.raise_for_status()
@@ -110,6 +118,38 @@ def get_page_content(url, max_size=10 * 1024 * 1024):  # 10MB limit
     except requests.exceptions.RequestException as e:
         logger.error(f"Error fetching page content from {url}: {e}")
         return None
+
+
+def resolve_fetch_url(url: str, replacement_base: str, target_base: str) -> str:
+    """
+    Safely resolves the fetch URL by replacing the base URL.
+    Enforces strict prefix matching to prevent SSRF/prefix-matching attacks.
+    """
+    if not url.startswith(replacement_base):
+        logger.warning(f"URL {url} does not start with expected base {replacement_base}")
+        return None
+
+    # Calculate the relative path
+    relative_path = url[len(replacement_base):]
+
+    # Construct the new URL
+    new_url = target_base + relative_path
+
+    # Security Check: Ensure the new URL strictly starts with the target_base
+    if not new_url.startswith(target_base):
+         logger.error(f"Security check failed: Resolved URL {new_url} does not start with target base {target_base}")
+         return None
+
+    # Prefix-matching protection:
+    # If target_base does not end with /, we must ensure the next char is a separator
+    # to avoid "http://host" matching "http://host.evil.com"
+    if not target_base.endswith('/') and len(new_url) > len(target_base):
+        next_char = new_url[len(target_base)]
+        if next_char not in ('/', '?', '#'):
+             logger.error(f"Security check failed: Prefix matching attack detected. {new_url} vs {target_base}")
+             return None
+
+    return new_url
 
 
 def url_to_file_path(
@@ -192,8 +232,22 @@ def save_embedding(
 
 
 def main():
+    # Load dependencies locally
+    try:
+        import toml
+        from tqdm import tqdm
+        import defusedxml.ElementTree as ET
+    except ImportError as e:
+        logger.error(f"Missing dependency: {e}. Install with: pip install -r scripts/requirements.txt")
+        sys.exit(1)
+
     # Configuration from config.toml
-    config = toml.load("scripts/config.toml")
+    try:
+        config = toml.load("scripts/config.toml")
+    except Exception as e:
+        logger.error(f"Failed to load config.toml: {e}")
+        return
+
     settings = config.get("settings", {})
 
     # Environment variables override config file
@@ -244,7 +298,13 @@ def main():
 
     for url in tqdm(urls, desc="Generating embeddings"):
         # Replace the base URL for fetching content
-        fetch_url = url.replace(replacement_base_url, embedding_content_base_url)
+        fetch_url = resolve_fetch_url(url, replacement_base_url, embedding_content_base_url)
+
+        if not fetch_url:
+             logger.warning(f"Skipping {url} - invalid fetch URL resolved")
+             error_count += 1
+             continue
+
         logger.debug(f"Processing {fetch_url}...")
 
         content = get_page_content(fetch_url)
