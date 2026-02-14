@@ -112,6 +112,38 @@ def get_page_content(url, max_size=10 * 1024 * 1024):  # 10MB limit
         return None
 
 
+def resolve_fetch_url(url: str, replacement_base: str, target_base: str) -> str:
+    """
+    Safely resolves the fetch URL by replacing the base URL.
+    Enforces strict prefix matching to prevent SSRF/prefix-matching attacks.
+    """
+    if not url.startswith(replacement_base):
+        logger.warning(f"URL {url} does not start with expected base {replacement_base}")
+        return None
+
+    # Calculate the relative path
+    relative_path = url[len(replacement_base):]
+
+    # Construct the new URL
+    new_url = target_base + relative_path
+
+    # Security Check: Ensure the new URL strictly starts with the target_base
+    if not new_url.startswith(target_base):
+         logger.error(f"Security check failed: Resolved URL {new_url} does not start with target base {target_base}")
+         return None
+
+    # Prefix-matching protection:
+    # If target_base does not end with /, we must ensure the next char is a separator
+    # to avoid "http://host" matching "http://host.evil.com"
+    if not target_base.endswith('/') and len(new_url) > len(target_base):
+        next_char = new_url[len(target_base)]
+        if next_char not in ('/', '?', '#'):
+             logger.error(f"Security check failed: Prefix matching attack detected. {new_url} vs {target_base}")
+             return None
+
+    return new_url
+
+
 def url_to_file_path(
     url: str, base_url: str, embeddings_dir: str = "embeddings"
 ) -> Path:
@@ -244,7 +276,13 @@ def main():
 
     for url in tqdm(urls, desc="Generating embeddings"):
         # Replace the base URL for fetching content
-        fetch_url = url.replace(replacement_base_url, embedding_content_base_url)
+        fetch_url = resolve_fetch_url(url, replacement_base_url, embedding_content_base_url)
+
+        if not fetch_url:
+             logger.warning(f"Skipping {url} - invalid fetch URL resolved")
+             error_count += 1
+             continue
+
         logger.debug(f"Processing {fetch_url}...")
 
         content = get_page_content(fetch_url)
