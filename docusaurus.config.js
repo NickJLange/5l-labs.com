@@ -27,7 +27,7 @@ const config = {
       attributes: {
         rel: 'preconnect',
         href: 'https://fonts.gstatic.com',
-        crossorigin: 'anonymous',
+        crossOrigin: 'anonymous',
       },
     },
   ],
