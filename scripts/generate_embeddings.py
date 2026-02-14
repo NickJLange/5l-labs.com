@@ -11,9 +11,10 @@ from io import StringIO
 from pathlib import Path
 from urllib.parse import urlparse
 
-import requests
-import toml
-from tqdm import tqdm
+# Lazy import dependencies inside functions to prevent ImportErrors
+# import requests
+# import toml
+# from tqdm import tqdm
 
 # Conditionally import ollama if available
 try:
@@ -22,9 +23,8 @@ try:
     OLLAMA_AVAILABLE = True
 except ImportError:
     OLLAMA_AVAILABLE = False
-    logging.warning(
-        "ollama package not available. Only OpenAI-compatible API mode will work."
-    )
+    # Logging configuration happens later, so we can't log yet unless we move basicConfig up.
+    # But basicConfig is safe.
 
 
 logging.basicConfig(
@@ -55,6 +55,12 @@ def get_embedding(text, api_base, api_key, model):
     """
     Gets an embedding for the given text using an OpenAI-compatible API.
     """
+    try:
+        import requests
+    except ImportError:
+        logger.error("requests is required. Install it with: pip install requests")
+        return None
+
     headers = {
         "Content-Type": "application/json",
     }
@@ -79,6 +85,12 @@ def get_page_content(url, max_size=10 * 1024 * 1024):  # 10MB limit
     """
     Fetches the text content of a web page with a size limit.
     """
+    try:
+        import requests
+    except ImportError:
+        logger.error("requests is required. Install it with: pip install requests")
+        return None
+
     try:
         response = requests.get(url, timeout=30, stream=True)
         response.raise_for_status()
@@ -220,15 +232,22 @@ def save_embedding(
 
 
 def main():
-    # Load optional dependency defusedxml
+    # Load dependencies locally
     try:
+        import toml
+        from tqdm import tqdm
         import defusedxml.ElementTree as ET
-    except ImportError:
-        logger.error("defusedxml is required. Install it with: pip install defusedxml")
+    except ImportError as e:
+        logger.error(f"Missing dependency: {e}. Install with: pip install -r scripts/requirements.txt")
         sys.exit(1)
 
     # Configuration from config.toml
-    config = toml.load("scripts/config.toml")
+    try:
+        config = toml.load("scripts/config.toml")
+    except Exception as e:
+        logger.error(f"Failed to load config.toml: {e}")
+        return
+
     settings = config.get("settings", {})
 
     # Environment variables override config file
