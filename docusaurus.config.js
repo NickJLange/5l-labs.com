@@ -13,6 +13,34 @@ const config = {
   onBrokenLinks: "throw",
   favicon: "img/favicon.svg",
 
+  // Optimization: Preconnect to font domains
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
+      },
+    },
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
+      },
+    },
+  ],
+
+  // Optimization: Load fonts asynchronously to avoid render blocking
+  stylesheets: [
+    {
+      href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap',
+      type: 'text/css',
+      rel: 'stylesheet',
+    },
+  ],
+
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "5L-Labs", // Usually your GitHub org/user name.
