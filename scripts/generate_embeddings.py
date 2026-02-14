@@ -6,10 +6,6 @@ import logging
 import os
 import sys
 import time
-try:
-    import defusedxml.ElementTree as ET
-except ImportError:
-    raise ImportError("defusedxml is required. Install it with: pip install defusedxml")
 from datetime import datetime
 from io import StringIO
 from pathlib import Path
@@ -224,6 +220,13 @@ def save_embedding(
 
 
 def main():
+    # Load optional dependency defusedxml
+    try:
+        import defusedxml.ElementTree as ET
+    except ImportError:
+        logger.error("defusedxml is required. Install it with: pip install defusedxml")
+        sys.exit(1)
+
     # Configuration from config.toml
     config = toml.load("scripts/config.toml")
     settings = config.get("settings", {})
