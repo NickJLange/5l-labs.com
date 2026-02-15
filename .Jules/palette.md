@@ -20,3 +20,7 @@
 ## 2026-02-08 - Dependencies for Production Build
 **Learning:** Build tools like `tailwindcss`, `postcss`, and `autoprefixer` are often needed during the production build of static sites. If they are in `devDependencies`, `bun install --production` (default on platforms like Render) will skip them, causing build failures.
 **Action:** Move build-critical tools from `devDependencies` to `dependencies` in `package.json` to ensure they are available in the production environment.
+
+## 2026-02-08 - Badge Positioning and Focus Visibility
+**Learning:** Fixed position elements in the bottom-right corner often conflict with standard "Back to Top" buttons or chat widgets, frustrating users. Additionally, relying solely on `:hover` for visual feedback excludes keyboard users.
+**Action:** Move fixed badges to the bottom-left and always implement `:focus-visible` styles with a distinct focus ring to ensure accessibility and avoid layout conflicts.
