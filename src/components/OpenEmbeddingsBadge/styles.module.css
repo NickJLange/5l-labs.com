@@ -26,3 +26,9 @@
   transform: scale(1.1);
   color: white !important;
 }
+
+.badgeLink:focus-visible {
+  outline: 3px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+  transform: scale(1.1);
+}
