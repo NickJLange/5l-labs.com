@@ -9,3 +9,7 @@
 ## 2025-05-24 - Hero Image Optimization & CLS
 **Learning:** Large unoptimized images in the hero section are a primary cause of slow LCP and CLS. Providing explicit `width` and `height` attributes to the `img` tag, even if overridden by CSS, allows the browser to reserve the correct aspect ratio space immediately.
 **Action:** Always optimize hero images (compress/resize) and define explicit dimensions to prevent layout shifts.
+
+## 2025-02-15 - Google Fonts Optimization
+**Learning:** Loading Google Fonts via `@import` in CSS blocks rendering and delays First Contentful Paint (FCP). Using `docusaurus.config.js` `stylesheets` and `headTags` (preconnect) allows parallel loading and faster connection setup.
+**Action:** Always configure external fonts in `docusaurus.config.js` instead of using CSS `@import`.
