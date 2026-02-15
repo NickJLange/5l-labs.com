@@ -140,6 +140,47 @@ def url_to_file_path(
     return file_path
 
 
+def resolve_fetch_url(original_url: str, replacement_base: str, target_base: str) -> str:
+    """
+    Safely resolves the fetch URL by replacing the base URL.
+    Validates that the original URL starts with the replacement base
+    and that the resulting URL strictly starts with the target base.
+    """
+    if not original_url.startswith(replacement_base):
+        logger.warning(
+            f"URL {original_url} does not start with expected base {replacement_base}"
+        )
+        return None
+
+    # Calculate the relative part
+    relative_path = original_url[len(replacement_base) :]
+
+    fetch_url = target_base + relative_path
+
+    # Security Check: Ensure fetch_url actually starts with target_base
+    if not fetch_url.startswith(target_base):
+        logger.warning(
+            f"Resolved URL {fetch_url} does not start with target base {target_base}"
+        )
+        return None
+
+    # Strict prefix check to prevent domain confusion (e.g. localhost:3000.evil.com)
+    if len(fetch_url) > len(target_base):
+        next_char = fetch_url[len(target_base)]
+        if (
+            not target_base.endswith("/")
+            and next_char != "/"
+            and next_char != "?"
+            and next_char != "#"
+        ):
+            logger.warning(
+                f"Potential prefix match attack: {fetch_url} vs {target_base}"
+            )
+            return None
+
+    return fetch_url
+
+
 def save_embedding(
     url: str,
     embedding: list,
@@ -243,8 +284,16 @@ def main():
     error_count = 0
 
     for url in tqdm(urls, desc="Generating embeddings"):
-        # Replace the base URL for fetching content
-        fetch_url = url.replace(replacement_base_url, embedding_content_base_url)
+        # Resolve the fetch URL safely
+        fetch_url = resolve_fetch_url(
+            url, replacement_base_url, embedding_content_base_url
+        )
+
+        if not fetch_url:
+            logger.warning(f"Skipping {url} - failed to resolve fetch URL safely")
+            error_count += 1
+            continue
+
         logger.debug(f"Processing {fetch_url}...")
 
         content = get_page_content(fetch_url)
