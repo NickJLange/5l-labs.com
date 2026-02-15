@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
-    "start": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus start",
-    "build": "node scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/* static/embeddings/ && docusaurus build",
+    "start": "bun scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/. static/embeddings/ && docusaurus start",
+    "build": "bun install && bun scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/. static/embeddings/ && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -27,9 +27,7 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-markdown": "^10.1.0",
-    "tailwindcss": "^3.4.18"
-  },
-  "devDependencies": {
+    "tailwindcss": "^3.4.18",
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
