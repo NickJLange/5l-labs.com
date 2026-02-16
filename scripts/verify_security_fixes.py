@@ -86,7 +86,7 @@ def verify_response_size_limit():
         mock_resp.raise_for_status.return_value = None
         mock_get.return_value = mock_resp
 
-        result = generate_embeddings.get_page_content("http://example.com/huge-header")
+        result = generate_embeddings.get_page_content("http://example.com/huge-header", "http://example.com")
         if result is None:
             print("✅ Content-Length check passed (returned None for 20MB)")
         else:
@@ -108,7 +108,7 @@ def verify_response_size_limit():
         mock_resp.iter_content.return_value = oversized_generator()
         mock_get.return_value = mock_resp
 
-        result = generate_embeddings.get_page_content("http://example.com/stream", max_size=10 * 1024 * 1024)
+        result = generate_embeddings.get_page_content("http://example.com/stream", "http://example.com", max_size=10 * 1024 * 1024)
         if result is None:
             print("✅ Stream size check passed (returned None for >10MB stream)")
         else:
@@ -155,9 +155,11 @@ def verify_ssrf_protection():
 
 def verify_redirect_protection():
     print("\nVerifying redirect protection...")
+    base_url = "http://example.com"
 
+    # Test 1: Malicious Redirect (External)
     with patch('requests.get') as mock_get:
-        # Simulate a 302 redirect
+        # Simulate a 302 redirect to external
         mock_resp = MagicMock()
         mock_resp.status_code = 302
         mock_resp.is_redirect = True
@@ -165,19 +167,44 @@ def verify_redirect_protection():
         mock_get.return_value = mock_resp
 
         url = "http://example.com/redirect"
-        result = generate_embeddings.get_page_content(url)
+        result = generate_embeddings.get_page_content(url, base_url)
 
         # Ensure allow_redirects=False was used
-        # Note: call_args returns (args, kwargs)
         args, kwargs = mock_get.call_args
         if kwargs.get('allow_redirects') is not False:
              print(f"❌ allow_redirects=False was NOT passed to requests.get! kwargs: {kwargs}")
              return False
 
         if result is None:
-            print("✅ Redirect correctly rejected (returned None)")
+            print("✅ External Redirect correctly rejected (returned None)")
         else:
-            print(f"❌ Redirect was NOT rejected (returned {result})")
+            print(f"❌ External Redirect was NOT rejected (returned {result})")
+            return False
+
+    # Test 2: Valid Redirect (Internal)
+    with patch('requests.get') as mock_get:
+        # 1st call: 301 Redirect
+        mock_resp_1 = MagicMock()
+        mock_resp_1.status_code = 301
+        mock_resp_1.is_redirect = True
+        mock_resp_1.headers = {'Location': '/foo/bar'} # Relative redirect
+
+        # 2nd call: 200 OK
+        mock_resp_2 = MagicMock()
+        mock_resp_2.status_code = 200
+        mock_resp_2.is_redirect = False
+        mock_resp_2.headers = {}
+        mock_resp_2.iter_content.return_value = iter(["Success"])
+
+        mock_get.side_effect = [mock_resp_1, mock_resp_2]
+
+        url = "http://example.com/foo"
+        result = generate_embeddings.get_page_content(url, base_url)
+
+        if result == "Success":
+            print("✅ Internal Redirect correctly followed")
+        else:
+            print(f"❌ Internal Redirect failed (returned {result})")
             return False
 
     return True
