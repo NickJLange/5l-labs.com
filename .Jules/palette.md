@@ -24,3 +24,7 @@
 ## 2026-02-09 - Focus Indicators for Custom Interactive Elements
 **Learning:** Custom-styled interactive elements (like fixed badges) often lose default browser focus outlines or have insufficient contrast.
 **Action:** Always add explicit `:focus-visible` styles (e.g., `outline`, `box-shadow`, `transform`) to ensure keyboard users can clearly see where they are navigating.
+
+## 2026-02-16 - Hardcoded Grid Classes in Components
+**Learning:** Components that hardcode layout classes (e.g., `col col--6`) limit their reusability and make layout adjustments difficult.
+**Action:** Pass layout classes as props or handle layout in the parent container, keeping components focused on content.
