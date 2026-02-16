@@ -12,3 +12,8 @@
 **Vulnerability:** The `generate_embeddings.py` script fetched external URLs without a size limit, potentially leading to memory exhaustion (DoS) if a large file or infinite stream was encountered.
 **Learning:** `requests.get()` by default downloads the entire response body into memory.
 **Prevention:** Always use `stream=True` with `requests.get()` and enforce a strict byte/size limit when iterating over the response content.
+
+## 2026-02-18 - [SSRF via Open Redirects in requests]
+**Vulnerability:** `requests.get()` follows redirects by default, which can bypass SSRF protections (e.g., `startswith` checks) if the allowed URL redirects to a forbidden internal or malicious URL.
+**Learning:** Checking the initial URL is insufficient for SSRF protection when using libraries that automatically follow redirects. Also, mocking `requests` in tests requires careful handling of `MagicMock` attributes like `is_redirect` which default to Truthy.
+**Prevention:** Always set `allow_redirects=False` when fetching potentially untrusted URLs in security-sensitive contexts, or validate the redirect target explicitly.
