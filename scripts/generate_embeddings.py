@@ -84,7 +84,14 @@ def get_page_content(url, max_size=10 * 1024 * 1024):  # 10MB limit
     Fetches the text content of a web page with a size limit.
     """
     try:
-        response = requests.get(url, timeout=30, stream=True)
+        # Security: Disable redirects to prevent SSRF
+        response = requests.get(url, timeout=30, stream=True, allow_redirects=False)
+
+        # Check for redirects
+        if response.is_redirect:
+            logger.warning(f"Skipping {url}: Redirects not allowed (status {response.status_code})")
+            return None
+
         response.raise_for_status()
 
         # Check Content-Length if available

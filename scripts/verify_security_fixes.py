@@ -81,6 +81,7 @@ def verify_response_size_limit():
     # 1. Content-Length check
     with patch('requests.get') as mock_get:
         mock_resp = MagicMock()
+        mock_resp.is_redirect = False
         mock_resp.headers = {'Content-Length': str(20 * 1024 * 1024)} # 20MB
         mock_resp.raise_for_status.return_value = None
         mock_get.return_value = mock_resp
@@ -95,6 +96,7 @@ def verify_response_size_limit():
     # 2. Stream size check
     with patch('requests.get') as mock_get:
         mock_resp = MagicMock()
+        mock_resp.is_redirect = False
         mock_resp.headers = {}
         mock_resp.raise_for_status.return_value = None
         # Generator yielding 1MB chunks
@@ -151,6 +153,35 @@ def verify_ssrf_protection():
 
     return True
 
+def verify_redirect_protection():
+    print("\nVerifying redirect protection...")
+
+    with patch('requests.get') as mock_get:
+        # Simulate a 302 redirect
+        mock_resp = MagicMock()
+        mock_resp.status_code = 302
+        mock_resp.is_redirect = True
+        mock_resp.headers = {'Location': 'http://malicious.com'}
+        mock_get.return_value = mock_resp
+
+        url = "http://example.com/redirect"
+        result = generate_embeddings.get_page_content(url)
+
+        # Ensure allow_redirects=False was used
+        # Note: call_args returns (args, kwargs)
+        args, kwargs = mock_get.call_args
+        if kwargs.get('allow_redirects') is not False:
+             print(f"❌ allow_redirects=False was NOT passed to requests.get! kwargs: {kwargs}")
+             return False
+
+        if result is None:
+            print("✅ Redirect correctly rejected (returned None)")
+        else:
+            print(f"❌ Redirect was NOT rejected (returned {result})")
+            return False
+
+    return True
+
 if __name__ == "__main__":
     success = True
     if not verify_path_traversal():
@@ -158,6 +189,8 @@ if __name__ == "__main__":
     if not verify_response_size_limit():
         success = False
     if not verify_ssrf_protection():
+        success = False
+    if not verify_redirect_protection():
         success = False
 
     if not success:
