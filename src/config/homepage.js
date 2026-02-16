@@ -21,12 +21,12 @@ const homepageConfig = {
     {
       title: "Recruiter Rankings (Preview)",
       description: "The industry standard for evaluating and ranking recruitment firms based on verified performance and data.",
-      link: "https://www.recruiter-rankings.com",
+      link: "http://recruiter-rankings.com",
     },
     {
       title: "Open Embeddings",
       description: "A community-driven standard and registry for high-quality, open-source vector embeddings for AI applications.",
-      link: "https://www.open-embeddings.org",
+      link: "http://www.open-embeddings.org",
     },
     {
       title: "Overlord Network Kill Switch",

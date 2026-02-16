@@ -3,7 +3,7 @@ services:
   - type: web
     name: 5L Labs.com
     env: static
-    buildCommand: pip install -r scripts/requirements.txt && bun run build
+    buildCommand: npm install && npm run build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
@@ -33,5 +33,3 @@ envVarGroups:
     envVars:
       - key: NODE_VERSION
         value: 18.17.0
-      - key: BUN_VERSION
-        value: 1.2.14
