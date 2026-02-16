@@ -28,3 +28,11 @@
 ## 2026-02-16 - Hardcoded Grid Classes in Components
 **Learning:** Components that hardcode layout classes (e.g., `col col--6`) limit their reusability and make layout adjustments difficult.
 **Action:** Pass layout classes as props or handle layout in the parent container, keeping components focused on content.
+
+## 2026-02-16 - Render Submodules and SSH
+**Learning:** Render does not support SSH submodule URLs by default.
+**Action:** Always use HTTPS URLs for public submodules in `.gitmodules` to ensure Render can clone them without SSH keys.
+
+## 2026-02-16 - Render Bun Version
+**Learning:** Render's default Bun version may be outdated and incompatible with modern (text-based) `bun.lock`.
+**Action:** Explicitly set `BUN_VERSION` in `render.yaml` (via `envVarGroups`) to match the local version (e.g., 1.2.14).
