@@ -6,12 +6,13 @@ import logging
 import os
 import sys
 import time
+from datetime import datetime
+
 try:
     import defusedxml.ElementTree as ET
 except ImportError:
     import xml.etree.ElementTree as ET
     logging.warning("defusedxml not found. Falling back to unsafe xml.etree.ElementTree! Install defusedxml for XXE protection.")
-from datetime import datetime
 from io import StringIO
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
