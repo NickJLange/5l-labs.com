@@ -9,11 +9,12 @@ import time
 try:
     import defusedxml.ElementTree as ET
 except ImportError:
-    raise ImportError("defusedxml is required. Install it with: pip install defusedxml")
+    import xml.etree.ElementTree as ET
+    logging.warning("defusedxml not found. Falling back to unsafe xml.etree.ElementTree! Install defusedxml for XXE protection.")
 from datetime import datetime
 from io import StringIO
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urlparse, urljoin
 
 import requests
 import toml
@@ -79,44 +80,81 @@ def get_embedding(text, api_base, api_key, model):
         return None
 
 
-def get_page_content(url, max_size=10 * 1024 * 1024):  # 10MB limit
+def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5):  # 10MB limit
     """
-    Fetches the text content of a web page with a size limit.
+    Fetches the text content of a web page with a size limit and safe redirect following.
     """
-    try:
-        # Security: Disable redirects to prevent SSRF
-        response = requests.get(url, timeout=30, stream=True, allow_redirects=False)
+    current_url = url
+    redirect_count = 0
 
-        # Check for redirects
-        if response.is_redirect:
-            logger.warning(f"Skipping {url}: Redirects not allowed (status {response.status_code})")
+    while redirect_count <= max_redirects:
+        try:
+            # Security: Disable redirects to prevent SSRF, handle manually
+            response = requests.get(current_url, timeout=30, stream=True, allow_redirects=False)
+
+            # Check for redirects
+            if response.is_redirect:
+                redirect_count += 1
+                location = response.headers.get('Location')
+                if not location:
+                    logger.warning(f"Skipping {current_url}: Redirect without Location header")
+                    return None
+
+                # Resolve relative redirects
+                next_url = urljoin(current_url, location)
+
+                # Security Check: Ensure next_url starts with base_url (SSRF protection)
+                if not next_url.startswith(base_url):
+                    logger.warning(f"Skipping {current_url}: Redirect to external/forbidden URL {next_url}")
+                    return None
+
+                # Strict prefix check to prevent domain confusion (e.g. localhost:3000.evil.com)
+                if len(next_url) > len(base_url):
+                    next_char = next_url[len(base_url)]
+                    if (
+                        not base_url.endswith("/")
+                        and next_char != "/"
+                        and next_char != "?"
+                        and next_char != "#"
+                    ):
+                        logger.warning(
+                            f"Skipping {current_url}: Potential prefix match attack: {next_url} vs {base_url}"
+                        )
+                        return None
+
+                logger.debug(f"Following redirect: {current_url} -> {next_url}")
+                current_url = next_url
+                continue
+
+            response.raise_for_status()
+
+            # Check Content-Length if available
+            if 'Content-Length' in response.headers:
+                try:
+                    content_length = int(response.headers['Content-Length'])
+                    if content_length > max_size:
+                        logger.warning(f"Skipping {url}: Content-Length {content_length} exceeds limit {max_size}")
+                        return None
+                except (ValueError, TypeError):
+                    pass  # Ignore invalid Content-Length
+
+            content_chunks = []
+            current_size = 0
+            for chunk in response.iter_content(chunk_size=8192, decode_unicode=True):
+                if chunk:
+                    content_chunks.append(chunk)
+                    current_size += len(chunk)
+                    if current_size > max_size:
+                        logger.warning(f"Skipping {url}: Content size exceeds limit {max_size}")
+                        return None
+            return "".join(content_chunks)
+
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Error fetching page content from {url}: {e}")
             return None
 
-        response.raise_for_status()
-
-        # Check Content-Length if available
-        if 'Content-Length' in response.headers:
-            try:
-                content_length = int(response.headers['Content-Length'])
-                if content_length > max_size:
-                    logger.warning(f"Skipping {url}: Content-Length {content_length} exceeds limit {max_size}")
-                    return None
-            except (ValueError, TypeError):
-                pass  # Ignore invalid Content-Length
-
-        content_chunks = []
-        current_size = 0
-        for chunk in response.iter_content(chunk_size=8192, decode_unicode=True):
-            if chunk:
-                content_chunks.append(chunk)
-                current_size += len(chunk)
-                if current_size > max_size:
-                    logger.warning(f"Skipping {url}: Content size exceeds limit {max_size}")
-                    return None
-        return "".join(content_chunks)
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Error fetching page content from {url}: {e}")
-        return None
+    logger.warning(f"Skipping {url}: Too many redirects ({max_redirects})")
+    return None
 
 
 def url_to_file_path(
@@ -258,7 +296,7 @@ def main():
     # Get sitemap
     sitemap_url = embedding_content_base_url + "/sitemap.xml"
     logger.info(f"Fetching sitemap from {sitemap_url}...")
-    sitemap_content = get_page_content(sitemap_url)
+    sitemap_content = get_page_content(sitemap_url, embedding_content_base_url)
 
     if not sitemap_content:
         logger.error(f"Failed to fetch sitemap from {sitemap_url}")
@@ -303,7 +341,7 @@ def main():
 
         logger.debug(f"Processing {fetch_url}...")
 
-        content = get_page_content(fetch_url)
+        content = get_page_content(fetch_url, embedding_content_base_url)
         if not content:
             logger.warning(f"Skipping {url} - failed to fetch content")
             error_count += 1
