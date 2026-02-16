@@ -7,6 +7,9 @@ services:
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
+    envVars:
+      - key: BUN_VERSION
+        value: 1.2.14
     headers:
       - path: /*
         name: X-Frame-Options
