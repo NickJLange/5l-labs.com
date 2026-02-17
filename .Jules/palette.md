@@ -24,3 +24,7 @@
 ## 2026-02-09 - Focus Indicators for Custom Interactive Elements
 **Learning:** Custom-styled interactive elements (like fixed badges) often lose default browser focus outlines or have insufficient contrast.
 **Action:** Always add explicit `:focus-visible` styles (e.g., `outline`, `box-shadow`, `transform`) to ensure keyboard users can clearly see where they are navigating.
+
+## 2026-02-12 - Visual Affordance in Lists
+**Learning:** Plain text lists of links lack visual affordance and scannability.
+**Action:** Add subtle directional indicators (like arrows) to links in lists and ensure they are `aria-hidden` to avoid redundancy for screen readers.
