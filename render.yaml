@@ -3,10 +3,15 @@ services:
   - type: web
     name: 5L Labs.com
     env: static
-    buildCommand: pip install -r scripts/requirements.txt && bun run build
+    buildCommand: bun install && bun run build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
+    envVars:
+      - key: BUN_VERSION
+        value: 1.2.14
+      - key: SKIP_INSTALL_DEPS
+        value: true
     headers:
       - path: /*
         name: X-Frame-Options
