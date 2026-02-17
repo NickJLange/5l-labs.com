@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "bun scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/. static/embeddings/ && docusaurus start",
-    "build": "bun install && bun scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/. static/embeddings/ && docusaurus build",
+    "build": "bun scripts/generate-latest-post.js && mkdir -p static/embeddings && cp -r embeddings/. static/embeddings/ && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -47,6 +47,7 @@
     ]
   },
   "engines": {
-    "node": ">=18.0"
+    "node": ">=18.0",
+    "bun": ">=1.0.0"
   }
 }
