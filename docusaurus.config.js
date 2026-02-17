@@ -129,11 +129,11 @@ const config = {
             items: [
               {
                 label: "Open Embeddings",
-                href: "http://www.open-embeddings.org",
+                href: "https://www.open-embeddings.org",
               },
               {
                 label: "Recruiter Rankings (Preview)",
-                href: "http://recruiter-rankings.com",
+                href: "https://www.recruiter-rankings.com",
               },
               {
                 label: "Overlord Network Kill Switch",
