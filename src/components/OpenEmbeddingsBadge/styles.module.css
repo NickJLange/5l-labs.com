@@ -1,7 +1,7 @@
 .badgeWrapper {
   position: fixed;
   bottom: 20px;
-  right: 20px;
+  left: 20px;
   z-index: 2147483647;
 }
 
@@ -19,7 +19,8 @@
   font-weight: bold;
   font-size: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
+  outline: none;
 }
 
 .badgeLink:hover {
@@ -31,4 +32,5 @@
   outline: 3px solid var(--ifm-color-primary);
   outline-offset: 2px;
   transform: scale(1.1);
+  color: white !important;
 }
