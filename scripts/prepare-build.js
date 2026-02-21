@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 console.log('Running build preparation steps...');
 
@@ -8,8 +8,8 @@ console.log('Running build preparation steps...');
 const generatePostScript = path.join(__dirname, 'generate-latest-post.js');
 console.log(`Executing ${generatePostScript}...`);
 try {
-    // Use node to execute the script
-    execSync(`node "${generatePostScript}"`, { stdio: 'inherit' });
+    // Use execFileSync to execute the script directly without a shell for safety
+    execFileSync('node', [generatePostScript], { stdio: 'inherit' });
 } catch (error) {
     console.error('Failed to run generate-latest-post.js:', error);
     process.exit(1);
@@ -26,8 +26,8 @@ if (!fs.existsSync(destDir)) {
     fs.mkdirSync(destDir, { recursive: true });
 }
 
-// Check if source exists and is a directory
-if (fs.existsSync(sourceDir) && fs.lstatSync(sourceDir).isDirectory()) {
+// Check if source exists and is a directory (using statSync to follow symlinks)
+if (fs.existsSync(sourceDir) && fs.statSync(sourceDir).isDirectory()) {
     try {
         // Check if directory is empty
         const files = fs.readdirSync(sourceDir);
@@ -45,8 +45,8 @@ if (fs.existsSync(sourceDir) && fs.lstatSync(sourceDir).isDirectory()) {
                  // Fallback
                  // Using cp -r might fail if empty or weird.
                  // Just walk and copy. But Node 18 supports cpSync.
-                 console.warn("fs.cpSync not found (unexpected on Node 18). Attempting cp command.");
-                 execSync(`cp -r "${sourceDir}/." "${destDir}/"`, { stdio: 'inherit' });
+                 console.warn("fs.cpSync not found (unexpected on Node 18+). Attempting cp command.");
+                 execFileSync('cp', ['-r', `${sourceDir}/.`, `${destDir}/`], { stdio: 'inherit' });
             }
             console.log('Embeddings copied successfully.');
         }

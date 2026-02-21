@@ -11,8 +11,7 @@ from datetime import datetime
 try:
     import defusedxml.ElementTree as ET
 except ImportError:
-    import xml.etree.ElementTree as ET
-    logging.warning("defusedxml not found. Falling back to unsafe xml.etree.ElementTree! Install defusedxml for XXE protection.")
+    raise ImportError("defusedxml is required for secure XML parsing. Install it with: pip install defusedxml")
 from io import StringIO
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
@@ -88,7 +87,7 @@ def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5):
     current_url = url
     redirect_count = 0
 
-    while redirect_count <= max_redirects:
+    while redirect_count < max_redirects:
         try:
             # Security: Disable redirects to prevent SSRF, handle manually
             response = requests.get(current_url, timeout=30, stream=True, allow_redirects=False)
@@ -98,6 +97,7 @@ def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5):
                 redirect_count += 1
                 location = response.headers.get('Location')
                 if not location:
+                    response.close()
                     logger.warning(f"Skipping {current_url}: Redirect without Location header")
                     return None
 
@@ -106,6 +106,7 @@ def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5):
 
                 # Security Check: Ensure next_url starts with base_url (SSRF protection)
                 if not next_url.startswith(base_url):
+                    response.close()
                     logger.warning(f"Skipping {current_url}: Redirect to external/forbidden URL {next_url}")
                     return None
 
@@ -118,6 +119,7 @@ def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5):
                         and next_char != "?"
                         and next_char != "#"
                     ):
+                        response.close()
                         logger.warning(
                             f"Skipping {current_url}: Potential prefix match attack: {next_url} vs {base_url}"
                         )
@@ -125,6 +127,7 @@ def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5):
 
                 logger.debug(f"Following redirect: {current_url} -> {next_url}")
                 current_url = next_url
+                response.close()
                 continue
 
             response.raise_for_status()
