@@ -15,7 +15,7 @@
 
 ## 2026-02-08 - Render Build Commands for Custom Scripts
 **Learning:** `npx docusaurus build` in `render.yaml` bypasses `package.json` scripts. If a project relies on pre-build scripts (e.g., generating content), using the framework command directly causes build failures due to missing assets.
-**Action:** Always use `npm run build` (or equivalent) in `render.yaml` to ensure the full build pipeline defined in `package.json` is executed.
+**Action:** Always use `bun run build` (or equivalent) in `render.yaml` to ensure the full build pipeline defined in `package.json` is executed.
 
 ## 2026-02-08 - Dependencies for Production Build
 **Learning:** Build tools like `tailwindcss`, `postcss`, and `autoprefixer` are often needed during the production build of static sites. If they are in `devDependencies`, `bun install --production` (default on platforms like Render) will skip them, causing build failures.

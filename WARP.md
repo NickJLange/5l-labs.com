@@ -13,7 +13,7 @@ This is the 5L Labs company website (5l-labs.com), built with Docusaurus 2. The 
 - **Language**: JavaScript/TypeScript with JSX/TSX components
 - **Styling**: CSS Modules + custom CSS
 - **Deployment**: Render.com (configured via `render.yaml`)
-- **Package Manager**: npm/yarn (both supported, bun.lock suggests Bun is also used)
+- **Package Manager**: bun (standardized for development and build)
 
 ### Site Structure
 - **Main Blog** (`/blog/`) - Private AI/ML content  
@@ -43,37 +43,27 @@ Supports multiple locales (English and Japanese) configured in `docusaurus.confi
 ### Setup and Development
 ```bash
 # Install dependencies
-yarn install
-# or
-npm install
+bun install
 
 # Start development server (opens browser automatically)
-yarn start
-# or  
-npm run start
+bun run start
 
 # Build for production
-yarn build
-# or
-npm run build
+bun run build
 
 # Serve production build locally
-yarn serve
-# or
-npm run serve
+bun run serve
 
 # Clear cache and generated files
-yarn clear
-# or
-npm run clear
+bun run clear
 ```
 
 ### Deployment and Preview
 ```bash
 # Deploy to GitHub Pages (if configured)
-yarn deploy
+bun run deploy
 # or with SSH
-USE_SSH=true yarn deploy
+USE_SSH=true bun run deploy
 
 # Preview deployment (requires .env file with PUSH_URL and RENDER_SERVICE)
 ./preview.sh
@@ -82,13 +72,13 @@ USE_SSH=true yarn deploy
 ### Content Management
 ```bash
 # Generate translation files
-yarn write-translations
+bun run write-translations
 
 # Generate heading IDs for existing content
-yarn write-heading-ids
+bun run write-heading-ids
 
 # Customize Docusaurus components
-yarn swizzle
+bun run swizzle
 ```
 
 ### Embedding Generation
@@ -132,7 +122,7 @@ The site auto-deploys via Render.com when changes are pushed to the `main` branc
 ## Key Configuration Files
 - `docusaurus.config.js` - Main Docusaurus configuration including themes, plugins, and navigation
 - `sidebars.js` - Documentation sidebar configuration  
-- `package.json` - Dependencies and npm scripts
+- `package.json` - Dependencies and bun scripts
 - `render.yaml` - Render.com deployment configuration
 - `scripts/config.toml` - Embedding generation configuration
 

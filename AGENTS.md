@@ -56,7 +56,7 @@ When consolidating multiple pull requests (local forks or upstream) into a unifi
 - **Sequential Merge**: Merge (or cherry-pick) all relevant PR branches. Resolve conflicts by prioritizing the project's architectural direction (e.g., standardizing on NPM over Bun).
 
 ### 2. Mandatory Verification (Multi-Layer)
-- **Local Build**: Run the full build pipeline (e.g., `npm run build`). Verify that build scripts (like `prepare-build.js`) handle assets correctly.
+- **Local Build**: Run the full build pipeline (e.g., `bun run build`). Verify that build scripts (like `prepare-build.js`) handle assets correctly.
 - **Automated Logic/Security Tests**: Run all domain-specific tests (e.g., `uv run scripts/verify_security_fixes.py`).
 - **CI Validation**: Verify that GitHub Actions pass for the consolidated branch.
 - **Deployment Verification**:

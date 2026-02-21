@@ -11,7 +11,7 @@ from datetime import datetime
 try:
     import defusedxml.ElementTree as ET
 except ImportError:
-    raise ImportError("defusedxml is required for secure XML parsing. Install it with: pip install defusedxml")
+    raise ImportError("defusedxml is required for secure XML parsing. Install it with: uv pip install defusedxml")
 from io import StringIO
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
@@ -46,7 +46,7 @@ def run_embed(input_text: str, model: str = DEFAULT_EMBEDDING_MODEL_NAME):
     """
     if not OLLAMA_AVAILABLE:
         raise RuntimeError(
-            "Ollama package is not available. Install it with: pip install ollama"
+            "Ollama package is not available. Install it with: uv pip install ollama"
         )
 
     ollama_response = ollama.embed(model, input_text)
@@ -305,7 +305,7 @@ def main():
     if not sitemap_content:
         logger.error(f"Failed to fetch sitemap from {sitemap_url}")
         logger.error(
-            "Make sure the dev server is running with: npm start or yarn start"
+            "Make sure the dev server is running with: bun run start"
         )
         return
 
