@@ -3,7 +3,7 @@ services:
   - type: web
     name: 5L Labs.com
     env: static
-    buildCommand: npm install && npm run build
+    buildCommand: bun install && bun run build
     staticPublishPath: ./build
     pullRequestPreviewsEnabled: true # optional
     branch: main
