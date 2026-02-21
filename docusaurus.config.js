@@ -13,6 +13,10 @@ const config = {
   onBrokenLinks: "throw",
   favicon: "img/favicon.svg",
 
+  stylesheets: [
+    "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+  ],
+
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "5L-Labs", // Usually your GitHub org/user name.
@@ -129,11 +133,11 @@ const config = {
             items: [
               {
                 label: "Open Embeddings",
-                href: "http://www.open-embeddings.org",
+                href: "https://www.open-embeddings.org",
               },
               {
                 label: "Recruiter Rankings (Preview)",
-                href: "http://recruiter-rankings.com",
+                href: "https://www.recruiter-rankings.com",
               },
               {
                 label: "Overlord Network Kill Switch",
