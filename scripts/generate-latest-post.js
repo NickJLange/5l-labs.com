@@ -11,20 +11,32 @@ const BLOG_DIRS = [
 
 const OUTPUT_FILE = path.join(__dirname, '../src/generated/latest-post.json');
 
+const TRUNCATE_RE = /<!-- truncate -->[\s\S]*$/;
+const HTML_TAGS_RE = /<[^>]*>/g;
+const IMAGES_RE = /!\[(.*?)\]\(.*?\)/g;
+const LINKS_RE = /\[(.*?)\]\(.*?\)/g;
+const HEADINGS_RE = /^#+\s+/gm;
+const BLOCKQUOTES_RE = /^>\s+/gm;
+const CODE_BLOCKS_RE = /```[\s\S]*?```/g;
+const INLINE_CODE_RE = /`([^`]+)`/g;
+const BOLD_ITALIC_RE = /[*_]{1,3}(.*?)[*_]{1,3}/g;
+const HR_RE = /^-{3,}$/gm;
+const NEWLINES_RE = /\n+/g;
+
 function stripMarkdown(markdown) {
     if (!markdown) return '';
     return markdown
-        .replace(/<!-- truncate -->[\s\S]*$/, '') // Remove everything after truncate
-        .replace(/<[^>]*>/g, '') // Remove HTML tags
-        .replace(/!\[(.*?)\]\(.*?\)/g, '') // Remove images
-        .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links but keep text
-        .replace(/^#+\s+/gm, '') // Remove headings
-        .replace(/^>\s+/gm, '') // Remove blockquotes
-        .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-        .replace(/`([^`]+)`/g, '$1') // Remove inline code
-        .replace(/[*_]{1,3}(.*?)[*_]{1,3}/g, '$1') // Remove bold/italic
-        .replace(/^-{3,}$/gm, '') // Remove hr
-        .replace(/\n+/g, ' ') // Collapse newlines
+        .replace(TRUNCATE_RE, '') // Remove everything after truncate
+        .replace(HTML_TAGS_RE, '') // Remove HTML tags
+        .replace(IMAGES_RE, '') // Remove images
+        .replace(LINKS_RE, '$1') // Remove links but keep text
+        .replace(HEADINGS_RE, '') // Remove headings
+        .replace(BLOCKQUOTES_RE, '') // Remove blockquotes
+        .replace(CODE_BLOCKS_RE, '') // Remove code blocks
+        .replace(INLINE_CODE_RE, '$1') // Remove inline code
+        .replace(BOLD_ITALIC_RE, '$1') // Remove bold/italic
+        .replace(HR_RE, '') // Remove hr
+        .replace(NEWLINES_RE, ' ') // Collapse newlines
         .trim();
 }
 
