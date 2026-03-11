@@ -30,6 +30,7 @@ function stripMarkdown(markdown) {
 
 function getLatestPost() {
     let latestPost = null;
+    const DATE_REGEX = /^(\d{4})-(\d{2})-(\d{2})/;
 
     BLOG_DIRS.forEach(dir => {
         const dirPath = path.join(__dirname, '..', dir);
@@ -40,7 +41,7 @@ function getLatestPost() {
             if (!file.endsWith('.md') && !file.endsWith('.mdx')) return;
 
             // Extract date from filename (YYYY-MM-DD-...)
-            const match = file.match(/^(\d{4})-(\d{2})-(\d{2})/);
+            const match = file.match(DATE_REGEX);
             if (!match) return;
 
             const [_, yearStr, monthStr, dayStr] = match;
