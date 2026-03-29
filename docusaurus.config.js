@@ -221,8 +221,17 @@ const config = {
                 href: "https://www.linkedin.com/company/5l-labs/",
               },
               {
-                label: "Twitter",
-                href: "https://twitter.com/5l_labs",
+              label: "Twitter",
+              href: "https://twitter.com/5l_labs",
+            },
+          ],
+        },
+          {
+            title: "Legal",
+            items: [
+              {
+                label: "Privacy Policy",
+                to: "/privacy-policy",
               },
             ],
           },
