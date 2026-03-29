@@ -6,7 +6,7 @@ import Layout from "@theme/Layout";
 import HomepageContent from "../components/HomepageContent";
 import styles from "./index.module.css";
 
-import Logo from "@site/static/img/5L_Labs_Logo.png";
+import Logo from "@site/static/img/5L_Labs_Logo.webp";
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
