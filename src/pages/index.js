@@ -6,7 +6,7 @@ import Layout from "@theme/Layout";
 import HomepageContent from "../components/HomepageContent";
 import styles from "./index.module.css";
 
-import Logo from "@site/static/img/5L_Labs_Logo.png";
+import Logo from "@site/static/img/5L_Labs_Logo.webp"; // ⚡ Bolt: Using WebP instead of PNG reduces image size from 233KB to 31KB, improving LCP and load times
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
