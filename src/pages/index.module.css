@@ -1,23 +1,187 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 13px;
+}
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+/* ── Terminal banner ── */
+.terminal {
+  padding: 20px 24px;
+  background: #101010;
+  color: #e8e6df;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 13px;
+  line-height: 1.6;
+  border-radius: 4px;
+  margin-bottom: 40px;
   position: relative;
-  overflow: hidden;
 }
+.terminalPrompt { color: #7bd27b; }
+.terminalDir    { color: #f0a060; }
+.terminalCursor { color: var(--ifm-color-primary); }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-}
+/* ── Index section ── */
+.indexSection { margin-bottom: 36px; }
 
-.buttons {
+.indexHeader {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  color: var(--ifm-color-content-secondary);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.indexTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 13px;
+}
+.indexTable thead tr {
+  border-bottom: 1.5px solid var(--ifm-color-content);
+  text-align: left;
+  color: var(--ifm-color-content-secondary);
+}
+.indexTable thead th {
+  padding: 8px 4px;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.indexTable thead th:last-child { text-align: right; }
+
+.indexTable tbody tr {
+  border-bottom: 1px dashed var(--ifm-color-emphasis-300);
+}
+.indexTable tbody tr:hover {
+  background: var(--ifm-color-emphasis-100);
+}
+.indexTable tbody td {
+  padding: 10px 4px;
+  color: var(--ifm-color-content-secondary);
+  vertical-align: middle;
+}
+.indexTable tbody td.titleCell {
+  font-family: var(--ifm-heading-font-family, var(--ifm-font-family-base));
+  font-size: 15px;
+  color: var(--ifm-color-content);
+}
+.indexTable tbody td.titleCell a {
+  color: var(--ifm-color-content);
+  text-decoration: none;
+}
+.indexTable tbody td.titleCell a:hover {
+  color: var(--ifm-color-primary);
+}
+.indexTable tbody td:last-child { text-align: right; }
+
+.loadMore {
+  text-align: center;
+  margin-top: 14px;
+  color: var(--ifm-color-content-secondary);
+  font-size: 12px;
+}
+
+/* ── Chips ── */
+.chip {
+  display: inline-block;
+  border: 1.2px solid var(--ifm-color-emphasis-400);
+  padding: 2px 8px;
+  font-size: 11px;
+  font-family: var(--ifm-font-family-monospace);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ifm-color-content-secondary);
+  cursor: pointer;
+}
+.chipActive {
+  border-color: var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+}
+
+/* ── Two-column lower section ── */
+.twoCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.box {
+  border: 1.5px solid var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.boxLabel {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ifm-color-primary);
+  margin-bottom: 12px;
+}
+
+.projectRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--ifm-color-emphasis-300);
+}
+.projectRow:last-of-type { border-bottom: none; }
+.projectName { color: var(--ifm-color-content); text-decoration: none; }
+.projectName:hover { color: var(--ifm-color-primary); }
+.projectMeta { color: var(--ifm-color-content-secondary); }
+.projectDesc { font-size: 12px; color: var(--ifm-color-content-secondary); }
+
+.consultTitle {
+  font-family: var(--ifm-heading-font-family, var(--ifm-font-family-base));
+  font-size: 18px;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  color: var(--ifm-color-content);
+}
+.consultDesc {
+  font-size: 13px;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 14px;
+}
+.availability {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ifm-color-content-secondary);
+  margin-bottom: 12px;
+}
+.availabilityVal { color: var(--ifm-color-primary); }
+
+.btnAccent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 13px;
+  border-radius: 3px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+}
+.btnAccent:hover {
+  color: #fff;
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .page { padding: 32px 20px 60px; }
+  .twoCol { grid-template-columns: 1fr; }
+  .indexTable { font-size: 12px; }
 }
