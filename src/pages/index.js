@@ -3,67 +3,11 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import homepageConfig from '../config/homepage';
-import latestPost from '../generated/latest-post.json';
+import allPosts from '../generated/all-posts.json';
 import styles from './index.module.css';
 
-const INDEX_ENTRIES = [
-  {
-    date: new Date(latestPost.date).toISOString().slice(0, 10),
-    type: 'writing',
-    area: 'frontier',
-    title: latestPost.title,
-    meta: '14 min',
-    url: latestPost.url,
-  },
-  {
-    date: '2026-02-10',
-    type: 'release',
-    area: 'applied-ai',
-    title: 'open-embeddings v0.4.0',
-    meta: 'changelog',
-    url: 'https://www.open-embeddings.org',
-  },
-  {
-    date: '2026-01-28',
-    type: 'writing',
-    area: 'applied-ai',
-    title: 'benchmarking private embeddings vs ada-002',
-    meta: '8 min',
-    url: '/applied-ai-engineering',
-  },
-  {
-    date: '2026-01-14',
-    type: 'project',
-    area: 'iot',
-    title: 'overlord-network-kill-switch v1.2',
-    meta: 'hardware',
-    url: 'https://github.com/5L-Labs/overlord-network-kill-switch',
-  },
-  {
-    date: '2025-12-30',
-    type: 'writing',
-    area: 'iot',
-    title: 'flashing tasmota on a $4 zigbee hub',
-    meta: '6 min',
-    url: '/self-hosted-iot',
-  },
-  {
-    date: '2025-12-10',
-    type: 'release',
-    area: 'applied-ai',
-    title: 'recruiter-rankings preview open',
-    meta: 'preview',
-    url: 'https://www.recruiter-rankings.com',
-  },
-  {
-    date: '2025-11-22',
-    type: 'writing',
-    area: 'frontier',
-    title: 'differential privacy without the accuracy cliff',
-    meta: '11 min',
-    url: '/frontier-research',
-  },
-];
+const PREVIEW_COUNT = 7;
+const INDEX_ENTRIES = allPosts.slice(0, PREVIEW_COUNT);
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
@@ -105,6 +49,13 @@ export default function Home() {
           </div>
 
           <table className={styles.indexTable}>
+            <colgroup>
+              <col className={styles.colDate} />
+              <col className={styles.colType} />
+              <col className={styles.colArea} />
+              <col className={styles.colTitle} />
+              <col className={styles.colMeta} />
+            </colgroup>
             <thead>
               <tr>
                 <th>DATE</th>
@@ -117,22 +68,24 @@ export default function Home() {
             <tbody>
               {INDEX_ENTRIES.map((entry, i) => (
                 <tr key={i}>
-                  <td>{entry.date}</td>
+                  <td>{entry.dateLabel}</td>
                   <td>
-                    <span className={`${styles.chip} ${entry.type === 'writing' ? styles.chipActive : ''}`}>
+                    <span className={`${styles.chip} ${styles.chipActive}`}>
                       {entry.type}
                     </span>
                   </td>
                   <td>{entry.area}</td>
-                  <td className={styles.titleCell}>
+                  <td className={styles.colTitle}>
                     <Link to={entry.url}>{entry.title}</Link>
                   </td>
-                  <td>{entry.meta}</td>
+                  <td>read</td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className={styles.loadMore}>— load more —</div>
+          <div className={styles.loadMore}>
+            <Link to="/archive">— {allPosts.length - PREVIEW_COUNT} more entries → view full archive —</Link>
+          </div>
         </section>
 
         {/* Projects + Consulting */}
@@ -141,7 +94,7 @@ export default function Home() {
           <div className={styles.box}>
             <div className={styles.boxLabel}>~/projects</div>
             {homepageConfig.products.map((p) => (
-              <div key={p.title}>
+              <div key={p.title} className={styles.projectGroup}>
                 <div className={styles.projectRow}>
                   <Link to={p.link} className={styles.projectName}>
                     {p.title.toLowerCase().replace(/\s*\(.*?\)/, '')}
