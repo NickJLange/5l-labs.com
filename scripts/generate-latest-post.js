@@ -2,6 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
+// blog-misc is intentionally excluded: those posts are miscellaneous content
+// and blog-misc has no registered routeBasePath in docusaurus.config.js.
+// To include it, register the route there first.
 const BLOG_DIRS = [
     'blog-self-hosted-iot',
     'blog-applied-home-ml-iot',
@@ -9,18 +12,19 @@ const BLOG_DIRS = [
     'blog-frontier-research',
 ];
 
+// Must stay in sync with homepageConfig.areas in src/config/homepage.js
 const AREA_LABELS = {
     'blog-self-hosted-iot':        'self-hosted-iot',
     'blog-applied-home-ml-iot':    'home-ml-iot',
     'blog-applied-ai-engineering': 'applied-ai',
     'blog-frontier-research':      'frontier',
-    'blog-misc':                   'misc',
 };
 
-const LATEST_OUTPUT  = path.join(__dirname, '../src/generated/latest-post.json');
-const ALL_OUTPUT     = path.join(__dirname, '../src/generated/all-posts.json');
+const LATEST_OUTPUT = path.join(__dirname, '../src/generated/latest-post.json');
+const ALL_OUTPUT    = path.join(__dirname, '../src/generated/all-posts.json');
 
-const TRUNCATE_RE    = /<!-- truncate -->[\s\S]*$/;
+// Supports both <!-- truncate --> (.md) and {/* truncate */} (.mdx)
+const TRUNCATE_RE    = /(?:<!-- truncate -->|\{\/\* truncate \*\/\})[\s\S]*$/;
 const HTML_TAGS_RE   = /<[^>]*>/g;
 const IMAGES_RE      = /!\[(.*?)\]\(.*?\)/g;
 const LINKS_RE       = /\[(.*?)\]\(.*?\)/g;
@@ -28,6 +32,7 @@ const HEADINGS_RE    = /^#+\s+/gm;
 const BLOCKQUOTES_RE = /^>\s+/gm;
 const CODE_BLOCKS_RE = /```[\s\S]*?```/g;
 const INLINE_CODE_RE = /`([^`]+)`/g;
+const LIST_ITEMS_RE  = /^[\*\-\+]\s+/gm;   // must run before BOLD_ITALIC_RE
 const BOLD_ITALIC_RE = /[*_]{1,3}(.*?)[*_]{1,3}/g;
 const HR_RE          = /^-{3,}$/gm;
 const NEWLINES_RE    = /\n+/g;
@@ -43,6 +48,7 @@ function stripMarkdown(markdown) {
         .replace(BLOCKQUOTES_RE, '')
         .replace(CODE_BLOCKS_RE, '')
         .replace(INLINE_CODE_RE, '$1')
+        .replace(LIST_ITEMS_RE, '')
         .replace(BOLD_ITALIC_RE, '$1')
         .replace(HR_RE, '')
         .replace(NEWLINES_RE, ' ')
@@ -82,11 +88,11 @@ function getAllPosts() {
             if (excerpt.length > 550) excerpt = excerpt.substring(0, 550) + '...';
 
             posts.push({
-                date: date.toISOString(),
+                date:      date.toISOString(),
                 dateLabel: `${yearStr}-${monthStr}-${dayStr}`,
-                title: data.title || slug,
+                title:     data.title || slug,
                 area,
-                type: 'writing',
+                type:      data.type || 'writing',
                 url,
                 excerpt,
             });
@@ -98,11 +104,9 @@ function getAllPosts() {
 
 const allPosts = getAllPosts();
 
-// all-posts.json — used by homepage and archive page
 fs.writeFileSync(ALL_OUTPUT, JSON.stringify(allPosts, null, 2));
 console.log(`All posts generated: ${allPosts.length} entries`);
 
-// latest-post.json — backwards compat for anything else that imports it
 if (allPosts.length) {
     const latest = allPosts[0];
     fs.writeFileSync(LATEST_OUTPUT, JSON.stringify({

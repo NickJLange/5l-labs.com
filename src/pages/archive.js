@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
+import { useLocation } from '@docusaurus/router';
+import homepageConfig from '../config/homepage';
 import allPosts from '../generated/all-posts.json';
 import styles from './index.module.css';
 
-const AREAS = ['all', ...Array.from(new Set(allPosts.map(p => p.area))).sort()];
+const AREAS = ['all', ...homepageConfig.areas];
 
 export default function Archive() {
+  const location = useLocation();
   const [area, setArea] = useState('all');
+
+  // Honour deep-links from homepage "load more" (e.g. /archive#home-ml-iot)
+  useEffect(() => {
+    const hash = location.hash.replace('#', '');
+    if (hash && AREAS.includes(hash)) {
+      setArea(hash);
+    }
+  }, [location.hash]);
 
   const entries = area === 'all' ? allPosts : allPosts.filter(p => p.area === area);
 
@@ -22,10 +33,12 @@ export default function Archive() {
           <div><span className={styles.terminalPrompt}>$ ls -lt writing/</span></div>
           <div>
             {allPosts.length} entries across{' '}
-            <span className={styles.terminalDir}>frontier/</span>{' '}
-            <span className={styles.terminalDir}>applied-ai/</span>{' '}
-            <span className={styles.terminalDir}>home-ml-iot/</span>{' '}
-            <span className={styles.terminalDir}>self-hosted-iot/</span>
+            {homepageConfig.areas.map((a, i) => (
+              <span key={a}>
+                <span className={styles.terminalDir}>{a}/</span>
+                {i < homepageConfig.areas.length - 1 ? ' ' : ''}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -55,25 +68,31 @@ export default function Archive() {
             </colgroup>
             <thead>
               <tr>
-                <th>DATE</th>
+                <th className={styles.hideOnMobile}>DATE</th>
                 <th>TYPE</th>
-                <th>AREA</th>
+                <th className={styles.hideOnMobile}>AREA</th>
                 <th>TITLE</th>
                 <th>↗</th>
               </tr>
             </thead>
             <tbody>
-              {entries.map((entry, i) => (
-                <tr key={i}>
-                  <td>{entry.dateLabel}</td>
+              {entries.length === 0 ? (
+                <tr>
+                  <td colSpan={5} style={{ textAlign: 'center', padding: '32px', color: 'var(--text-muted)' }}>
+                    No entries found.
+                  </td>
+                </tr>
+              ) : entries.map((entry) => (
+                <tr key={entry.url}>
+                  <td className={styles.hideOnMobile}>{entry.dateLabel}</td>
                   <td>
                     <span className={`${styles.chip} ${styles.chipActive}`}>{entry.type}</span>
                   </td>
-                  <td>{entry.area}</td>
+                  <td className={styles.hideOnMobile}>{entry.area}</td>
                   <td className={styles.colTitle}>
                     <Link to={entry.url}>{entry.title}</Link>
                   </td>
-                  <td>read</td>
+                  <td><Link to={entry.url}>↗</Link></td>
                 </tr>
               ))}
             </tbody>

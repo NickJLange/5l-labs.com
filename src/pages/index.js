@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
@@ -7,10 +7,18 @@ import allPosts from '../generated/all-posts.json';
 import styles from './index.module.css';
 
 const PREVIEW_COUNT = 7;
-const INDEX_ENTRIES = allPosts.slice(0, PREVIEW_COUNT);
+const AREAS = ['all', ...homepageConfig.areas];
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
+  const [area, setArea] = useState('all');
+
+  const filtered = area === 'all' ? allPosts : allPosts.filter(p => p.area === area);
+  const entries = filtered.slice(0, PREVIEW_COUNT);
+  const remaining = filtered.length - PREVIEW_COUNT;
+
+  const { consulting, areas } = homepageConfig;
+
   return (
     <Layout
       title={siteConfig.title}
@@ -26,10 +34,9 @@ export default function Home() {
           <div>{homepageConfig.missionStatement}</div>
           <div style={{ marginTop: 8 }}><span className={styles.terminalPrompt}>$ ls areas/</span></div>
           <div>
-            <span className={styles.terminalDir}>private-ai/</span>{' '}
-            <span className={styles.terminalDir}>private-iot/</span>{' '}
-            <span className={styles.terminalDir}>frontier/</span>{' '}
-            <span className={styles.terminalDir}>applied-ai/</span>
+            {areas.map(a => (
+              <span key={a} className={styles.terminalDir}>{a}/ </span>
+            ))}
           </div>
           <div style={{ marginTop: 8 }}>
             <span className={styles.terminalPrompt}>$ ./hire-us --consulting</span>{' '}
@@ -42,10 +49,16 @@ export default function Home() {
           <div className={styles.indexHeader}>
             <span>INDEX OF /</span>
             <span>·</span>
-            <span>SORT BY:</span>
-            <span className={`${styles.chip} ${styles.chipActive}`}>DATE ↓</span>
-            <span className={styles.chip}>AREA</span>
-            <span className={styles.chip}>TYPE</span>
+            <span>FILTER:</span>
+            {AREAS.map(a => (
+              <button
+                key={a}
+                className={`${styles.chip} ${area === a ? styles.chipActive : ''}`}
+                onClick={() => setArea(a)}
+              >
+                {a}
+              </button>
+            ))}
           </div>
 
           <table className={styles.indexTable}>
@@ -58,34 +71,43 @@ export default function Home() {
             </colgroup>
             <thead>
               <tr>
-                <th>DATE</th>
+                <th className={styles.hideOnMobile}>DATE</th>
                 <th>TYPE</th>
-                <th>AREA</th>
+                <th className={styles.hideOnMobile}>AREA</th>
                 <th>TITLE</th>
                 <th>↗</th>
               </tr>
             </thead>
             <tbody>
-              {INDEX_ENTRIES.map((entry, i) => (
-                <tr key={i}>
-                  <td>{entry.dateLabel}</td>
-                  <td>
-                    <span className={`${styles.chip} ${styles.chipActive}`}>
-                      {entry.type}
-                    </span>
+              {entries.length === 0 ? (
+                <tr>
+                  <td colSpan={5} style={{ textAlign: 'center', padding: '32px', color: 'var(--text-muted)' }}>
+                    No entries found.
                   </td>
-                  <td>{entry.area}</td>
+                </tr>
+              ) : entries.map((entry) => (
+                <tr key={entry.url}>
+                  <td className={styles.hideOnMobile}>{entry.dateLabel}</td>
+                  <td>
+                    <span className={`${styles.chip} ${styles.chipActive}`}>{entry.type}</span>
+                  </td>
+                  <td className={`${styles.hideOnMobile}`}>{entry.area}</td>
                   <td className={styles.colTitle}>
                     <Link to={entry.url}>{entry.title}</Link>
                   </td>
-                  <td>read</td>
+                  <td><Link to={entry.url}>↗</Link></td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className={styles.loadMore}>
-            <Link to="/archive">— {allPosts.length - PREVIEW_COUNT} more entries → view full archive —</Link>
-          </div>
+
+          {remaining > 0 && (
+            <div className={styles.loadMore}>
+              <Link to={`/archive${area !== 'all' ? `#${area}` : ''}`}>
+                — {remaining} more → full archive —
+              </Link>
+            </div>
+          )}
         </section>
 
         {/* Projects + Consulting */}
@@ -108,17 +130,13 @@ export default function Home() {
 
           <div className={styles.box}>
             <div className={styles.boxLabel}>~/consulting</div>
-            <div className={styles.consultTitle}>
-              We take on a small number of engagements each quarter.
-            </div>
-            <div className={styles.consultDesc}>
-              Private ML systems, on-device inference, and IoT architecture audits.
-            </div>
+            <div className={styles.consultTitle}>{consulting.blurb}</div>
+            <div className={styles.consultDesc}>{consulting.services}</div>
             <div className={styles.availability}>
               CURRENT AVAILABILITY:{' '}
-              <span className={styles.availabilityVal}>Q3 2026</span>
+              <span className={styles.availabilityVal}>{consulting.availability}</span>
             </div>
-            <Link to="/docs" className={styles.btnAccent}>
+            <Link to={consulting.inquireUrl} className={styles.btnAccent}>
               ./inquire →
             </Link>
           </div>

@@ -1,10 +1,22 @@
 const homepageConfig = {
   missionStatement: "Advancing Technology for Humans and Bots with Privacy in mind.",
+
   contactInfo: {
     email: "inquiries@5l-labs.com",
     linkedin: "https://www.linkedin.com/company/5l-labs/",
     twitter: "https://twitter.com/5l_labs",
   },
+
+  // Matches AREA_LABELS in scripts/generate-latest-post.js — single source of truth
+  areas: ['self-hosted-iot', 'home-ml-iot', 'applied-ai', 'frontier'],
+
+  consulting: {
+    availability: 'Q3 2026',
+    blurb: 'We take on a small number of engagements each quarter.',
+    services: 'Private ML systems, on-device inference, and IoT architecture audits.',
+    inquireUrl: '/docs',
+  },
+
   researchAreas: [
     {
       title: "Private AI/ML",
@@ -17,6 +29,7 @@ const homepageConfig = {
       link: "/self-hosted-iot",
     },
   ],
+
   products: [
     {
       title: "Recruiter Rankings (Preview)",

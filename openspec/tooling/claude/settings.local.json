@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:api.anthropic.com)",
+      "Bash(unzip -o \"5L Labs Homepage-handoff.zip\" -d /tmp/5l-handoff)",
+      "Bash(git checkout:*)",
+      "Bash(npm run:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npm start:*)",
+      "Bash(curl:*)",
+      "Bash(pkill -f \"docusaurus start\")",
+      "Bash(node -e ':*)",
+      "Bash(git -C /Users/njl/dev/src/5l-labs.com check-ignore -v src/generated/)",
+      "Bash(git -C /Users/njl/dev/src/5l-labs.com check-ignore -v src/generated/all-posts.json)",
+      "Bash(node scripts/generate-latest-post.js)"
+    ]
+  }
+}
