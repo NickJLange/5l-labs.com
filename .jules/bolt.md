@@ -21,3 +21,7 @@ This journal documents critical performance learnings for the 5L Labs project.
 ## 2025-05-24 - Hero Image Optimization & CLS
 **Learning:** Large unoptimized images in the hero section are a primary cause of slow LCP and CLS. Providing explicit `width` and `height` attributes to the `img` tag, even if overridden by CSS, allows the browser to reserve the correct aspect ratio space immediately.
 **Action:** Always optimize hero images (compress/resize) and define explicit dimensions to prevent layout shifts.
+
+## 2026-02-23 - Python HTTP Connection Pooling
+**Learning:** Using standalone `requests.get()` and `requests.post()` in a loop to fetch multiple URLs or hit an API causes a new TCP/TLS handshake per request, leading to massive latency overhead for large jobs.
+**Action:** Always refactor iterative network operations to use a shared `requests.Session()` passed down via arguments to implement Keep-Alive connection pooling.
