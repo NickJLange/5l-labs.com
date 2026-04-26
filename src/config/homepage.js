@@ -14,7 +14,7 @@ const homepageConfig = {
     availability: 'Q3 2026',
     blurb: 'We take on a small number of engagements each quarter.',
     services: 'Private ML systems, on-device inference, and IoT architecture audits.',
-    inquireUrl: '/docs',
+    inquireUrl: '/inquiry',
   },
 
   researchAreas: [
