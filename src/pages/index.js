@@ -53,8 +53,11 @@ export default function Home() {
             {AREAS.map(a => (
               <button
                 key={a}
+                type="button"
                 className={`${styles.chip} ${area === a ? styles.chipActive : ''}`}
                 onClick={() => setArea(a)}
+                aria-label={`Filter by ${a === 'all' ? 'all areas' : a}`}
+                aria-pressed={area === a}
               >
                 {a}
               </button>

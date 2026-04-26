@@ -5,8 +5,8 @@ import homepageConfig from '../config/homepage';
 import styles from './inquiry.module.css';
 
 // To wire up form submission, create a free account at https://formspree.io,
-// create a form, and replace this with your form ID.
-const FORMSPREE_ID = process.env.FORMSPREE_ID || null;
+// create a form, and replace null with your form ID string e.g. 'xpwzabcd'
+const FORMSPREE_ID = null;
 
 const INITIAL = { name: '', email: '', phone: '', message: '', smsConsent: false };
 
@@ -45,7 +45,9 @@ export default function Inquiry() {
       const body = encodeURIComponent(
         `Name: ${fields.name}\nEmail: ${fields.email}\nPhone: ${fields.phone || 'N/A'}\n\n${fields.message}\n\nSMS consent: ${fields.smsConsent ? 'Yes' : 'No'}`
       );
-      window.location.href = `mailto:${homepageConfig.contactInfo.email}?subject=Consulting%20Inquiry&body=${body}`;
+      if (typeof window !== 'undefined') {
+        window.location.href = `mailto:${homepageConfig.contactInfo.email}?subject=Consulting%20Inquiry&body=${body}`;
+      }
       setStatus('success');
     }
   };
