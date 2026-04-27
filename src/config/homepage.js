@@ -1,3 +1,5 @@
+import areaLabels from './areas.json';
+
 const homepageConfig = {
   missionStatement: "Advancing Technology for Humans and Bots with Privacy in mind.",
 
@@ -7,8 +9,8 @@ const homepageConfig = {
     twitter: "https://twitter.com/5l_labs",
   },
 
-  // Matches AREA_LABELS in scripts/generate-latest-post.js — single source of truth
-  areas: ['self-hosted-iot', 'home-ml-iot', 'applied-ai', 'frontier'],
+  // Canonical list derived from src/config/areas.json (shared with generate-latest-post.js)
+  areas: Object.values(areaLabels),
 
   consulting: {
     availability: 'Q3 2026',

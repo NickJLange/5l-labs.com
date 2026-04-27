@@ -169,7 +169,7 @@ export default function Inquiry() {
           <button
             type="submit"
             className={styles.submit}
-            disabled={status === 'submitting' || !fields.name || !fields.email || !fields.message}
+            disabled={status === 'submitting' || !fields.name || !fields.email || !fields.message || !fields.smsConsent}
           >
             {status === 'submitting' ? 'Sending…' : './send-inquiry →'}
           </button>

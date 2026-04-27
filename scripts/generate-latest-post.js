@@ -2,23 +2,10 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 
-// blog-misc is intentionally excluded: those posts are miscellaneous content
-// and blog-misc has no registered routeBasePath in docusaurus.config.js.
-// To include it, register the route there first.
-const BLOG_DIRS = [
-    'blog-self-hosted-iot',
-    'blog-applied-home-ml-iot',
-    'blog-applied-ai-engineering',
-    'blog-frontier-research',
-];
-
-// Must stay in sync with homepageConfig.areas in src/config/homepage.js
-const AREA_LABELS = {
-    'blog-self-hosted-iot':        'self-hosted-iot',
-    'blog-applied-home-ml-iot':    'home-ml-iot',
-    'blog-applied-ai-engineering': 'applied-ai',
-    'blog-frontier-research':      'frontier',
-};
+// Single source of truth for area labels — shared with src/config/homepage.js
+// blog-misc is intentionally excluded: no registered routeBasePath in docusaurus.config.js.
+const AREA_LABELS = require('../src/config/areas.json');
+const BLOG_DIRS = Object.keys(AREA_LABELS);
 
 const LATEST_OUTPUT = path.join(__dirname, '../src/generated/latest-post.json');
 const ALL_OUTPUT    = path.join(__dirname, '../src/generated/all-posts.json');
