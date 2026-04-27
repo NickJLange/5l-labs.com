@@ -69,6 +69,7 @@ function Section({ title, items }) {
                               target: "_blank",
                               rel: "noopener noreferrer",
                               "aria-label": `${item.title} (opens in a new tab)`,
+                              title: item.title,
                             }
                           : {})}
                       >
