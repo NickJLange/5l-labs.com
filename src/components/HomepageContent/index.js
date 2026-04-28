@@ -61,7 +61,18 @@ function Section({ title, items }) {
                 <div style={{ marginBottom: '0.25rem' }}>
                   <strong>
                     {item.link ? (
-                      <Link to={item.link} className="inline-flex items-center gap-1 group">
+                      <Link
+                        to={item.link}
+                        className="inline-flex items-center gap-1 group"
+                        {...(isExternal
+                          ? {
+                              target: "_blank",
+                              rel: "noopener noreferrer",
+                              "aria-label": `${item.title} (opens in a new tab)`,
+                              title: item.title,
+                            }
+                          : {})}
+                      >
                         {item.title}
                         {isExternal ? (
                           <ExternalLinkIcon className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 group-focus-visible:translate-x-1 group-focus-visible:-translate-y-1" />
