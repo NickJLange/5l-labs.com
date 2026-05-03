@@ -1,18 +1,16 @@
 #!/usr/bin/env python3
 
-import argparse
 import json
 import logging
 import os
-import sys
-import time
 from datetime import datetime
 
 try:
     import defusedxml.ElementTree as ET
 except ImportError:
-    raise ImportError("defusedxml is required for secure XML parsing. Install it with: uv pip install defusedxml")
-from io import StringIO
+    raise ImportError(
+        "defusedxml is required for secure XML parsing. Install it with: uv pip install defusedxml"
+    )
 from pathlib import Path
 from urllib.parse import urlparse, urljoin
 
@@ -85,7 +83,9 @@ def get_embedding(text, api_base, api_key, model, session=None):
         return None
 
 
-def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5, session=None):  # 10MB limit
+def get_page_content(
+    url, base_url, max_size=10 * 1024 * 1024, max_redirects=5, session=None
+):  # 10MB limit
     """
     Fetches the text content of a web page with a size limit and safe redirect following.
     """
@@ -95,90 +95,97 @@ def get_page_content(url, base_url, max_size=10 * 1024 * 1024, max_redirects=5, 
     while redirect_count < max_redirects:
         try:
             # Security: Disable redirects to prevent SSRF, handle manually
-            if session:
-                response = session.get(current_url, timeout=30, stream=True, allow_redirects=False)
-            else:
-                response = requests.get(current_url, timeout=30, stream=True, allow_redirects=False)
+            req_func = session.get if session else requests.get
 
-            # Check for redirects
-            if response.is_redirect:
-                redirect_count += 1
-                location = response.headers.get('Location')
-                if not location:
-                    response.close()
-                    logger.warning(f"Skipping {current_url}: Redirect without Location header")
-                    return None
-
-                # Resolve relative redirects
-                next_url = urljoin(current_url, location)
-
-                # Security Check: Ensure next_url starts with base_url (SSRF protection)
-                if not next_url.startswith(base_url):
-                    response.close()
-                    logger.warning(f"Skipping {current_url}: Redirect to external/forbidden URL {next_url}")
-                    return None
-
-                # Strict prefix check to prevent domain confusion (e.g. localhost:3000.evil.com)
-                if len(next_url) > len(base_url):
-                    next_char = next_url[len(base_url)]
-                    if (
-                        not base_url.endswith("/")
-                        and next_char != "/"
-                        and next_char != "?"
-                        and next_char != "#"
-                    ):
-                        response.close()
+            with req_func(
+                current_url, timeout=30, stream=True, allow_redirects=False
+            ) as response:
+                # Check for redirects
+                if response.is_redirect:
+                    redirect_count += 1
+                    location = response.headers.get("Location")
+                    if not location:
                         logger.warning(
-                            f"Skipping {current_url}: Potential prefix match attack: {next_url} vs {base_url}"
+                            f"Skipping {current_url}: Redirect without Location header"
                         )
                         return None
 
-                logger.debug(f"Following redirect: {current_url} -> {next_url}")
-                current_url = next_url
-                response.close()
-                continue
+                    # Resolve relative redirects
+                    next_url = urljoin(current_url, location)
 
-            response.raise_for_status()
+                    # Security Check: Ensure next_url starts with base_url (SSRF protection)
+                    if not next_url.startswith(base_url):
+                        logger.warning(
+                            f"Skipping {current_url}: Redirect to external/forbidden URL {next_url}"
+                        )
+                        return None
 
-            # Security Check: Verify Content-Type
-            content_type = response.headers.get("Content-Type", "").lower()
-            # Split to handle charset (e.g. text/html; charset=utf-8)
-            mime_type = content_type.split(";")[0].strip()
+                    # Strict prefix check to prevent domain confusion (e.g. localhost:3000.evil.com)
+                    if len(next_url) > len(base_url):
+                        next_char = next_url[len(base_url)]
+                        if (
+                            not base_url.endswith("/")
+                            and next_char != "/"
+                            and next_char != "?"
+                            and next_char != "#"
+                        ):
+                            logger.warning(
+                                f"Skipping {current_url}: Potential prefix match attack: {next_url} vs {base_url}"
+                            )
+                            return None
 
-            allowed_types = [
+                    logger.debug(f"Following redirect: {current_url} -> {next_url}")
+                    current_url = next_url
+                    continue
+
+                response.raise_for_status()
+
+                # Security Check: Verify Content-Type
+                content_type = response.headers.get("Content-Type", "").lower()
+                # Split to handle charset (e.g. text/html; charset=utf-8)
+                mime_type = content_type.split(";")[0].strip()
+
+                allowed_types = [
                     "text/html",
                     "application/xml",
                     "text/xml",
                     "application/xhtml+xml",
                     "application/rss+xml",
-                    "application/atom+xml"
-            ]
+                    "application/atom+xml",
+                ]
 
-            if mime_type not in allowed_types:
-                    response.close()
-                    logger.warning(f"Skipping {current_url}: Invalid Content-Type {content_type}")
+                if mime_type not in allowed_types:
+                    logger.warning(
+                        f"Skipping {current_url}: Invalid Content-Type {content_type}"
+                    )
                     return None
 
-            # Check Content-Length if available
-            if 'Content-Length' in response.headers:
+                # Check Content-Length if available
+                if "Content-Length" in response.headers:
                     try:
-                        content_length = int(response.headers['Content-Length'])
+                        content_length = int(response.headers["Content-Length"])
                         if content_length > max_size:
-                            logger.warning(f"Skipping {url}: Content-Length {content_length} exceeds limit {max_size}")
+                            logger.warning(
+                                f"Skipping {url}: Content-Length {content_length} exceeds limit {max_size}"
+                            )
                             return None
                     except (ValueError, TypeError):
                         pass  # Ignore invalid Content-Length
 
-            content_chunks = []
-            current_size = 0
-            for chunk in response.iter_content(chunk_size=8192, decode_unicode=True):
+                content_chunks = []
+                current_size = 0
+                for chunk in response.iter_content(
+                    chunk_size=8192, decode_unicode=True
+                ):
                     if chunk:
                         content_chunks.append(chunk)
                         current_size += len(chunk)
                         if current_size > max_size:
-                            logger.warning(f"Skipping {url}: Content size exceeds limit {max_size}")
+                            logger.warning(
+                                f"Skipping {url}: Content size exceeds limit {max_size}"
+                            )
                             return None
-            return "".join(content_chunks)
+                return "".join(content_chunks)
 
         except requests.exceptions.RequestException as e:
             logger.error(f"Error fetching page content from {url}: {e}")
@@ -216,7 +223,9 @@ def url_to_file_path(
     return file_path
 
 
-def resolve_fetch_url(original_url: str, replacement_base: str, target_base: str) -> str:
+def resolve_fetch_url(
+    original_url: str, replacement_base: str, target_base: str
+) -> str:
     """
     Safely resolves the fetch URL by replacing the base URL.
     Validates that the original URL starts with the replacement base
@@ -314,8 +323,13 @@ def main():
     settings = config.get("settings", {})
 
     # Environment variables override config file
-    model = os.environ.get("EMBEDDING_MODEL", settings.get("model", "nomic-embed-text:v1.5"))
-    api_base = os.environ.get("OPENAI_API_BASE", settings.get("embedding_api_url", "http://localhost:11434/v1"))
+    model = os.environ.get(
+        "EMBEDDING_MODEL", settings.get("model", "nomic-embed-text:v1.5")
+    )
+    api_base = os.environ.get(
+        "OPENAI_API_BASE",
+        settings.get("embedding_api_url", "http://localhost:11434/v1"),
+    )
     embedding_content_base_url = settings.get(
         "embedding_content_base_url", "http://localhost:3000"
     )
@@ -329,13 +343,13 @@ def main():
     logger.info(f"Fetching sitemap from {sitemap_url}...")
 
     with requests.Session() as session:
-        sitemap_content = get_page_content(sitemap_url, embedding_content_base_url, session=session)
+        sitemap_content = get_page_content(
+            sitemap_url, embedding_content_base_url, session=session
+        )
 
     if not sitemap_content:
         logger.error(f"Failed to fetch sitemap from {sitemap_url}")
-        logger.error(
-            "Make sure the dev server is running with: bun run start"
-        )
+        logger.error("Make sure the dev server is running with: bun run start")
         return
 
     try:
@@ -375,13 +389,17 @@ def main():
 
             logger.debug(f"Processing {fetch_url}...")
 
-            content = get_page_content(fetch_url, embedding_content_base_url, session=session)
+            content = get_page_content(
+                fetch_url, embedding_content_base_url, session=session
+            )
             if not content:
                 logger.warning(f"Skipping {url} - failed to fetch content")
                 error_count += 1
                 continue
 
-            embedding = get_embedding(content, api_base, api_key, model, session=session)
+            embedding = get_embedding(
+                content, api_base, api_key, model, session=session
+            )
             if not embedding:
                 logger.warning(f"Skipping {url} - failed to generate embedding")
                 error_count += 1
@@ -389,13 +407,15 @@ def main():
 
             # Save individual embedding file
             try:
-                save_embedding(url, embedding, model, replacement_base_url, embeddings_dir)
+                save_embedding(
+                    url, embedding, model, replacement_base_url, embeddings_dir
+                )
                 success_count += 1
             except Exception as e:
                 logger.error(f"Error saving embedding for {url}: {e}")
                 error_count += 1
 
-    logger.info(f"\nEmbedding generation complete!")
+    logger.info("\nEmbedding generation complete!")
     logger.info(f"Successfully generated: {success_count}")
     logger.info(f"Errors: {error_count}")
     logger.info(f"Output directory: {embeddings_dir}/")
