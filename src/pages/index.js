@@ -78,7 +78,7 @@ export default function Home() {
                 <th>TYPE</th>
                 <th className={styles.hideOnMobile}>AREA</th>
                 <th>TITLE</th>
-                <th>↗</th>
+                <th aria-hidden="true">↗</th>
               </tr>
             </thead>
             <tbody>
@@ -98,7 +98,7 @@ export default function Home() {
                   <td className={styles.colTitle}>
                     <Link to={entry.url}>{entry.title}</Link>
                   </td>
-                  <td><Link to={entry.url}>↗</Link></td>
+                  <td><Link to={entry.url} aria-hidden="true" tabIndex="-1">↗</Link></td>
                 </tr>
               ))}
             </tbody>
@@ -124,7 +124,7 @@ export default function Home() {
                   <Link to={p.link} className={styles.projectName}>
                     {p.title.toLowerCase().replace(/\s*\(.*?\)/, '')}
                   </Link>
-                  <span className={styles.projectMeta}>↗</span>
+                  <span className={styles.projectMeta} aria-hidden="true">↗</span>
                 </div>
                 <div className={styles.projectDesc}>{p.description}</div>
               </div>

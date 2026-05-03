@@ -54,3 +54,6 @@
 ## 2026-04-26 - Hardcoded Heading Levels in Reusable Components
 **Learning:** Hardcoding specific heading levels (like `<h3>`) inside reusable UI components (like cards) often breaks semantic document structure when the component is placed in different contexts on a page, causing screen readers to skip levels or announce confusing hierarchies.
 **Action:** Always ensure nested headings (like card titles) properly increment relative to their parent container's heading level, or consider passing the appropriate heading level as a prop to the component to maintain strict HTML semantics.
+## 2024-05-03 - Redundant Link Icons Announcement
+**Learning:** Decorative icons indicating external or internal links (like `↗`) that are appended to already readable links cause frustrating redundant screen reader announcements (e.g., reading "North East Arrow" immediately after reading the link text) and create confusing double tab-stops if wrapped in separate interactive elements.
+**Action:** Always add `aria-hidden="true"` to decorative link icons or elements. If an icon must be inside its own link but points to the same destination as a preceding adjacent text link, also add `tabIndex="-1"` to prevent it from receiving keyboard focus, streamlining navigation.
