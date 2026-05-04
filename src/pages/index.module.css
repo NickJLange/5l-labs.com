@@ -115,6 +115,14 @@
   cursor: pointer;
   white-space: nowrap;
 }
+.chip:hover {
+  opacity: 0.8;
+}
+.chip:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
 .chipActive {
   border-color: var(--brand-primary);
   color: var(--brand-primary);
@@ -193,6 +201,11 @@
   box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
 }
 .btnAccent:hover { color: #fff; opacity: 0.9; text-decoration: none; }
+.btnAccent:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
+}
+
 
 @media (max-width: 768px) {
   .page { padding: 32px 20px 60px; }

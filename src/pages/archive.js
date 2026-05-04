@@ -75,7 +75,7 @@ export default function Archive() {
                 <th>TYPE</th>
                 <th className={styles.hideOnMobile}>AREA</th>
                 <th>TITLE</th>
-                <th>↗</th>
+                <th aria-hidden="true">↗</th>
               </tr>
             </thead>
             <tbody>
@@ -95,7 +95,7 @@ export default function Archive() {
                   <td className={styles.colTitle}>
                     <Link to={entry.url}>{entry.title}</Link>
                   </td>
-                  <td><Link to={entry.url}>↗</Link></td>
+                  <td><Link to={entry.url} aria-hidden="true" tabIndex="-1">↗</Link></td>
                 </tr>
               ))}
             </tbody>
