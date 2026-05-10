@@ -57,3 +57,7 @@
 ## 2024-05-03 - Redundant Link Icons Announcement
 **Learning:** Decorative icons indicating external or internal links (like `↗`) that are appended to already readable links cause frustrating redundant screen reader announcements (e.g., reading "North East Arrow" immediately after reading the link text) and create confusing double tab-stops if wrapped in separate interactive elements.
 **Action:** Always add `aria-hidden="true"` to decorative link icons or elements. If an icon must be inside its own link but points to the same destination as a preceding adjacent text link, also add `tabIndex="-1"` to prevent it from receiving keyboard focus, streamlining navigation.
+
+## 2026-05-10 - Expanding Hit Areas for Block Elements
+**Learning:** Having only text as the clickable area within a larger logical block (like a project listing or card) violates Fitts's Law and frustrates mobile users who try to tap the area around the text.
+**Action:** Always wrap the entire logical block in a `<Link>` (or `<a>` tag) and apply `display: block` to expand the interactive hit area. Pair this with hover and `:focus-visible` styles on the entire block, and use transforms on trailing icons (e.g., `↗`) to provide clear visual affordance.

@@ -118,17 +118,32 @@ export default function Home() {
 
           <div className={styles.box}>
             <div className={styles.boxLabel}>~/projects</div>
-            {homepageConfig.products.map((p) => (
-              <div key={p.title} className={styles.projectGroup}>
-                <div className={styles.projectRow}>
-                  <Link to={p.link} className={styles.projectName}>
-                    {p.title.toLowerCase().replace(/\s*\(.*?\)/, '')}
-                  </Link>
-                  <span className={styles.projectMeta} aria-hidden="true">↗</span>
-                </div>
-                <div className={styles.projectDesc}>{p.description}</div>
-              </div>
-            ))}
+            {homepageConfig.products.map((p) => {
+              const isExternal = p.link && p.link.startsWith('http');
+              return (
+                <Link
+                  key={p.title}
+                  to={p.link}
+                  className={styles.projectGroupLink}
+                  {...(isExternal
+                    ? {
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                        "aria-label": `${p.title} (opens in a new tab)`,
+                        title: p.title,
+                      }
+                    : {})}
+                >
+                  <div className={styles.projectRow}>
+                    <span className={styles.projectName}>
+                      {p.title.toLowerCase().replace(/\s*\(.*?\)/, '')}
+                    </span>
+                    <span className={styles.projectMeta} aria-hidden="true">↗</span>
+                  </div>
+                  <div className={styles.projectDesc}>{p.description}</div>
+                </Link>
+              );
+            })}
           </div>
 
           <div className={styles.box}>
