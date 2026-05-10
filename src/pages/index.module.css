@@ -148,11 +148,24 @@
   margin-bottom: 14px;
 }
 
-.projectGroup {
+.projectGroupLink {
+  display: block;
+  text-decoration: none;
   padding: 10px 0;
   border-bottom: 1px dashed color-mix(in srgb, var(--text-muted) 30%, transparent);
 }
-.projectGroup:last-child { border-bottom: none; padding-bottom: 0; }
+.projectGroupLink:last-child { border-bottom: none; padding-bottom: 0; }
+.projectGroupLink:hover .projectName { color: var(--brand-primary); }
+.projectGroupLink:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+.projectGroupLink:hover .projectMeta,
+.projectGroupLink:focus-visible .projectMeta {
+  transform: translate(2px, -2px);
+  color: var(--brand-primary);
+}
 
 .projectRow {
   display: flex;
@@ -161,10 +174,14 @@
   font-size: 14px;
   margin-bottom: 3px;
 }
-.projectName { color: var(--text-main); text-decoration: none; }
-.projectName:hover { color: var(--brand-primary); }
-.projectMeta { color: var(--text-muted); font-size: 12px; }
-.projectDesc { font-size: 12px; color: var(--text-muted); }
+.projectName { color: var(--text-main); text-decoration: none; transition: color 0.2s ease; }
+.projectMeta {
+  color: var(--text-muted);
+  font-size: 12px;
+  display: inline-block;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.projectDesc { font-size: 12px; color: var(--text-muted); transition: color 0.2s ease; }
 
 .consultTitle {
   font-family: var(--font-mono);
