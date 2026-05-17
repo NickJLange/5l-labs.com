@@ -15,12 +15,14 @@ function HomepageHeader() {
       <div className="container">
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
           {/* Explicit width/height to prevent CLS and ensure proper aspect ratio */}
+          {/* fetchPriority="high" improves LCP by prioritizing hero image download */}
           <img
             src={Logo}
             alt="5L Labs Logo"
             style={{ height: '150px' }}
             width={138}
             height={150}
+            fetchPriority="high"
           />
           <div style={{ textAlign: 'left' }}>
             <h1 className="hero__title">{siteConfig.title}</h1>
