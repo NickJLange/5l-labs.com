@@ -45,3 +45,7 @@
 ## 2026-03-01 - External Links and Interactive Icons
 **Learning:** Setting `aria-hidden="true"` on custom external link icons prevents screen readers from announcing that the link opens in a new tab. Additionally, using only `hover` classes on interactive icons within a link omits keyboard users from seeing the same visual interactions.
 **Action:** Always assign `role="img"` and `aria-label="(opens in new tab)"` to SVG icons indicating external links. Furthermore, apply equivalent `focus-visible` classes to any hover interactions inside interactive elements to ensure visual feedback parity for keyboard users.
+
+## 2026-03-05 - Redundant Alt Text for Logos Near Headings
+**Learning:** Providing descriptive alt text (like "[Company] Logo") when the image is placed immediately next to a heading (`<h1>`) containing the exact same text causes a redundant and repetitive experience for screen reader users (e.g., "5L Labs Logo, 5L Labs").
+**Action:** When a logo image is purely illustrative and its informational content is already present in immediately adjacent text, add `alt=""` and `aria-hidden="true"` to hide the redundant image from screen readers.
