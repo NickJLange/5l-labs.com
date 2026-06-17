@@ -45,3 +45,7 @@
 ## 2026-03-01 - External Links and Interactive Icons
 **Learning:** Setting `aria-hidden="true"` on custom external link icons prevents screen readers from announcing that the link opens in a new tab. Additionally, using only `hover` classes on interactive icons within a link omits keyboard users from seeing the same visual interactions.
 **Action:** Always assign `role="img"` and `aria-label="(opens in new tab)"` to SVG icons indicating external links. Furthermore, apply equivalent `focus-visible` classes to any hover interactions inside interactive elements to ensure visual feedback parity for keyboard users.
+
+## 2026-06-17 - Redundant Screen Reader Announcements and Boilerplate Metadata
+**Learning:** Logos placed directly next to headings containing the site name cause redundant announcements for screen reader users if given `alt` text. Framework default boilerplates (like "Hello from Site" or "Description will go into a meta tag") in layout components reduce accessibility and SEO if not explicitly removed or set to `siteConfig` properties.
+**Action:** Use `alt=""` and `aria-hidden="true"` on logos that sit immediately next to equivalent text headings. Ensure default `<Layout>` metadata uses `siteConfig.title` and `siteConfig.tagline` rather than boilerplate.

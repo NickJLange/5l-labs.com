@@ -17,7 +17,8 @@ function HomepageHeader() {
           {/* Explicit width/height to prevent CLS and ensure proper aspect ratio */}
           <img
             src={Logo}
-            alt="5L Labs Logo"
+            alt=""
+            aria-hidden="true"
             style={{ height: '150px' }}
             width={138}
             height={150}
@@ -36,8 +37,8 @@ export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      title={siteConfig.title}
+      description={siteConfig.tagline}
     >
       <HomepageHeader />
       <main>
