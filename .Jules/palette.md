@@ -45,3 +45,7 @@
 ## 2026-03-01 - External Links and Interactive Icons
 **Learning:** Setting `aria-hidden="true"` on custom external link icons prevents screen readers from announcing that the link opens in a new tab. Additionally, using only `hover` classes on interactive icons within a link omits keyboard users from seeing the same visual interactions.
 **Action:** Always assign `role="img"` and `aria-label="(opens in new tab)"` to SVG icons indicating external links. Furthermore, apply equivalent `focus-visible` classes to any hover interactions inside interactive elements to ensure visual feedback parity for keyboard users.
+
+## 2025-07-17 - Redundant Image Alt Text and Boilerplate Meta Descriptions
+**Learning:** For illustrative images (like logos) placed immediately adjacent to text headings containing the exact same information, using descriptive `alt` text causes redundant and annoying screen reader announcements. Additionally, leaving default boilerplate (`description="Description will go into a meta tag in <head />"`) in layout components harms SEO, social sharing UX, and screen reader context.
+**Action:** Use `alt=""` and `aria-hidden="true"` on illustrative images that merely duplicate adjacent text content. Replace default boilerplate description text with dynamic, meaningful content (e.g., `siteConfig.tagline`) to ensure accurate metadata.
