@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "bun scripts/prepare-build.js && docusaurus start",
     "build": "bun scripts/prepare-build.js && docusaurus build",
+    "build:i18n": "docusaurus build --locale en --locale ja",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
