@@ -86,7 +86,7 @@ export default function Inquiry() {
         <form className={styles.form} onSubmit={handleSubmit}>
 
           <div className={styles.row}>
-            <label className={styles.fieldLabel} htmlFor="name">Name *</label>
+            <label className={styles.fieldLabel} htmlFor="name">Name <span aria-hidden="true">*</span></label>
             <input
               id="name"
               className={styles.input}
@@ -100,7 +100,7 @@ export default function Inquiry() {
           </div>
 
           <div className={styles.row}>
-            <label className={styles.fieldLabel} htmlFor="email">Email *</label>
+            <label className={styles.fieldLabel} htmlFor="email">Email <span aria-hidden="true">*</span></label>
             <input
               id="email"
               className={styles.input}
@@ -131,7 +131,7 @@ export default function Inquiry() {
 
           <div className={styles.row}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline' }}>
-              <label className={styles.fieldLabel} htmlFor="message">Tell us about your project *</label>
+              <label className={styles.fieldLabel} htmlFor="message">Tell us about your project <span aria-hidden="true">*</span></label>
               <span id="message-count" className={styles.optional} aria-live="polite">
                 {fields.message.length} / 1000
               </span>

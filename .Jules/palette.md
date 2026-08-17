@@ -68,3 +68,7 @@
 ## 2026-05-31 - Hiding Redundant Directional Arrows
 **Learning:** Text-based directional arrows (like `→` and `↗`) used inline for visual affordance are read out loud by screen readers, creating annoying auditory clutter (e.g., reading "Start an inquiry rightwards arrow").
 **Action:** Always wrap text-based decorative arrows in `<span aria-hidden="true">` or `<tspan aria-hidden="true">` (if inside an SVG `<text>` block) to hide them from screen readers while preserving the visual UX.
+
+## 2025-02-18 - Required Field Asterisks and Focus Rings
+**Learning:** Visual asterisks (`*`) in form labels are read aloud by screen readers (e.g., "Name asterisk"), which is redundant when the `required` attribute is already present. Additionally, native `:focus` styles on inputs often lack sufficient contrast, and checkboxes may have no clear focus ring by default.
+**Action:** Always wrap visual asterisks in `<span aria-hidden="true">*</span>`. Explicitly implement `:focus-visible` styles with a distinct outline for all form elements (`.input`, `.textarea`, `.checkbox`) to ensure clear keyboard navigation visibility.
