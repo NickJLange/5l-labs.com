@@ -1,0 +1,56 @@
+{
+  "5L-Labs": {
+    "message": "5L Labs"
+  },
+  "Home": {
+    "message": "ホーム"
+  },
+  "Blog(s)": {
+    "message": "ブログ"
+  },
+  "Products/Projects": {
+    "message": "製品/プロジェクト"
+  },
+  "Consulting Services": {
+    "message": "コンサルティングサービス"
+  },
+  "GitHub": {
+    "message": "GitHub"
+  },
+  "Private AI": {
+    "message": "プライベートAI"
+  },
+  "Applied AI Engineering": {
+    "message": "応用AIエンジニアリング"
+  },
+  "Frontier Research": {
+    "message": "フロンティア研究"
+  },
+  "Private IoT": {
+    "message": "プライベートIoT"
+  },
+  "Self-Hosted IOT": {
+    "message": "セルフホストIoT"
+  },
+  "Applied Home ML IOT": {
+    "message": "ホームML IoT"
+  },
+  "Contact Us": {
+    "message": "お問い合わせ"
+  },
+  "Email": {
+    "message": "メール"
+  },
+  "Google Maps": {
+    "message": "Googleマップ"
+  },
+  "LinkedIn": {
+    "message": "LinkedIn"
+  },
+  "Twitter": {
+    "message": "Twitter"
+  },
+  "Copyright": {
+    "message": "著作権"
+  }
+}

@@ -6,6 +6,7 @@
     "docusaurus": "docusaurus",
     "start": "bun scripts/prepare-build.js && docusaurus start",
     "build": "bun scripts/prepare-build.js && docusaurus build",
+    "build:i18n": "docusaurus build --locale en --locale ja",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
@@ -53,6 +54,6 @@
     "lodash-es": ">=4.18.0",
     "lodash": ">=4.18.0",
     "serialize-javascript": ">=7.0.3",
-    "path-to-regexp": ">=0.1.13"
+    "path-to-regexp": "0.1.13"
   }
 }
