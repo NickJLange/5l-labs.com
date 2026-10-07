@@ -83,7 +83,7 @@ Instead of letting an LLM hallucinate sales correspondence, we enforced strict s
 
 ## Real-World Triage
 
-When a dealer sent an allocation quote sheet, `python3 scripts/pipeline.py triage` instantly flagged:
+When a dealer sent an allocation quote sheet, running the `negotiator` skill (`python research/negotiator/scripts/finance_engine.py` paired with `negotiator_tool.py`) instantly flagged:
 - **Spec Mismatch:** Quoted 2.4L Turbo Hybrid MAX (27 MPG) vs. our target 2.5L Hybrid (36 MPG).
 - **OTD Spread:** $70,095 quote vs. $58,451 target—a **+$11,644 (+19.9%) markup**.
 - **Payment Gap:** Quoted $1,609/mo (4.99% for 48 mo) vs. $1,241.50/mo on our subsidized benchmark (+ $17,640 total payment gap).
@@ -92,12 +92,18 @@ The agent staged an itemized counter-worksheet rejecting the markup. Two weeks l
 
 ---
 
-## Portable Skill
+## Open-Source Skills
 
-As I've now finished shopping, I've packaged the engine as a universal skill compatible with both **Antigravity** (`.agents/skills/car_deal_pipeline`) and **Hermes-Agent** (`~/.hermes/skills/car_deal_pipeline`):
+The modular skills powering this workflow are published in the [5L-Labs/agent-skills](https://github.com/5L-Labs/agent-skills) repository under `research/`:
 
-```bash
-./scripts/install_hermes_skill.sh
-```
+- **[`research/car_tracker`](https://github.com/5L-Labs/agent-skills/tree/main/research/car_tracker):** Daily market bulletin scanner built on `publish_deals.py` that polls the Visor API for new arrivals, caches seen inventory in local state, and highlights target trims against baseline OTD targets:
+  ```bash
+  python research/car_tracker/scripts/publish_deals.py
+  ```
+- **[`research/negotiator`](https://github.com/5L-Labs/agent-skills/tree/main/research/negotiator):** Automotive finance, True $0 drive-off lease solver, and deterministic OTD bid spread generator:
+  ```bash
+  python research/negotiator/scripts/finance_engine.py --msrp 58448 --tax-rate 0.08875 --doc-fee 175.00
+  ```
+- **[`research/nhtsa_lookup`](https://github.com/5L-Labs/agent-skills/tree/main/research/nhtsa_lookup):** Automated VIN decoder using the public NHTSA VPIC API to verify exact trim, engine, and drivetrain specs.
 
-Get the skill on GitHub: [5L-Labs/agent-skills](https://github.com/5L-Labs/agent-skills).
+Both skills follow the universal AgentSkills format, allowing them to be loaded directly into **Antigravity** or **Hermes-Agent**.
