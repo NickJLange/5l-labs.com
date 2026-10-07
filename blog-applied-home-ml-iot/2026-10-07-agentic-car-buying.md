@@ -15,7 +15,7 @@ Because I hate *knowing* that the Car Dealership is screwing me *AND* I have buy
 
 Yes. I'm scheduled to take possession of a [Toyota Grand Highlander](https://www.toyota.com/grandhighlander/) 2026 Hybrid Nightshade in November.
 
-![2026 Toyota Grand Highlander Hybrid Nightshade](https://i.redd.it/tvb1tomzc2we1.jpg)
+![2026 Toyota Grand Highlander Hybrid Nightshade](./static/grand-highlander-nightshade.jpg)
 *2026 Toyota Grand Highlander Hybrid Nightshade Edition (Midnight Black Metallic)*
 
 ### What was hard about it?
@@ -25,6 +25,8 @@ Getting consistency between Hermes and Gemini to execute the skill consistently 
 ### *Is negotiating a car purchase a home IoT project?*
 
 It’s a stretch—unless you view the home through **Home Operations (Home-Ops)**: managing high-capital household procurement via private, local infrastructure without leaking personal data.
+
+<!-- truncate -->
 
 ### Components:
 
@@ -61,8 +63,6 @@ flowchart LR
     HERMES <-->|Query State / Dispatch| Agent
     Agent --> DRAFTS
 ```
-
-<!-- truncate -->
 
 ---
 
