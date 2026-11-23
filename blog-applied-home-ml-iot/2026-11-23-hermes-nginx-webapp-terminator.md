@@ -1,14 +1,20 @@
 ---
 slug: hermes-nginx-webapp-terminator
-title: "One Port, Many Hermes - An nginx Terminator for the Hermes Webapp"
+title: "One Port, Many Hermes - An nginx Terminator for Hermes Desktop"
 authors: [njl]
 tags: [hermes, agentic-ai, nginx, podman, quadlet, wireguard, tailscale, home-ops]
 description: "Several self-hosted Hermes agents behind one nginx HTTPS port with rootless Podman; Webapp locally, beta Hermes app over WireGuard/Tailscale."
 ---
 
-## Dear Lord Why?
+## tldr; Why? 
 
-[FIXME] Several Hermes agents, one HTTPS port. Config: [5L-Labs/hermes-agents-infra](https://github.com/5L-Labs/hermes-agents-infra).
+1. Having one-nginx-per-hermes is (for now) a waste of resources. 
+2. Can use default ports of hermes ecosystem, less changes as agent count scales.
+3. Still not using [Tailscale](https://tailscale.com/). Nginx can allow Wireguard access *or* localaccess with source ip checking on the cheap, in one place.
+
+### Several Hermes agents, one HTTPS port. 
+
+Config: [5L-Labs/hermes-agents-infra](https://github.com/5L-Labs/hermes-agents-infra). Feel free to fork / try-out. Depends on other work to use quadlets.
 
 <!-- truncate -->
 
@@ -26,6 +32,9 @@ flowchart LR
         subgraph N1["network hermes-01"]
             H1["hermes-01<br/>Webapp :9120 · API :8680"]
         end
+        subgraph N2["network hermes-02"]
+            H2["hermes-02<br/>Webapp :9120 · API :8680"]
+        end
         subgraph N3["network hermes-03"]
             H3["hermes-03<br/>Webapp :9120 · API :8680"]
         end
@@ -33,10 +42,11 @@ flowchart LR
     B --> NGX
     APP --> VPN --> NGX
     NGX -->|/hermes-1/| H1
+    NGX -->|/hermes-2/| H2
     NGX -->|/hermes-3/| H3
 ```
 
-## Why nginx?
+## More Technical Details?
 
 - `/hermes-N/` (1–99) → container `hermes-0N` via Podman DNS
 - Prefix stripping + `X-Forwarded-Prefix`, WebSockets, no buffering
@@ -81,13 +91,3 @@ dashboard:
 
 - No port forward; [WireGuard](/self-hosted-iot/wireguard-silent-failures) / Tailscale
 - Password sign-in = trusted LAN/VPN only (Hermes docs)
-
-[FIXME: beta app experience]
-
-## What was hard about it?
-
-[FIXME]
-
-## Did it work?
-
-[FIXME]
