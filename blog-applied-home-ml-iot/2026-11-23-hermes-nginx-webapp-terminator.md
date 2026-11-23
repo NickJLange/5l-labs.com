@@ -53,13 +53,21 @@ flowchart LR
 - One certificate; separate `/external-api/` mount (8680)
 
 ```nginx
+# Excerpt: the maps behind $hermes_container, $hermes_port and
+# $hermes_connection are in the full nginx.conf.
 location ~ ^/hermes-(?<hermes_instance>[1-9][0-9]?)(?<hermes_external_api>/external-api(?=/|$))?(?<hermes_path>/.*)?$ {
+    # /hermes-1 -> /hermes-1/
+    if ($hermes_path = "") {
+        return 308 /hermes-$hermes_instance$hermes_external_api/$is_args$args;
+    }
+
     set $hermes_prefix /hermes-$hermes_instance$hermes_external_api;
     set $hermes_target $hermes_container:$hermes_port;
     rewrite ^/hermes-[1-9][0-9]?(?:/external-api)?(/.*)$ $1 break;
 
     # A variable upstream uses Podman DNS at request time, not startup.
     proxy_pass http://$hermes_target;
+    proxy_http_version 1.1;
     proxy_set_header Host $http_host;
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_set_header X-Forwarded-Prefix $hermes_prefix;
