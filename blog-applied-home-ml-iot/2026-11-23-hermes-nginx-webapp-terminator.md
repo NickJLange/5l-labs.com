@@ -53,8 +53,8 @@ flowchart LR
 - One certificate; separate `/external-api/` mount (8680)
 
 ```nginx
-# Excerpt: the maps behind $hermes_container, $hermes_port and
-# $hermes_connection are in the full nginx.conf.
+# Excerpt: the Podman DNS resolver and the maps behind $hermes_container,
+# $hermes_port and $hermes_connection are in the full nginx.conf.
 location ~ ^/hermes-(?<hermes_instance>[1-9][0-9]?)(?<hermes_external_api>/external-api(?=/|$))?(?<hermes_path>/.*)?$ {
     # /hermes-1 -> /hermes-1/
     if ($hermes_path = "") {
@@ -97,5 +97,5 @@ dashboard:
 
 ## Getting in from outside
 
-- No port forward; [WireGuard](/self-hosted-iot/wireguard-silent-failures) / Tailscale
+- HTTPS 9143 is never forwarded; come in over [WireGuard](/self-hosted-iot/wireguard-silent-failures) (its own UDP port) or Tailscale
 - Password sign-in = trusted LAN/VPN only (Hermes docs)
