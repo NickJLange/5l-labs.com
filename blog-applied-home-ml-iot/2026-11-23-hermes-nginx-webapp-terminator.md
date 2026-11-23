@@ -48,7 +48,7 @@ flowchart LR
 
 ## More Technical Details?
 
-- `/hermes-N/` (1–99) → container `hermes-0N` via Podman DNS
+- `/hermes-N/` (1–99) → container `hermes-01` … `hermes-99` (two-digit name) via Podman DNS
 - Prefix stripping + `X-Forwarded-Prefix`, WebSockets, no buffering
 - One certificate; separate `/external-api/` mount (8680)
 
