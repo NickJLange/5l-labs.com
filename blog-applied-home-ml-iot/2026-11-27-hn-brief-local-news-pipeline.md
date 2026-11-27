@@ -31,7 +31,7 @@ Caveat Emptor - an LLM wrote the rest of the post describing how it works.
 
 ## What it looks like
 
-Everything except Firecrawl and Apify runs on my home server, Lunar Beacon, under rootless Podman.
+Apart from the calls to HN Algolia, Firecrawl, and Apify, everything runs on my home server, Lunar Beacon, under rootless Podman.
 
 ```mermaid
 flowchart TB
@@ -49,7 +49,7 @@ flowchart TB
     H -->|on failure| SG["Signal alert<br/>(email fallback)"]
 ```
 
-The only outside services are Firecrawl, which returns a web page as clean Markdown, and Apify, which reads Reddit. Both are on free tiers. Hacker News content is public, so nothing private leaves the house, and every summary is written by a model running on the same machine.
+Three outside services take part: the public HN Algolia API, which lists the day's top stories; Firecrawl, which returns a web page as clean Markdown; and Apify, which reads Reddit. Firecrawl and Apify are on free tiers, and all three only ever see requests for public Hacker News data and links. Every summary is written by a model running on the same machine. What leaves the house after that is the daily email to me and, when something breaks, a failure alert over Signal (or email).
 
 ## How it runs
 
@@ -74,7 +74,7 @@ Every run keeps its raw inputs and every LLM call (request, response, timing, an
 The rest of the safety rules are simple:
 
 - A lock prevents two runs from overlapping.
-- A failed run publishes nothing.
+- Nothing is published until every other stage has succeeded, so a failed fetch, summary, or digest publishes nothing.
 - `latest.json` is written last, so anything that reads it never sees half a day.
 - Secrets are never written to the output files.
 
