@@ -49,7 +49,7 @@ flowchart TB
     H -->|on failure| SG["Signal alert<br/>(email fallback)"]
 ```
 
-The only outside services are Firecrawl, which returns a web page as clean Markdown, and Apify, which reads Reddit. Both are on free tiers. Hacker News content is public, so nothing private leaves the house, and every summary is written by a model running on the same machine.
+The only outside services are Firecrawl, which returns a web page as clean Markdown, and Apify, which reads Reddit. Both are on free tiers, and both only ever see public URLs from Hacker News. Every summary is written by a model running on the same machine. What leaves the house after that is the daily email to me and, when something breaks, a failure alert over Signal (or email).
 
 ## How it runs
 
