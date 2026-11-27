@@ -10,10 +10,10 @@ description: "HN News Summarized and Delivered Locally."
 
 1. [HackerNews](https://news.ycombinator.com/) is great - unfortunately I can't keep up with content and comments every day.
 1. [HN Brief](https://github.com/jnd0/hn-brief) was great - but it stopped publishing after 2026-07-16.
-2. I [forked it](https://github.com/NickJLange/hn-brief) and run it at home, wit:
-  3. Local models doing all the summarizing.
-  4. [Apify](https://apify.com/automation-lab/reddit-scraper) for reddit posts
-  5. [Firecrawl](https://www.firecrawl.dev/) for general website contents
+2. I [forked it](https://github.com/NickJLange/hn-brief) and run it at home, with:
+   - Local models doing all the summarizing.
+   - [Apify](https://apify.com/automation-lab/reddit-scraper) for reddit posts
+   - [Firecrawl](https://www.firecrawl.dev/) for general website contents
 2. The output is no longer a website. It is a folder of JSON and Markdown
 3. Hermes (could be any agent) summarizes and delivers daily, weekly and monthly breakdowns of content
 
@@ -25,18 +25,13 @@ Code/Config is yours. This is one dataset that is part of daily "what changed in
 - **Compute:** the home server, which was already running the model server and Hermes.
 - **Time:** about 13 minutes of the server's morning.
 
-Caveat Emptor - an LLM wrote the rest of the post descriing how it works. 
-
+Caveat Emptor - an LLM wrote the rest of the post describing how it works.
 
 <!-- truncate -->
 
-
-
-## The service that stopped
-
 ## What it looks like
 
-Everything except Firecrawl and Apify runs on Lunar Beacon, under rootless Podman.
+Everything except Firecrawl and Apify runs on my home server, Lunar Beacon, under rootless Podman.
 
 ```mermaid
 flowchart TB
