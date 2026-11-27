@@ -1,26 +1,38 @@
 ---
 slug: hn-brief-local-news-pipeline
-title: "When HN Brief Went Quiet - A Private, Local AI News Pipeline"
+title: "HN Brief - More Local, More Private"
 authors: [njl]
 tags: [hermes, local-llm, llama-cpp, podman, quadlet, systemd, home-ops, self-hosting]
-description: "A dead hosted Hacker News summarizer, forked into a daily local-LLM data pipeline on a home server that my own agent reads."
+description: "HN News Summarized and Delivered Locally."
 ---
 
 ## tldr;
 
-1. [HN Brief](https://github.com/jnd0/hn-brief) stopped publishing after 2026-07-16. I [forked it](https://github.com/NickJLange/hn-brief) and run it at home, with local models doing all the summarizing.
-2. The output is no longer a website. It is a folder of JSON and Markdown that my agent, Hermes, reads, and it drives a daily email.
-3. The biggest quality win was reading the actual article. The biggest speed win was a heavily compressed model. Both decisions were made from saved evidence, not by feel.
+1. [HackerNews](https://news.ycombinator.com/) is great - unfortunately I can't keep up with content and comments every day.
+1. [HN Brief](https://github.com/jnd0/hn-brief) was great - but it stopped publishing after 2026-07-16.
+2. I [forked it](https://github.com/NickJLange/hn-brief) and run it at home, wit:
+  3. Local models doing all the summarizing.
+  4. [Apify](https://apify.com/automation-lab/reddit-scraper) for reddit posts
+  5. [Firecrawl](https://www.firecrawl.dev/) for general website contents
+2. The output is no longer a website. It is a folder of JSON and Markdown
+3. Hermes (could be any agent) summarizes and delivers daily, weekly and monthly breakdowns of content
+
+Code/Config is yours. This is one dataset that is part of daily "what changed in the world" to cut down on the amount of information to process upfront while still allowing me to dive-deep where I want to.
+
+## What it costs
+
+- **Services:** $0 a month at this volume. Firecrawl uses about 19 credits a day of the free plan's 1,000 a month, and Reddit posts fit inside Apify's free $5 a month of credit.
+- **Compute:** the home server, which was already running the model server and Hermes.
+- **Time:** about 13 minutes of the server's morning.
+
+Caveat Emptor - an LLM wrote the rest of the post descriing how it works. 
+
 
 <!-- truncate -->
 
+
+
 ## The service that stopped
-
-HN Brief was a small open-source project with a hosted service. Every day a Cloudflare Worker took the top 20 Hacker News stories and published AI summaries of each story and its discussion. I read it most mornings. Then it stopped publishing after 2026-07-16, and the upstream repo has been quiet since.
-
-This happens to hosted services. The code was still there, though, and my home server ("Lunar Beacon") already runs a local model server and my agent. So I forked the project and turned it into a private daily data pipeline instead of waiting.
-
-I also changed what it is for. I don't need another web page. I want a dataset my own tools can read: one directory of files, with a daily email built on top.
 
 ## What it looks like
 
@@ -106,20 +118,6 @@ I recently pointed that name at a heavily compressed model: Qwen3.8-Flash-Next, 
 | Tokens | ~202K | ~198K |
 
 The GSQ model had zero story failures. Its summaries were about 7% shorter, with the specific details intact. Half the run time for comparable output was an easy decision, and I made it from the saved runs, not from a feeling about which model "seemed smarter."
-
-## What it costs
-
-- **Services:** $0 a month at this volume. Firecrawl uses about 19 credits a day of the free plan's 1,000 a month, and Reddit posts fit inside Apify's free $5 a month of credit.
-- **Compute:** the home server, which was already running the model server and Hermes.
-- **Time:** about 13 minutes of the server's morning.
-
-## How it was built
-
-I built this with an AI coding agent, in small pull requests. Each PR was reviewed by two AI reviewers, cubic and CodeRabbit. I fixed the findings that were valid and declined the others with a reason written down. There are about 110 automated tests, with fakes for every external service, so running the tests never spends a Firecrawl or Apify credit.
-
-Every feature was also proven with a real run in an isolated scratch directory before it was enabled in production. The unit tests say the code does what I meant; the scratch run says what I meant works against the real APIs and the real model.
-
-I've opened a pull request upstream with these changes. It hasn't had a response yet.
 
 ## Lessons
 

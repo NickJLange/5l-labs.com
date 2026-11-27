@@ -1,6 +1,6 @@
 {
   "date": "2026-11-27T00:00:00.000Z",
-  "title": "When HN Brief Went Quiet - A Private, Local AI News Pipeline",
-  "content": "A dead hosted Hacker News summarizer, forked into a daily local-LLM data pipeline on a home server that my own agent reads.",
+  "title": "HN Brief - More Local, More Private",
+  "content": "HN News Summarized and Delivered Locally.",
   "url": "/applied-home-ml-iot/hn-brief-local-news-pipeline"
 }
