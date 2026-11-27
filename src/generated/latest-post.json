@@ -1,6 +1,6 @@
 {
-  "date": "2026-10-07T00:00:00.000Z",
-  "title": "Talk-to-My-Agent - Real-World Dealership Negotiation from the Terminal",
-  "content": "Orchestrating multiple MCP servers from Hermes / Antigravity to negotiate a new car from the terminal and Signal.",
-  "url": "/applied-home-ml-iot/agentic-car-buying"
+  "date": "2026-11-27T00:00:00.000Z",
+  "title": "When HN Brief Went Quiet - A Private, Local AI News Pipeline",
+  "content": "A dead hosted Hacker News summarizer, forked into a daily local-LLM data pipeline on a home server that my own agent reads.",
+  "url": "/applied-home-ml-iot/hn-brief-local-news-pipeline"
 }
