@@ -31,7 +31,7 @@ Caveat Emptor - an LLM wrote the rest of the post describing how it works.
 
 ## What it looks like
 
-Everything except Firecrawl and Apify runs on my home server, Lunar Beacon, under rootless Podman.
+Apart from the calls to HN Algolia, Firecrawl, and Apify, everything runs on my home server, Lunar Beacon, under rootless Podman.
 
 ```mermaid
 flowchart TB
