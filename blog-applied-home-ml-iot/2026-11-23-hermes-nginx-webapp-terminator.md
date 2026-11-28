@@ -10,7 +10,7 @@ description: "Several self-hosted Hermes agents behind one nginx HTTPS port with
 
 1. Having one-nginx-per-hermes is (for now) a waste of resources. 
 2. Can use default ports of hermes ecosystem, less changes as agent count scales.
-3. Still not using [Tailscale](https://tailscale.com/). Nginx can allow Wireguard access *or* localaccess with source ip checking on the cheap, in one place.
+3. Still not using [Tailscale](https://tailscale.com/). Nginx can allow WireGuard access *or* local access with source ip checking on the cheap, in one place.
 
 ### Several Hermes agents, one HTTPS port. 
 
@@ -99,3 +99,21 @@ dashboard:
 
 - HTTPS 9143 is never forwarded; come in over [WireGuard](/self-hosted-iot/wireguard-silent-failures) (its own UDP port) or Tailscale
 - Password sign-in = trusted LAN/VPN only (Hermes docs)
+
+## Status
+
+- Config merged: [5L-Labs/hermes-agents-infra](https://github.com/5L-Labs/hermes-agents-infra) ([PR #1](https://github.com/5L-Labs/hermes-agents-infra/pull/1))
+- Validated against Hermes image `10dc4e18cee7`; disposable real-nginx tests (routing, WebSocket, streaming) run in CI
+- TLS early data (0-RTT) is **off**: no replay protection
+- Related: [libreecho-hermes-speaker](https://github.com/5L-Labs/libreecho-hermes-speaker) — Hermes → Echo playback works; two-way voice is still a plan ([PR #3](https://github.com/5L-Labs/libreecho-hermes-speaker/pull/3))
+
+:::warning Lesson learned
+Quadlet scans its search paths recursively. A repo checkout inside one let example units replace live ones on `daemon-reload` and took an agent down. Keep checkouts outside Quadlet paths, confirm every `EnvironmentFile`/`Volume` source exists, and run `quadlet -dryrun -user` before stopping a live unit.
+:::
+
+## Future work
+
+- Add hermes-02; maybe one template + per-instance config
+- Retire the legacy 9199 dashboards and their JS filter
+- Remove old backend host-port publications
+- Multi-network CI test
